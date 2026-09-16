@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CumaShop — El mercado de Cumanayagua, en tu celular</title>
+<meta name="description" content="CumaShop conecta los negocios de Cumanayagua, Cienfuegos con la gente que les compra todos los días. Beta abierta en Google Play desde el 12 de septiembre.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F1B16'/%3E%3Ctext x='50' y='69' font-size='58' font-family='Georgia,serif' fill='%23FF7A3D' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/cumashop.css">
+</head>
+<body class="is-loading">
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress-bar" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-word">CumaShop</div>
+  <div class="preloader-bar"><div id="preloadFill"></div></div>
+  <div class="preloader-count"><span id="preloadNum">0</span>%</div>
+</div>
+
+<header class="site-nav" id="siteNav">
+  <a href="#top" class="logo">
+    <span class="mark">C</span>CumaShop
+    <span class="logo-by">Un producto de LedexSoft</span>
+  </a>
+  <nav class="nav-links">
+    <a href="#como-funciona">Cómo funciona</a>
+    <a href="#negocios">Negocios</a>
+    <a href="#app">La app</a>
+    <a href="#preguntas">Preguntas</a>
+    <a href="#descarga" class="nav-cta" data-cursor="Ir">Descargar</a>
+  </nav>
+  <button class="burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#como-funciona">Cómo funciona</a>
+  <a href="#negocios">Negocios</a>
+  <a href="#app">La app</a>
+  <a href="#preguntas">Preguntas</a>
+  <a href="#descarga">Descargar</a>
+</div>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-aurora" aria-hidden="true">
+      <span class="hero-blob hero-blob-1"></span>
+      <span class="hero-blob hero-blob-2"></span>
+      <span class="hero-blob hero-blob-3"></span>
+    </div>
+
+    <div class="wrap">
+      <div>
+        <span class="hero-tag"><span class="dot"></span> Beta abierta · 12 de septiembre</span>
+        <h1 class="hero-head">
+          <span class="mask"><span class="line">Tu mercado</span></span>
+          <span class="mask"><span class="line">de siempre,</span></span>
+          <span class="mask"><span class="line accent">en tu celular.</span></span>
+        </h1>
+        <p class="hero-sub">CumaShop conecta los negocios de Cumanayagua, Cienfuegos con la gente que les compra todos los días — todo desde una sola app.</p>
+
+        <div class="hero-actions">
+          <a href="#descarga" class="btn-store" data-cursor="Ir">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 3.5c-.3.3-.5.8-.5 1.3v14.4c0 .5.2 1 .5 1.3l.1.1L12 12 3.1 3.4z" fill="var(--mango)"/><path d="M15.8 15.8 3.1 20.6a1.3 1.3 0 0 0 1.6.1l9.6-5.5-2.5-2.6z" fill="var(--petrol)"/><path d="M15.8 8.2 12.5 12l3.3 3.8 4.4-2.5c.9-.5.9-1.8 0-2.3l-4.4-2.8z" fill="var(--guava)"/><path d="M3.1 3.4 12.5 12l-9.4 8.6c-.9-.5-.9-1.6 0-2.1V3.4z" fill="currentColor" opacity="0"/></svg>
+            <span class="store-text"><small>Disponible en</small><strong>Google Play</strong></span>
+          </a>
+          <a href="#como-funciona" class="text-link" data-cursor="Ver">Ver cómo funciona</a>
+        </div>
+
+        <div class="hero-meta">
+          <div><strong>Cumanayagua</strong>Municipio de lanzamiento</div>
+          <div><strong>ES · PT</strong>App en dos idiomas</div>
+          <div><strong>Gratis</strong>Descargar y usar</div>
+        </div>
+      </div>
+
+      <div class="phone-stage">
+        <div class="phone-ring" aria-hidden="true"></div>
+        <div class="phone" id="heroPhone">
+          <div class="phone-notch" aria-hidden="true"></div>
+          <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?q=80&w=700&auto=format&fit=crop" alt="Vista previa de la app CumaShop">
+          <div class="phone-chip"><span class="swatch"></span>Pedido en camino</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue" id="scrollCue" aria-hidden="true">
+      <span class="scroll-cue-line"><span class="scroll-cue-dot"></span></span>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Frutas y vegetales — <b>Panadería</b> — Carnicería — Farmacia — Bodega — <b>Ferretería</b> — </span>
+      <span>Frutas y vegetales — <b>Panadería</b> — Carnicería — Farmacia — Bodega — <b>Ferretería</b> — </span>
+    </div>
+  </div>
+
+  <!-- ============ CÓMO FUNCIONA ============ -->
+  <section class="section-pad" id="como-funciona">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Cómo funciona</span>
+        <h2>Comprar en el barrio, sin las vueltas de siempre</h2>
+        <p>Tres pasos, pensados para que cualquiera pueda usarla desde el primer día.</p>
+      </div>
+      <div class="steps-wrap">
+        <div class="steps-line" aria-hidden="true"><div class="steps-line-fill" id="stepsLineFill"></div></div>
+        <div class="steps">
+          <div class="step-card">
+            <span class="step-num">01</span>
+            <h3>Explora</h3>
+            <p>Descubre los negocios de tu zona y lo que tienen disponible hoy mismo.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">02</span>
+            <h3>Arma tu pedido</h3>
+            <p>Agrega lo que necesitás, como armar una lista del mercado — pero desde el celular.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">03</span>
+            <h3>Recíbelo</h3>
+            <p>Coordina la entrega o pasa a buscarlo tú mismo. Vos decidís cómo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORÍAS / NEGOCIOS ============ -->
+  <section class="section-pad light" id="negocios">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Negocios locales</span>
+        <h2>De todo lo que ya compras en Cumanayagua</h2>
+        <p>CumaShop arranca con las categorías que más se usan a diario, y va a seguir sumando negocios cada semana.</p>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=700&auto=format&fit=crop" alt="Frutas y vegetales"><span class="cat-label">Frutas y vegetales</span></div>
+        <div class="cat-card"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=700&auto=format&fit=crop" alt="Panadería"><span class="cat-label">Panadería</span></div>
+        <div class="cat-card"><img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?q=80&w=700&auto=format&fit=crop" alt="Bodega y abarrotes"><span class="cat-label">Bodega y abarrotes</span></div>
+        <div class="cat-card"><img src="https://images.unsplash.com/photo-1512069772995-ed8932f2e0dc?q=80&w=700&auto=format&fit=crop" alt="Farmacia"><span class="cat-label">Farmacia</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ APP SCREENS ============ -->
+  <section class="section-pad" id="app">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">La app</span>
+        <h2>Diseñada para no complicarte</h2>
+        <p>Una interfaz simple, pensada para que se sienta tan natural como ir al mercado de la esquina.</p>
+      </div>
+      <div class="screens">
+        <div class="screen-card">
+          <div class="screen-frame"><img src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?q=80&w=600&auto=format&fit=crop" alt="Explorar negocios en la app CumaShop"></div>
+          <p>Explora negocios</p>
+        </div>
+        <div class="screen-card">
+          <div class="screen-frame"><img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=600&auto=format&fit=crop" alt="Armar el carrito en la app CumaShop"></div>
+          <p>Arma tu pedido</p>
+        </div>
+        <div class="screen-card">
+          <div class="screen-frame"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=600&auto=format&fit=crop" alt="Seguimiento del pedido en la app CumaShop"></div>
+          <p>Sigue tu pedido</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DESCARGA / COUNTDOWN ============ -->
+  <section class="download" id="descarga">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow" style="color:var(--mango);">Descarga</span>
+        <h2>Sé de los primeros en probarla</h2>
+        <p>El 12 de septiembre CumaShop abre su beta en Google Play. Descárgala, explora los negocios de tu zona y contanos qué te parece.</p>
+        <div class="download-actions">
+          <a href="#" class="btn-store" data-cursor="Ir">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 3.5c-.3.3-.5.8-.5 1.3v14.4c0 .5.2 1 .5 1.3l.1.1L12 12 3.1 3.4z" fill="var(--mango)"/><path d="M15.8 15.8 3.1 20.6a1.3 1.3 0 0 0 1.6.1l9.6-5.5-2.5-2.6z" fill="var(--petrol)"/><path d="M15.8 8.2 12.5 12l3.3 3.8 4.4-2.5c.9-.5.9-1.8 0-2.3l-4.4-2.8z" fill="var(--guava)"/></svg>
+            <span class="store-text"><small>Disponible en</small><strong>Google Play</strong></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="ticket">
+        <div class="ticket-row"><span>App</span><span>CumaShop</span></div>
+        <div class="ticket-row"><span>Zona</span><span>Cumanayagua, Cienfuegos</span></div>
+        <div class="ticket-row"><span>Plataforma</span><span>Google Play</span></div>
+        <div class="ticket-row"><span>Estado</span><span id="cdState">Próximamente</span></div>
+        <div class="ticket-countdown">
+          <span class="cd-label" id="cdLabel">Faltan para la beta abierta</span>
+          <div class="cd-grid">
+            <div><span class="cd-num" id="cdDays">--</span><span class="cd-unit">días</span></div>
+            <div><span class="cd-num" id="cdHours">--</span><span class="cd-unit">horas</span></div>
+            <div><span class="cd-num" id="cdMin">--</span><span class="cd-unit">min</span></div>
+            <div><span class="cd-num" id="cdSec">--</span><span class="cd-unit">seg</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section-pad light" id="preguntas">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Antes de que preguntes</h2>
+      </div>
+      <div class="faq-list" id="faqList">
+        <div class="faq-item is-open">
+          <button class="faq-q"><span>¿CumaShop es gratis?</span><span class="plus"></span></button>
+          <div class="faq-a"><p>Sí. Descargar y usar la app no tiene costo alguno.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>¿Solo funciona en Cumanayagua?</span><span class="plus"></span></button>
+          <div class="faq-a"><p>Por ahora sí — es donde arrancamos la beta. La idea es ir sumando más municipios más adelante.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>¿Necesito crear una cuenta?</span><span class="plus"></span></button>
+          <div class="faq-a"><p>Sí, un registro simple para poder armar y hacer seguimiento a tus pedidos.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>¿En qué idiomas está disponible?</span><span class="plus"></span></button>
+          <div class="faq-a"><p>Español y portugués, pensando también en su crecimiento a futuro.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q"><span>Tengo un negocio — ¿cómo lo sumo a CumaShop?</span><span class="plus"></span></button>
+          <div class="faq-a"><p>Escríbenos por los canales de contacto y coordinamos los próximos pasos contigo.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA FINAL ============ -->
+  <section class="cta">
+    <div class="wrap">
+      <h2 class="cta-head">Tu esquina, ahora a un toque de distancia.</h2>
+      <div class="cta-row">
+        <a href="#descarga" class="btn-dark magnetic" data-cursor="Ir">Descargar CumaShop</a>
+        <a href="https://ledexsoft.com" class="text-link" style="border-color:rgba(15,27,22,.4);">Un producto de LedexSoft</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-col"><span class="footer-logo">CumaShop</span></div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <a href="mailto:contacto@ledexsoft.com">contacto@ledexsoft.com</a>
+      <a href="#" data-cursor="Abrir">@cumashop en Instagram</a>
+      <a href="#" data-cursor="Abrir">WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>CumaShop</h4>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#negocios">Negocios</a>
+      <a href="#preguntas">Preguntas</a>
+    </div>
+    <div class="footer-col">
+      <h4>LedexSoft</h4>
+      <a href="https://ledexsoft.com">Sitio de LedexSoft</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>CumaShop, un producto de LedexSoft © 2026.</span>
+    <span>Cumanayagua, Cienfuegos, Cuba</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+<script src="js/cumashop.js" defer></script>
+
+</body>
+</html>
