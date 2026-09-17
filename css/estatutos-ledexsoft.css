@@ -114,6 +114,8 @@ header.site-nav.is-scrolled{
   max-width:var(--container); margin:0 auto; padding:3.5rem var(--pad) 5rem;
   display:grid; grid-template-columns:260px 1fr; gap:4rem; align-items:start;
 }
+.doc-layout > .toc,
+.doc-layout > .doc-body{ min-width:0; }
 
 /* ---------- sidebar TOC ---------- */
 .toc{ position:sticky; top:6.5rem; max-height:calc(100vh - 9rem); overflow-y:auto; padding-right:.5rem; }
