@@ -153,8 +153,12 @@ header.site-nav.is-scrolled{
   font-family:var(--font-display); font-size:1.12rem; font-weight:600; margin:2.2rem 0 .3rem;
   color:var(--petrol);
 }
-.art{ margin-top:1.3rem; }
-.art-num{ font-weight:800; color:var(--ink); }
+.art{
+  margin-top:1.2rem; padding:1.15rem 1.3rem 1.25rem;
+  background:#FBF8EF; border:1px solid var(--rule-soft);
+  border-left:3px solid rgba(255,122,61,.55); border-radius:12px;
+}
+.art-num{ display:block; font-weight:800; font-size:.82rem; color:var(--petrol); margin-bottom:.5rem; line-height:1.35; }
 .art p{ font-size:var(--fs-body); }
 .art p + p{ margin-top:.9rem; }
 .art ol, .art ul{ margin-top:.9rem; padding-left:1.3rem; display:flex; flex-direction:column; gap:.6rem; }
@@ -199,6 +203,8 @@ footer{ background:var(--ink); color:var(--paper); padding:3.5rem var(--pad) 1.5
   .doc-layout{ display:block; padding:0; max-width:none; }
   .doc-hero{ padding:0 0 1.5rem; max-width:none; }
   .doc-body{ max-width:none; }
+  .art{ background:none; border:0; border-left:0; border-radius:0; padding:0; margin-top:1.3rem; }
+  .art-num{ display:inline; font-size:inherit; color:inherit; margin:0; }
   .chapter{ margin-bottom:2rem; page-break-inside:avoid; }
   .chapter h2{ page-break-after:avoid; }
   .doc-badges, footer{ display:none; }
@@ -241,6 +247,9 @@ footer{ background:var(--ink); color:var(--paper); padding:3.5rem var(--pad) 1.5
     display:flex;
     align-items:center;
   }
+  .art{ margin-top:.9rem; padding:.95rem 1rem 1.05rem; border-radius:10px; }
+  .art p{ font-size:var(--fs-body); }
+  .art-num{ margin-bottom:.4rem; }
   .chapter{ margin-bottom:2.7rem; scroll-margin-top:5.4rem; }
   .subhead{ margin-top:1.7rem; }
   .art{ margin-top:1rem; }
