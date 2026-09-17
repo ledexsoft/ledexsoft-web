@@ -49,8 +49,20 @@
     else{ window.scrollTo({top:0, behavior: REDUCED ? 'auto' : 'smooth'}); }
   });
 
-  /* ---------------- print ---------------- */
-  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+  /* ---------------- modo lectura ---------------- */
+  var readingBtn = document.getElementById('readingBtn');
+  function applyReading(on){
+    document.body.classList.toggle('reading', on);
+    readingBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    var lbl = readingBtn.querySelector('.btn-reading-label');
+    if(lbl){ lbl.textContent = on ? 'Modo normal' : 'Modo lectura'; }
+  }
+  applyReading(document.body.classList.contains('reading'));
+  readingBtn.addEventListener('click', function(){
+    var on = !document.body.classList.contains('reading');
+    applyReading(on);
+    try{ localStorage.setItem('estatutos-lectura', on ? '1' : '0'); }catch(e){}
+  });
 
   /* ---------------- TOC scroll-spy ---------------- */
   var tocLinks = document.querySelectorAll('#tocNav a');

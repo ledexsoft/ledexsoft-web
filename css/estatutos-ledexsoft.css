@@ -60,21 +60,23 @@ header.site-nav.is-scrolled{
 .nav-actions{ display:flex; align-items:center; gap:1.2rem; }
 .nav-actions a{ font-size:.88rem; font-weight:600; color:var(--petrol); text-decoration:none; }
 .nav-actions a:hover{ color:var(--ink); }
-.btn-print{
+.btn-reading{
   display:inline-flex; align-items:center; gap:.5rem; padding:.55rem 1.1rem; border-radius:999px;
   background:var(--ink); color:var(--paper); font-weight:700; font-size:.82rem;
   position:relative; overflow:hidden; z-index:1; transition:color .3s var(--ease-out);
 }
-.btn-print::before{ content:''; position:absolute; inset:0; background:var(--mango); transform:scaleX(0); transform-origin:left; transition:transform .45s var(--ease-out); z-index:-1; }
-.btn-print:hover::before{ transform:scaleX(1); }
-.btn-print:hover{ color:var(--ink); }
+.btn-reading::before{ content:''; position:absolute; inset:0; background:var(--mango); transform:scaleX(0); transform-origin:left; transition:transform .45s var(--ease-out); z-index:-1; }
+.btn-reading:hover::before{ transform:scaleX(1); }
+.btn-reading:hover{ color:var(--ink); }
+.btn-reading[aria-pressed="true"]{ background:var(--mango); color:var(--ink); }
+.btn-reading[aria-pressed="true"]::before{ background:var(--ink); }
 @media (max-width:640px){
   .nav-actions a.back-link{ display:none; }
   header.site-nav{ padding:.7rem var(--pad); }
   .logo{ font-size:1.08rem; }
   .nav-actions{ gap:.8rem; }
-  .btn-print{ padding:.55rem .85rem; }
-  .btn-print-label{ display:none; }
+  .btn-reading{ padding:.55rem .85rem; }
+  .btn-reading-label{ display:none; }
 }
 @media (max-width:400px){
   .logo em{ display:none; }
@@ -297,3 +299,18 @@ footer{ background:var(--ink); color:var(--paper); padding:3.5rem var(--pad) 1.5
     height:40px;
   }
 }
+
+/* ---------- modo lectura ---------- */
+body.reading{
+  --ink:#F0EBDC; --ink-2:#E2DBC6; --paper:#0F1B16; --paper-2:#1A2A22;
+  --petrol:#A8BCB0; --mist:#7E938A;
+  --rule:rgba(240,235,220,.16); --rule-soft:rgba(240,235,220,.09);
+  --font-body:Georgia,'Iowan Old Style','Times New Roman',serif;
+  --fs-body:1.06rem;
+  line-height:1.75;
+}
+body.reading .grain{ mix-blend-mode:screen; opacity:.045; }
+body.reading .art{ background:var(--paper-2); border-color:var(--rule-soft); border-left-color:rgba(255,122,61,.5); }
+body.reading .badge.is-draft{ color:#0F1B16; }
+body.reading header.site-nav.is-scrolled{ background-color:rgba(15,27,22,.86); }
+body.reading ::selection{ background:var(--mango); color:#0F1B16; }
