@@ -7,15 +7,17 @@ Sitio estático de LedexSoft S.R.L. (HTML + CSS + JS, sin framework ni build). P
 ```
 ├── index.html                  # Landing corporativa LedexSoft
 ├── cumashop.html               # Landing del producto CumaShop
-├── estatutos-ledexsoft.html    # Borrador de estatutos sociales (documento interno)
+├── privacidad.html             # Política de Privacidad
+├── terminos-clientes.html      # Términos y condiciones para clientes
+├── terminos-vendedores.html    # Términos y condiciones para vendedores
 ├── css/
 │   ├── index.css               # Estilos de la landing corporativa
 │   ├── cumashop.css            # Estilos de CumaShop
-│   └── estatutos-ledexsoft.css # Estilos del documento de estatutos
+│   └── legal.css              # Estilos compartidos de las páginas legales
 ├── js/
 │   ├── index.js                # Interacciones de la landing (GSAP + Lenis)
 │   ├── cumashop.js             # Interacciones de CumaShop
-│   └── estatutos-ledexsoft.js  # TOC, scroll-spy, impresión del documento
+│   └── legal.js               # TOC, scroll-spy, impresión (páginas legales)
 └── docs/                       # Documentación del proyecto
 ```
 
