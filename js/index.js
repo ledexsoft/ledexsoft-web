@@ -312,37 +312,6 @@
     });
   });
 
-  /* ---------------- countdown to launch ---------------- */
-  var target = new Date('2026-09-12T00:00:00-04:00').getTime();
-  var cdDays=document.getElementById('cdDays'), cdHours=document.getElementById('cdHours'),
-      cdMin=document.getElementById('cdMin'), cdSec=document.getElementById('cdSec'),
-      cdLabel=document.getElementById('cdLabel'), cdState=document.getElementById('cdState');
-
-  function tickCountdown(){
-    var diff = target - Date.now();
-    if(diff <= 0){
-      cdLabel.textContent = 'Ya está en beta abierta';
-      cdState.textContent = 'Beta abierta';
-      cdDays.textContent='00'; cdHours.textContent='00'; cdMin.textContent='00'; cdSec.textContent='00';
-      return;
-    }
-    var d = Math.floor(diff/86400000);
-    var h = Math.floor((diff%86400000)/3600000);
-    var m = Math.floor((diff%3600000)/60000);
-    var s = Math.floor((diff%60000)/1000);
-    cdDays.textContent = String(d).padStart(2,'0');
-    cdHours.textContent = String(h).padStart(2,'0');
-    cdMin.textContent = String(m).padStart(2,'0');
-    cdSec.textContent = String(s).padStart(2,'0');
-  }
-  tickCountdown();
-  setInterval(tickCountdown, 1000);
-
-  /* ---------------- cta button scroll to CumaShop ---------------- */
-  document.getElementById('ctaBtn').addEventListener('click', function(){
-    smoothScrollTo(document.getElementById('cumashop'));
-  });
-
   /* ---------------- marquee skews with scroll speed ---------------- */
   if(!REDUCED){
     var marqueeTracks = document.querySelectorAll('.marquee-track');
