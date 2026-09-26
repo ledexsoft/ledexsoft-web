@@ -1,149 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CumaShop — Producto</title>
-  <meta name="description" content="Producto de CumaShop, el mercado de Cumanayagua, en tu celular." />
-  <!-- Open Graph: preview de tarjeta en WhatsApp/Telegram -->
-  <meta property="og:type" content="product" />
-  <meta property="og:site_name" content="CumaShop" />
-  <meta property="og:title" content="CumaShop — Producto" />
-  <meta property="og:description" content="Míralo en CumaShop, el mercado de Cumanayagua, en tu celular." />
-  <meta property="og:image" content="https://ledexsoft.github.io/ledexsoft-web/images/cumashop-campana.jpg" />
-  <meta property="og:url" content="https://ledexsoft.github.io/ledexsoft-web/p.html" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F1B16'/%3E%3Ctext x='50' y='69' font-size='58' font-family='Georgia,serif' fill='%23FF7A3D' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1b16">
+  <meta name="description" content="Consulta los detalles de un producto de CumaShop. Confirma precio y disponibilidad en la app.">
+  <meta property="og:type" content="product">
+  <meta property="og:site_name" content="CumaShop">
+  <meta property="og:title" content="Producto | CumaShop">
+  <meta property="og:description" content="Mira este producto en el catálogo de CumaShop.">
+  <meta property="og:image" content="https://ledexsoft.github.io/ledexsoft-web/images/cumashop-campana.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>Producto | CumaShop</title>
+  <link rel="icon" type="image/jpeg" href="images/cumashop-icono.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="css/cumashop.css" />
+  <link rel="stylesheet" href="css/tienda.css?v=3">
+  <link rel="stylesheet" href="css/producto.css?v=1">
+  <script src="js/producto.js?v=1" defer></script>
 </head>
 <body>
-
-<div class="grain" aria-hidden="true"></div>
-
-<header class="site-nav" id="siteNav">
-  <a href="cumashop.html" class="logo">
-    <span class="mark">C</span>CumaShop
-    <span class="logo-by">Un producto de LedexSoft</span>
-  </a>
-  <a href="tienda.html" style="font-size:13px; font-weight:700; color:#f3eedd; text-decoration:underline; text-underline-offset:4px;">← Volver a la tienda</a>
-</header>
-
-<main style="min-height: calc(100vh - 76px); display: flex; align-items: center; justify-content: center; padding: 24px;">
-
-  <div style="max-width: 560px; width: 100%;">
-
-    <div id="loading" style="text-align: center; padding: 40px 0;">
-      <span class="eyebrow">Producto</span>
-      <h1 style="font-family: 'Fraunces', serif; margin-top: 12px;">Cargando producto…</h1>
-    </div>
-
-    <div id="notfound" style="display: none; text-align: center; padding: 40px 0;">
-      <span class="eyebrow">Producto</span>
-      <h1 style="font-family: 'Fraunces', serif; margin-top: 12px;">Producto no encontrado</h1>
-      <p style="margin-top: 10px; opacity: .7;">Este enlace no corresponde a un producto activo de CumaShop.</p>
-    </div>
-
-    <div id="loaderror" style="display: none; text-align: center; padding: 40px 0;">
-      <span class="eyebrow">Producto</span>
-      <h1 style="font-family: 'Fraunces', serif; margin-top: 12px;">No pudimos cargar el producto</h1>
-      <p style="margin-top: 10px; opacity: .7;">Comprueba tu conexión e inténtalo de nuevo.</p>
-      <button id="retry" type="button" style="margin-top: 20px; padding: 12px 20px; border-radius: 12px; background: #FF7A3D; color: #0F1B16; font-weight: 700;">Reintentar</button>
-    </div>
-
-    <div id="product" style="display: none; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09); border-radius: 24px; padding: 24px;">
-      <img id="p-img" alt="" style="width: 100%; border-radius: 16px; aspect-ratio: 1/1; object-fit: cover; background: rgba(255,255,255,.08);" />
-      <div id="p-placeholder" style="display:none; aspect-ratio:1/1; border-radius:16px; background:rgba(255,255,255,.08); align-items:center; justify-content:center; opacity:.7;">Imagen no disponible</div>
-      <span class="eyebrow" id="p-store" style="display: inline-block; margin-top: 18px;"></span>
-      <h1 id="p-name" style="font-family: 'Fraunces', serif; font-size: 30px; line-height: 1.15; margin-top: 8px;"></h1>
-      <p id="p-price" style="font-size: 26px; font-weight: 800; margin-top: 10px;"></p>
-      <p id="p-desc" style="white-space: pre-line; opacity: .8; margin-top: 14px; font-size: 15px;"></p>
-      <a id="p-open" class="btn-dark" href="#" style="display: block; text-align: center; margin-top: 24px; padding: 16px; border-radius: 14px; color: #fff; text-decoration: none; font-weight: 800; font-size: 16px;">
-        Abrir en CumaShop
-      </a>
-      <p style="font-size: 12px; opacity: .55; margin-top: 12px; text-align: center;">
-        ¿No tienes la app? Descárgala desde Google Play.
-      </p>
-    </div>
-
-  </div>
-</main>
-
-<footer style="text-align: center; padding: 24px; opacity: .55; font-size: 12.5px;">
-  <a href="cumashop.html" style="color: inherit;">CumaShop</a> · <a href="index.html" style="color: inherit;">LedexSoft</a> · <a href="terminos-clientes.html" style="color: inherit;">Términos</a> · <a href="privacidad.html" style="color: inherit;">Privacidad</a>
-</footer>
-
-<script>
-(function () {
-  var URL_BASE = 'https://tmvqkpkbxagxxgmgqcpl.supabase.co';
-  // anon key pública: el catálogo visible es público por diseño (RLS).
-  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtdnFrcGtieGFneHhnbWdxY3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE0ODYwNTcsImV4cCI6MjAzNzA2MjA1N30.Zx5G8Vnmy4ZW2dCKi8ScmcNa40KSqmWL4sEzZoMqwLM';
-  var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.ledexsoft.oneblink';
-  var controller = new AbortController();
-  var requestTimer = setTimeout(function () { controller.abort(); }, 10000);
-
-  function $(id) { return document.getElementById(id); }
-
-  var params = new URLSearchParams(window.location.search);
-  var id = params.get('id');
-
-  if (!id || !/^\d{1,10}$/.test(id)) {
-    clearTimeout(requestTimer);
-    $('loading').style.display = 'none';
-    $('notfound').style.display = 'block';
-    return;
-  }
-
-  fetch(URL_BASE + '/rest/v1/Ofertas?select=Titulo_Es,Descripcion_Es,Precio_base_UI,Moneda_base,Imagen_Portada,Seccion&id=eq.' + id + '&Activo=eq.true&limit=1', {
-    headers: { apikey: ANON, Authorization: 'Bearer ' + ANON }, signal: controller.signal
-  })
-    .then(function (r) { if (!r.ok) throw new Error('No se pudo cargar el producto'); return r.json(); })
-    .then(function (rows) {
-      $('loading').style.display = 'none';
-      var p = rows && rows[0];
-      if (!p) { $('notfound').style.display = 'block'; return; }
-
-      var img = p.Imagen_Portada;
-      function noImage() { $('p-img').style.display = 'none'; $('p-placeholder').style.display = 'flex'; }
-      if (img) { $('p-img').onerror = noImage; $('p-img').src = img; $('p-img').alt = p.Titulo_Es || 'Imagen del producto'; }
-      else noImage();
-      $('p-name').textContent = p.Titulo_Es || 'Producto';
-      $('p-store').textContent = p.Seccion || '';
-      var moneda = p.Moneda_base || 'CUP';
-      var precio = Number(p.Precio_base_UI || 0);
-      $('p-price').textContent = moneda + ' ' + precio.toLocaleString('es', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      $('p-desc').textContent = p.Descripcion_Es || '';
-
-      // Cancelar el fallback cuando la app pasa a primer plano.
-      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      var btn = $('p-open');
-      btn.href = PLAY_URL;
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        var timer;
-        function cancel() { clearTimeout(timer); document.removeEventListener('visibilitychange', onVisibility); window.removeEventListener('pagehide', cancel); }
-        function onVisibility() { if (document.hidden) cancel(); }
-        if (!isIOS) {
-          document.addEventListener('visibilitychange', onVisibility);
-          window.addEventListener('pagehide', cancel, { once: true });
-        }
-        window.location.href = 'cumashop://producto/' + id;
-        if (!isIOS) {
-          timer = setTimeout(function () { if (!document.hidden) window.location.href = PLAY_URL; cancel(); }, 1800);
-        }
-      });
-      $('product').style.display = 'block';
-    })
-    .catch(function () {
-      $('loading').style.display = 'none';
-      $('loaderror').style.display = 'block';
-    })
-    .finally(function () { clearTimeout(requestTimer); });
-  $('retry').addEventListener('click', function () { window.location.reload(); });
-})();
-</script>
+  <a class="skip-link" href="#contenido">Saltar al producto</a>
+  <header class="site-header"><div class="container header-inner">
+    <a class="brand" href="cumashop.html" aria-label="CumaShop, volver a la página principal"><img src="images/cumashop-icono.jpg" width="42" height="42" alt=""><span>CumaShop <small>TIENDA WEB</small></span></a>
+    <nav aria-label="Navegación principal"><a class="back-link" href="cumashop.html">Sobre CumaShop</a><a class="header-download" href="tienda.html">← Volver al catálogo</a></nav>
+  </div></header>
+  <main class="product-page container" id="contenido">
+    <nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="tienda.html">Tienda</a><span aria-hidden="true">/</span><a id="breadcrumb-section" href="tienda.html">Producto</a></nav>
+    <div class="product-status" id="loading" role="status"><span class="loading-icon" aria-hidden="true">✳</span><h1>Cargando producto…</h1><p>Consultando el catálogo de CumaShop.</p></div>
+    <div class="product-status" id="notfound" hidden><span class="loading-icon" aria-hidden="true">✳</span><h1>Producto no disponible</h1><p>No encontramos una oferta activa con este enlace. Puede que se haya retirado o agotado.</p><a href="tienda.html" class="status-link">Explorar el catálogo ↗</a></div>
+    <div class="product-status" id="loaderror" hidden><span class="loading-icon" aria-hidden="true">✳</span><h1>No pudimos cargarlo</h1><p>Comprueba tu conexión e inténtalo de nuevo.</p><button type="button" id="retry" class="status-link">Reintentar ↗</button></div>
+    <article class="product-detail" id="product" hidden>
+      <div class="detail-media"><img id="p-img" alt="" hidden><span id="p-placeholder" aria-label="Imagen no disponible">✳</span></div>
+      <div class="detail-content">
+        <span class="detail-eyebrow">CATÁLOGO CUMASHOP · VISTA PREVIA</span>
+        <div class="detail-tags"><a id="p-section" href="tienda.html"></a><a id="p-category" href="tienda.html" hidden></a></div>
+        <h1 id="p-name"></h1>
+        <p id="p-price" class="detail-price"></p>
+        <p class="detail-price-note">Precio orientativo. Confirma precio y disponibilidad desde la app antes de pedir.</p>
+        <div class="detail-description" id="description-wrap" hidden><h2>Sobre este producto</h2><p id="p-desc"></p></div>
+        <div class="detail-actions"><button id="p-open" type="button" class="detail-primary" hidden>Abrir en la app ↗</button><a id="p-play" href="https://play.google.com/store/apps/details?id=com.ledexsoft.oneblink" target="_blank" rel="noopener noreferrer" class="detail-primary">Descargar CumaShop ↗</a><a href="tienda.html" class="detail-secondary">Seguir explorando</a></div>
+        <p class="detail-device-note" id="device-note">La compra se realiza desde la app de CumaShop para Android.</p>
+      </div>
+    </article>
+    <div class="product-assurance"><span aria-hidden="true">✦</span> El catálogo web está en fase beta. Las ofertas y los precios pueden cambiar.</div>
+  </main>
+  <footer><div class="container footer-inner"><span>CumaShop © 2026 · Un producto de LedexSoft</span><nav aria-label="Enlaces legales"><a href="tienda.html">Tienda</a><a href="privacidad.html">Privacidad</a><a href="terminos-clientes.html">Términos</a></nav></div></footer>
 </body>
 </html>
