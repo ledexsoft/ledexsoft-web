@@ -160,27 +160,19 @@ header.site-nav.is-scrolled{ background-color:rgba(15,27,22,.8); backdrop-filter
 .hero-meta div{ font-size:.82rem; color:var(--mist); }
 .hero-meta strong{ display:block; color:var(--paper); font-family:var(--font-display); font-size:1.3rem; font-weight:600; }
 
-/* ---- phone mockup ---- */
-.phone-stage{ position:relative; display:flex; justify-content:center; align-items:center; }
+/* ---- hero artwork: keep the complete original composition visible ---- */
+.phone-stage{ position:relative; display:flex; justify-content:center; align-items:center; min-width:0; }
 .phone{
-  position:relative; width:min(280px,74vw); aspect-ratio:9/19.5; border-radius:42px; background:var(--ink-2);
-  border:8px solid var(--paper); box-shadow:0 40px 90px rgba(0,0,0,.45); overflow:hidden;
+  position:relative; width:min(100%,360px); border-radius:22px; overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,.3);
   animation: phone-float 5.5s ease-in-out infinite;
 }
 @keyframes phone-float{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-14px); } }
-.phone img{ width:100%; height:100%; object-fit:cover; }
-.phone-notch{ position:absolute; top:0; left:50%; transform:translateX(-50%); width:38%; height:22px; background:var(--paper); border-radius:0 0 14px 14px; z-index:2; }
-.phone-chip{
-  position:absolute; bottom:14%; left:50%; transform:translate(-50%,0); background:var(--paper); color:var(--ink);
-  padding:.65rem .9rem; border-radius:10px; font-size:.78rem; font-weight:700; box-shadow:0 14px 30px rgba(0,0,0,.3);
-  display:flex; align-items:center; gap:.5rem; white-space:nowrap; z-index:3;
-}
-.phone-chip .swatch{ width:8px; height:8px; border-radius:50%; background:var(--mango); animation:chip-pulse 1.8s ease-in-out infinite; }
-@keyframes chip-pulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.4; transform:scale(1.6); } }
-.phone-ring{ position:absolute; inset:-14%; border-radius:50%; border:1px dashed var(--line-strong); pointer-events:none; }
+.phone img{ width:100%; height:auto; }
 @media (max-width:900px){
   .hero .wrap{ grid-template-columns:1fr; }
-  .phone-stage{ margin-top:1rem; order:-1; }
+  .phone-stage{ margin-top:2.5rem; }
+  .phone{ width:min(100%,390px); }
 }
 
 /* ---------- marquee ---------- */
@@ -233,10 +225,10 @@ header.site-nav.is-scrolled{ background-color:rgba(15,27,22,.8); backdrop-filter
 .screens{ display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; align-items:start; }
 .screen-card{ text-align:center; }
 .screen-frame{
-  position:relative; border-radius:28px; border:6px solid var(--paper); overflow:hidden; aspect-ratio:9/17.5;
+  position:relative; border-radius:24px; overflow:hidden; aspect-ratio:9/16;
   box-shadow:0 24px 60px rgba(0,0,0,.3); perspective:700px;
 }
-.screen-frame img{ width:100%; height:100%; object-fit:cover; }
+.screen-frame img{ width:100%; height:auto; }
 .screen-card p{ margin-top:1.1rem; font-weight:600; font-size:.92rem; color:var(--mist); }
 @media (max-width:800px){ .screens{ grid-template-columns:1fr; max-width:280px; margin:0 auto; gap:2.6rem; } }
 

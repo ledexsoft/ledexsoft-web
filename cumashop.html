@@ -85,11 +85,8 @@
       </div>
 
       <div class="phone-stage">
-        <div class="phone-ring" aria-hidden="true"></div>
         <div class="phone" id="heroPhone">
-          <div class="phone-notch" aria-hidden="true"></div>
-          <img src="images/cumashop-explorar.jpg" alt="Imagen promocional de CumaShop para explorar productos">
-          <div class="phone-chip"><span class="swatch"></span>Pedido en camino</div>
+          <img src="images/cumashop-explorar.jpg" alt="Presentación de CumaShop: categorías y productos en la aplicación" width="864" height="1536">
         </div>
       </div>
     </div>
@@ -102,8 +99,8 @@
   <!-- ============ MARQUEE ============ -->
   <div class="marquee">
     <div class="marquee-track">
-      <span>Frutas y vegetales — <b>Panadería</b> — Carnicería — Farmacia — Bodega — <b>Ferretería</b> — </span>
-      <span>Frutas y vegetales — <b>Panadería</b> — Carnicería — Farmacia — Bodega — <b>Ferretería</b> — </span>
+      <span>Frutas y vegetales — <b>Panadería</b> — Carnes — Hogar — Bodega — <b>Ferretería</b> — </span>
+      <span>Frutas y vegetales — <b>Panadería</b> — Carnes — Hogar — Bodega — <b>Ferretería</b> — </span>
     </div>
   </div>
 
@@ -126,12 +123,12 @@
           <div class="step-card">
             <span class="step-num">02</span>
             <h3>Arma tu pedido</h3>
-            <p>Agrega lo que necesitás, como armar una lista del mercado — pero desde el celular.</p>
+            <p>Agrega lo que necesitas, como armar una lista del mercado, pero desde el celular.</p>
           </div>
           <div class="step-card">
             <span class="step-num">03</span>
             <h3>Recíbelo</h3>
-            <p>Coordina la entrega o pasa a buscarlo tú mismo. Vos decidís cómo.</p>
+            <p>Coordina la entrega o pasa a buscarlo tú mismo. Tú decides cómo.</p>
           </div>
         </div>
       </div>
@@ -150,7 +147,7 @@
         <div class="cat-card"><img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=700&auto=format&fit=crop" alt="Frutas y vegetales"><span class="cat-label">Frutas y vegetales</span></div>
         <div class="cat-card"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=700&auto=format&fit=crop" alt="Panadería"><span class="cat-label">Panadería</span></div>
         <div class="cat-card"><img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?q=80&w=700&auto=format&fit=crop" alt="Bodega y abarrotes"><span class="cat-label">Bodega y abarrotes</span></div>
-        <div class="cat-card"><img src="https://images.unsplash.com/photo-1512069772995-ed8932f2e0dc?q=80&w=700&auto=format&fit=crop" alt="Farmacia"><span class="cat-label">Farmacia</span></div>
+        <div class="cat-card"><img src="images/cumashop-carnes.jpg" alt="Cortes de carne" loading="lazy"><span class="cat-label">Carnes</span></div>
       </div>
     </div>
   </section>
@@ -166,15 +163,15 @@
       <img class="app-campaign" src="images/cumashop-campana.jpg" alt="Presentación de CumaShop: compras locales, categorías de productos y pantalla de la app" loading="lazy" decoding="async" width="1536" height="1024">
       <div class="screens">
         <div class="screen-card">
-          <div class="screen-frame"><img src="images/cumashop-explorar.jpg" alt="Imagen promocional de la búsqueda de productos en CumaShop" loading="lazy"></div>
+          <div class="screen-frame"><img src="images/cumashop-explorar.jpg" alt="Imagen promocional de la búsqueda de productos en CumaShop" loading="lazy" width="864" height="1536"></div>
           <p>Explora negocios</p>
         </div>
         <div class="screen-card">
-          <div class="screen-frame"><img src="images/cumashop-carrito.jpg" alt="Imagen promocional del carrito de CumaShop" loading="lazy"></div>
+          <div class="screen-frame"><img src="images/cumashop-carrito.jpg" alt="Imagen promocional del carrito de CumaShop" loading="lazy" width="864" height="1536"></div>
           <p>Arma tu pedido</p>
         </div>
         <div class="screen-card">
-          <div class="screen-frame"><img src="images/cumashop-pedido.jpg" alt="Imagen promocional del seguimiento de pedidos en CumaShop" loading="lazy"></div>
+          <div class="screen-frame"><img src="images/cumashop-pedido.jpg" alt="Imagen promocional del seguimiento de pedidos en CumaShop" loading="lazy" width="864" height="1536"></div>
           <p>Sigue tu pedido</p>
         </div>
       </div>
@@ -215,24 +212,24 @@
       </div>
       <div class="faq-list" id="faqList">
         <div class="faq-item is-open">
-          <button class="faq-q"><span>¿CumaShop es gratis?</span><span class="plus"></span></button>
-          <div class="faq-a"><p>Sí. Descargar y usar la app no tiene costo alguno.</p></div>
+          <button class="faq-q" aria-expanded="true" aria-controls="faq-gratis"><span>¿CumaShop es gratis?</span><span class="plus" aria-hidden="true"></span></button>
+          <div class="faq-a" id="faq-gratis"><p>Sí. Descargar y usar la app no tiene costo alguno.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q"><span>¿Solo funciona en Cumanayagua?</span><span class="plus"></span></button>
-          <div class="faq-a"><p>Por ahora sí — es donde arrancamos la beta. La idea es ir sumando más municipios más adelante.</p></div>
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-zona"><span>¿Solo funciona en Cumanayagua?</span><span class="plus" aria-hidden="true"></span></button>
+          <div class="faq-a" id="faq-zona" inert><p>Por ahora sí — es donde arrancamos la beta. La idea es ir sumando más municipios más adelante.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q"><span>¿Necesito crear una cuenta?</span><span class="plus"></span></button>
-          <div class="faq-a"><p>Sí, un registro simple para poder armar y hacer seguimiento a tus pedidos.</p></div>
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-cuenta"><span>¿Necesito crear una cuenta?</span><span class="plus" aria-hidden="true"></span></button>
+          <div class="faq-a" id="faq-cuenta" inert><p>Sí, un registro simple para poder armar y hacer seguimiento a tus pedidos.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q"><span>¿En qué idiomas está disponible?</span><span class="plus"></span></button>
-          <div class="faq-a"><p>Español y portugués, pensando también en su crecimiento a futuro.</p></div>
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-idiomas"><span>¿En qué idiomas está disponible?</span><span class="plus" aria-hidden="true"></span></button>
+          <div class="faq-a" id="faq-idiomas" inert><p>Español y portugués, pensando también en su crecimiento a futuro.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-q"><span>Tengo un negocio — ¿cómo lo sumo a CumaShop?</span><span class="plus"></span></button>
-          <div class="faq-a"><p>Escríbenos por los canales de contacto y coordinamos los próximos pasos contigo.</p></div>
+          <button class="faq-q" aria-expanded="false" aria-controls="faq-negocios"><span>Tengo un negocio — ¿cómo lo sumo a CumaShop?</span><span class="plus" aria-hidden="true"></span></button>
+          <div class="faq-a" id="faq-negocios" inert><p>Escríbenos por correo y coordinamos los próximos pasos contigo.</p></div>
         </div>
       </div>
     </div>

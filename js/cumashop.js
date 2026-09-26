@@ -247,11 +247,15 @@
       document.querySelectorAll('.faq-item').forEach(function(i){
         if(i.classList.contains('is-open')){
           i.classList.remove('is-open');
+          i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+          i.querySelector('.faq-a').inert = true;
           gsap.to(i.querySelector('.faq-a'), {height:0, duration:.4, ease:'power2.inOut'});
         }
       });
       if(!wasOpen){
         item.classList.add('is-open');
+        item.querySelector('.faq-q').setAttribute('aria-expanded', 'true');
+        answer.inert = false;
         var full = answer.scrollHeight;
         gsap.fromTo(answer, {height:0}, {height:full, duration:.45, ease:'power2.inOut', onComplete:function(){ gsap.set(answer,{height:'auto'}); }});
       }
