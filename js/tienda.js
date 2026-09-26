@@ -54,7 +54,8 @@
   function safeImage(source) { try { var url=new URL(source); return url.protocol==='https:' ? url.href : ''; } catch (_) { return ''; } }
   function productCard(p) {
     var card=node('article','product-card'); var media=node('div','product-media'); var fallback=node('span','product-fallback','✳');
-    var image=safeImage(p.Imagen_Portada);
+    // La oferta 44 (piña) tiene en origen una foto de un portátil; evita mostrarla hasta corregir el dato.
+    var image=Number(p.id)===44 ? '' : safeImage(p.Imagen_Portada);
     if(image){var img=node('img');img.src=image;img.alt=p.Titulo_Es || 'Producto CumaShop';img.loading='lazy';img.decoding='async';img.addEventListener('error',function(){img.replaceWith(fallback);});media.append(img);}else{media.append(fallback);}
     var body=node('div','product-body');body.append(node('span','product-category',p.Categoria || section.name),node('h3','',p.Titulo_Es || 'Producto'));
     var price=node('p','product-price');
