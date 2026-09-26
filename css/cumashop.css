@@ -81,6 +81,8 @@ header.site-nav{
 header.site-nav.is-scrolled{ background-color:rgba(15,27,22,.8); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom-color:var(--line); }
 .logo{ display:flex; align-items:center; gap:.5rem; font-family:var(--font-display); font-style:italic; font-weight:600; font-size:1.3rem; }
 .logo .mark{ width:26px; height:26px; border-radius:8px; background:var(--mango); color:var(--ink); display:flex; align-items:center; justify-content:center; font-family:var(--font-body); font-style:normal; font-weight:800; font-size:.9rem; flex:none; }
+.logo img.mark{ object-fit:cover; background:none; }
+.app-campaign{ display:block; width:100%; height:auto; border-radius:10px; margin:0 auto 3rem; }
 .logo-by{ font-size:.68rem; color:var(--mist); font-weight:600; letter-spacing:.03em; margin-left:.6rem; padding-left:.6rem; border-left:1px solid var(--line-strong); }
 .nav-links{ display:flex; align-items:center; gap:2rem; }
 .nav-links a{ font-size:.9rem; font-weight:500; color:var(--mist); position:relative; padding:.2rem 0; }
