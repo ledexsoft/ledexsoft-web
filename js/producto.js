@@ -63,6 +63,7 @@
     else $('p-price').textContent=p.Precio_base_UI!=null&&Number.isFinite(base)&&base>0?money(base,p.Moneda_base):'Consultar precio en la app';
     $('p-availability').hidden=p.Stock_Disponible!==false;
     $('p-availability').textContent='Sin stock en este momento · consulta la app para novedades';
+    $('p-delivery').hidden=p.Pais!=='Cuba';
     var facts=$('p-facts');facts.replaceChildren();
     function fact(icon,label,value){var el=node('div','detail-fact');el.append(node('span','detail-fact-icon',icon),node('span','detail-fact-label',label),node('strong','',value));facts.append(el);}
     if(p.Unidad_de_Medidas&&p.Cantidad_por_Unidad)fact('▤','Presentación',Number(p.Cantidad_por_Unidad)+' '+p.Unidad_de_Medidas);
