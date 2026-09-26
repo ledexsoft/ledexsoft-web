@@ -124,17 +124,36 @@
     if(!target) return;
     a.addEventListener('click', function(e){
       e.preventDefault();
-      document.body.classList.remove('menu-open');
+      closeMenu();
       smoothScrollTo(target);
     });
   });
 
   /* ---------------- mobile menu ---------------- */
   var burger = document.getElementById('burgerBtn');
-  burger.addEventListener('click', function(){
-    var open = document.body.classList.toggle('menu-open');
+  var mobileMenu = document.getElementById('mobileMenu');
+  function setMenu(open){
+    document.body.classList.toggle('menu-open', open);
+    mobileMenu.inert = !open;
     burger.setAttribute('aria-expanded', open ? 'true':'false');
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
     if(open){ nav.classList.remove('is-hidden'); }
+  }
+  function closeMenu(){ setMenu(false); }
+  burger.addEventListener('click', function(){
+    var open = !document.body.classList.contains('menu-open');
+    setMenu(open);
+    if(open) mobileMenu.querySelector('a').focus();
+  });
+  document.addEventListener('keydown', function(e){
+    if(!document.body.classList.contains('menu-open')) return;
+    if(e.key === 'Escape'){ closeMenu(); burger.focus(); }
+    if(e.key === 'Tab'){
+      var items = [burger].concat(Array.from(mobileMenu.querySelectorAll('a')));
+      var i = items.indexOf(document.activeElement);
+      if(e.shiftKey && i === 0){ e.preventDefault(); items[items.length-1].focus(); }
+      else if(!e.shiftKey && i === items.length-1){ e.preventDefault(); items[0].focus(); }
+    }
   });
 
   /* ---------------- text split helpers ---------------- */
@@ -237,7 +256,8 @@
     var track = document.getElementById('workTrack');
     var dots = document.querySelectorAll('#workProgress span');
     var hint = document.getElementById('workHint');
-    var distance = function(){ return track.scrollWidth - window.innerWidth; };
+    var count = track.querySelectorAll('.work-panel').length;
+    var distance = function(){ return Math.max(0,track.scrollWidth - window.innerWidth); };
 
     var anim = gsap.to(track, {
       x:function(){ return -distance(); },
@@ -249,9 +269,9 @@
         scrub:1,
         pin:true,
         invalidateOnRefresh:true,
-        snap:{ snapTo:1/2, duration:.4, ease:'power1.inOut' },
+        snap:{ snapTo:count > 1 ? 1/(count-1) : 1, duration:.4, ease:'power1.inOut' },
         onUpdate:function(self){
-          var idx = Math.min(2, Math.floor(self.progress*3));
+          var idx = Math.min(count-1, Math.round(self.progress*(count-1)));
           dots.forEach(function(d,i){ d.classList.toggle('is-on', i===idx); });
           if(hint && self.progress > 0.04 && !hint.dataset.hidden){
             hint.dataset.hidden = '1';

@@ -88,16 +88,35 @@
     if(!target) return;
     a.addEventListener('click', function(e){
       e.preventDefault();
-      document.body.classList.remove('menu-open');
+      closeMenu();
       smoothScrollTo(target);
     });
   });
 
   /* ---------------- mobile menu ---------------- */
   var burger = document.getElementById('burgerBtn');
-  burger.addEventListener('click', function(){
-    var open = document.body.classList.toggle('menu-open');
+  var mobileMenu = document.getElementById('mobileMenu');
+  function setMenu(open){
+    document.body.classList.toggle('menu-open', open);
+    mobileMenu.inert = !open;
     burger.setAttribute('aria-expanded', open ? 'true':'false');
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  }
+  function closeMenu(){ setMenu(false); }
+  burger.addEventListener('click', function(){
+    var open = !document.body.classList.contains('menu-open');
+    setMenu(open);
+    if(open) mobileMenu.querySelector('a').focus();
+  });
+  document.addEventListener('keydown', function(e){
+    if(!document.body.classList.contains('menu-open')) return;
+    if(e.key === 'Escape'){ closeMenu(); burger.focus(); }
+    if(e.key === 'Tab'){
+      var items = [burger].concat(Array.from(mobileMenu.querySelectorAll('a')));
+      var i = items.indexOf(document.activeElement);
+      if(e.shiftKey && i === 0){ e.preventDefault(); items[items.length-1].focus(); }
+      else if(!e.shiftKey && i === items.length-1){ e.preventDefault(); items[0].focus(); }
+    }
   });
 
   /* ---------------- preloader + hero intro ---------------- */

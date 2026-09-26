@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="css/index.css">
 </head>
 <body class="is-loading">
+<noscript><style>body.is-loading{overflow:auto;height:auto}.preloader{display:none!important}</style></noscript>
+<script>setTimeout(function(){document.body.classList.remove('is-loading');var p=document.getElementById('preloader');if(p)p.style.display='none';document.querySelectorAll('.hero-head .line').forEach(function(el){el.style.transform='none';el.style.opacity='1'})},4500)</script>
 
 <div class="grain" aria-hidden="true"></div>
 <div class="progress-bar" aria-hidden="true"></div>
@@ -34,13 +36,13 @@
     <a href="#contacto" class="nav-cta" data-cursor="Ir">Contacto</a>
   </nav>
   <div class="nav-right">
-    <button class="burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false">
+    <button class="burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
       <span></span>
     </button>
   </div>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu" inert>
   <a href="#manifiesto">Manifiesto</a>
   <a href="#productos">Productos</a>
   <a href="#cumashop">CumaShop</a>
@@ -280,8 +282,6 @@
     <div class="footer-col">
       <h4>Contacto</h4>
       <a href="mailto:contacto@ledexsoft.com">contacto@ledexsoft.com</a>
-      <a href="#" data-cursor="Abrir">@ledexsoft en Instagram</a>
-      <a href="#" data-cursor="Abrir">WhatsApp</a>
     </div>
     <div class="footer-col">
       <h4>Productos</h4>

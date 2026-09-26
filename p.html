@@ -10,8 +10,9 @@
   <meta property="og:site_name" content="CumaShop" />
   <meta property="og:title" content="CumaShop — Producto" />
   <meta property="og:description" content="Míralo en CumaShop, el mercado de Cumanayagua, en tu celular." />
-  <meta property="og:image" content="https://ledexsoft.github.io/OneBlinkWeb/assets/hero_cumashop.png" />
+  <meta property="og:image" content="https://ledexsoft.github.io/ledexsoft-web/images/cumashop-campana.jpg" />
   <meta property="og:url" content="https://ledexsoft.github.io/ledexsoft-web/p.html" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230F1B16'/%3E%3Ctext x='50' y='69' font-size='58' font-family='Georgia,serif' fill='%23FF7A3D' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,12 +76,6 @@
 
   function $(id) { return document.getElementById(id); }
 
-  function esc(s) {
-    var d = document.createElement('div');
-    d.textContent = s == null ? '' : String(s);
-    return d.innerHTML;
-  }
-
   var params = new URLSearchParams(window.location.search);
   var id = params.get('id');
 
@@ -93,7 +88,7 @@
   fetch(URL_BASE + '/rest/v1/Ofertas?select=Titulo_Es,Descripcion_Es,Precio_base_UI,Moneda_base,Imagen_Portada,Seccion&id=eq.' + id + '&Activo=eq.true&limit=1', {
     headers: { apikey: ANON, Authorization: 'Bearer ' + ANON }
   })
-    .then(function (r) { return r.json(); })
+    .then(function (r) { if (!r.ok) throw new Error('No se pudo cargar el producto'); return r.json(); })
     .then(function (rows) {
       $('loading').style.display = 'none';
       var p = rows && rows[0];
@@ -108,19 +103,20 @@
       $('p-price').textContent = moneda + ' ' + precio.toLocaleString('es', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       $('p-desc').textContent = p.Descripcion_Es || '';
 
-      // Intentar abrir la app vía deep link nativo (cumashop://).
-      // iOS: Safari muestra su propio diálogo de confirmación — NO
-      // redirigir a Play Store (el timeout competiría con el diálogo y
-      // mandaba a Play en vez de abrir la app). Android: si no hay app,
-      // el navegador aborta el intent → fallback a Play.
+      // Cancelar el fallback cuando la app pasa a primer plano.
       var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
       var btn = $('p-open');
       btn.href = PLAY_URL;
       btn.addEventListener('click', function (e) {
         e.preventDefault();
+        var timer;
+        function cancel() { clearTimeout(timer); document.removeEventListener('visibilitychange', onVisibility); window.removeEventListener('pagehide', cancel); }
+        function onVisibility() { if (document.hidden) cancel(); }
+        document.addEventListener('visibilitychange', onVisibility);
+        window.addEventListener('pagehide', cancel, { once: true });
         window.location.href = 'cumashop://producto/' + id;
         if (!isIOS) {
-          setTimeout(function () { window.location.href = PLAY_URL; }, 1200);
+          timer = setTimeout(function () { if (!document.hidden) window.location.href = PLAY_URL; cancel(); }, 1800);
         }
       });
       $('product').style.display = 'block';

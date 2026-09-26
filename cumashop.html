@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="css/cumashop.css">
 </head>
 <body class="is-loading">
+<noscript><style>body.is-loading{overflow:auto;height:auto}.preloader{display:none!important}</style></noscript>
+<script>setTimeout(function(){document.body.classList.remove('is-loading');var p=document.getElementById('preloader');if(p)p.style.display='none';document.querySelectorAll('.hero-head .line').forEach(function(el){el.style.transform='none';el.style.opacity='1'})},4500)</script>
 
 <div class="grain" aria-hidden="true"></div>
 <div class="progress-bar" aria-hidden="true"></div>
@@ -36,10 +38,10 @@
     <a href="#preguntas">Preguntas</a>
     <a href="#descarga" class="nav-cta" data-cursor="Ir">Descargar</a>
   </nav>
-  <button class="burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+  <button class="burger" id="burgerBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu" inert>
   <a href="#como-funciona">Cómo funciona</a>
   <a href="#negocios">Negocios</a>
   <a href="#app">La app</a>
@@ -86,7 +88,7 @@
         <div class="phone-ring" aria-hidden="true"></div>
         <div class="phone" id="heroPhone">
           <div class="phone-notch" aria-hidden="true"></div>
-          <img src="https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?q=80&w=700&auto=format&fit=crop" alt="Vista previa de la app CumaShop">
+          <img src="images/cumashop-explorar.jpg" alt="Imagen promocional de CumaShop para explorar productos">
           <div class="phone-chip"><span class="swatch"></span>Pedido en camino</div>
         </div>
       </div>
@@ -164,15 +166,15 @@
       <img class="app-campaign" src="images/cumashop-campana.jpg" alt="Presentación de CumaShop: compras locales, categorías de productos y pantalla de la app" loading="lazy" decoding="async" width="1536" height="1024">
       <div class="screens">
         <div class="screen-card">
-          <div class="screen-frame"><img src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?q=80&w=600&auto=format&fit=crop" alt="Explorar negocios en la app CumaShop"></div>
+          <div class="screen-frame"><img src="images/cumashop-explorar.jpg" alt="Imagen promocional de la búsqueda de productos en CumaShop" loading="lazy"></div>
           <p>Explora negocios</p>
         </div>
         <div class="screen-card">
-          <div class="screen-frame"><img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=600&auto=format&fit=crop" alt="Armar el carrito en la app CumaShop"></div>
+          <div class="screen-frame"><img src="images/cumashop-carrito.jpg" alt="Imagen promocional del carrito de CumaShop" loading="lazy"></div>
           <p>Arma tu pedido</p>
         </div>
         <div class="screen-card">
-          <div class="screen-frame"><img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=600&auto=format&fit=crop" alt="Seguimiento del pedido en la app CumaShop"></div>
+          <div class="screen-frame"><img src="images/cumashop-pedido.jpg" alt="Imagen promocional del seguimiento de pedidos en CumaShop" loading="lazy"></div>
           <p>Sigue tu pedido</p>
         </div>
       </div>
@@ -255,8 +257,6 @@
     <div class="footer-col">
       <h4>Contacto</h4>
       <a href="mailto:contacto@ledexsoft.com">contacto@ledexsoft.com</a>
-      <a href="#" data-cursor="Abrir">@cumashop en Instagram</a>
-      <a href="#" data-cursor="Abrir">WhatsApp</a>
     </div>
     <div class="footer-col">
       <h4>CumaShop</h4>
