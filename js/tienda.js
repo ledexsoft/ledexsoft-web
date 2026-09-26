@@ -18,7 +18,10 @@
   $('search-input').value=search;
   function node(tag, className, value) { var el=document.createElement(tag); if(className) el.className=className; if(value != null) el.textContent=value; return el; }
   function normalize(s) { return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('es'); }
-  function isDemo(p) { return /\b(simulad[oa]s?|demos?|pruebas?|tests?)\b/i.test(p.Titulo_Es || ''); }
+  function isDemo(p) {
+    return /\b(simulad[oa]s?|demos?|pruebas?|tests?)\b/i.test(p.Titulo_Es || '') ||
+      /simulacion|simulad[oa]|pruebas internas|no representa disponibilidad comercial/i.test(normalize(p.Descripcion_Es || ''));
+  }
   function syncUrl() {
     var url = new URL(location.href);
     url.searchParams.delete('seccion');url.searchParams.delete('categoria');url.searchParams.delete('q');
@@ -35,7 +38,7 @@
       .finally(function () { clearTimeout(timeout); });
   }
   function loadOffers(offset, collected) {
-    return api('Ofertas',{select:'id,Titulo_Es,Precio_base_UI,Moneda_base,Imagen_Portada,Seccion,Categoria',Activo:'eq.true',Stock_Disponible:'eq.true',Pais:'eq.Cuba',order:'id.desc',limit:'200',offset:String(offset)})
+    return api('Ofertas',{select:'id,Titulo_Es,Descripcion_Es,Precio_base_UI,Moneda_base,Imagen_Portada,Seccion,Categoria',Activo:'eq.true',Stock_Disponible:'eq.true',Pais:'eq.Cuba',order:'id.desc',limit:'200',offset:String(offset)})
       .then(function (rows) { collected.push.apply(collected, rows); return rows.length === 200 ? loadOffers(offset + 200, collected) : collected; });
   }
   function chooseSection(item) {

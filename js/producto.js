@@ -10,14 +10,14 @@
   var id=new URLSearchParams(location.search).get('id');
   function state(name){['loading','notfound','loaderror','product'].forEach(function(key){$(key).hidden=key!==name;});}
   function safeImage(value){try{var url=new URL(value);return url.protocol==='https:'?url.href:'';}catch(_){return '';}}
-  function demo(title){return /\b(simulad[oa]s?|demos?|pruebas?|tests?)\b/i.test(title||'');}
+  function demo(p){return /\b(simulad[oa]s?|demos?|pruebas?|tests?)\b/i.test(p.Titulo_Es||'') || /simulacion|simulad[oa]|pruebas internas|no representa disponibilidad comercial/i.test((p.Descripcion_Es||'').normalize('NFD').replace(/[\u0300-\u036f]/g,''));}
   function load(){
     if(!id || !/^\d{1,10}$/.test(id)){state('notfound');return;}
     state('loading');var controller=new AbortController();var timeout=setTimeout(function(){controller.abort();},12000);
     var q=new URLSearchParams({select:'id,Titulo_Es,Descripcion_Es,Precio_base_UI,Moneda_base,Imagen_Portada,Seccion,Categoria',id:'eq.'+id,Activo:'eq.true',Stock_Disponible:'eq.true',Pais:'eq.Cuba',limit:'1'});
     fetch(SUPABASE+'/rest/v1/Ofertas?'+q,{headers:{apikey:ANON,Authorization:'Bearer '+ANON},signal:controller.signal})
       .then(function(response){if(!response.ok)throw Error('No disponible');return response.json();})
-      .then(function(rows){var p=rows[0];if(!p || demo(p.Titulo_Es) || !slugs[p.Seccion]){state('notfound');return;}render(p);state('product');})
+      .then(function(rows){var p=rows[0];if(!p || demo(p) || !slugs[p.Seccion]){state('notfound');return;}render(p);state('product');})
       .catch(function(){state('loaderror');}).finally(function(){clearTimeout(timeout);});
   }
   function render(p){
