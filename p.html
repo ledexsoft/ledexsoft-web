@@ -46,8 +46,16 @@
       <p style="margin-top: 10px; opacity: .7;">Este enlace no corresponde a un producto activo de CumaShop.</p>
     </div>
 
+    <div id="loaderror" style="display: none; text-align: center; padding: 40px 0;">
+      <span class="eyebrow">Producto</span>
+      <h1 style="font-family: 'Fraunces', serif; margin-top: 12px;">No pudimos cargar el producto</h1>
+      <p style="margin-top: 10px; opacity: .7;">Comprueba tu conexión e inténtalo de nuevo.</p>
+      <button id="retry" type="button" style="margin-top: 20px; padding: 12px 20px; border-radius: 12px; background: #FF7A3D; color: #0F1B16; font-weight: 700;">Reintentar</button>
+    </div>
+
     <div id="product" style="display: none; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09); border-radius: 24px; padding: 24px;">
       <img id="p-img" alt="" style="width: 100%; border-radius: 16px; aspect-ratio: 1/1; object-fit: cover; background: rgba(255,255,255,.08);" />
+      <div id="p-placeholder" style="display:none; aspect-ratio:1/1; border-radius:16px; background:rgba(255,255,255,.08); align-items:center; justify-content:center; opacity:.7;">Imagen no disponible</div>
       <span class="eyebrow" id="p-store" style="display: inline-block; margin-top: 18px;"></span>
       <h1 id="p-name" style="font-family: 'Fraunces', serif; font-size: 30px; line-height: 1.15; margin-top: 8px;"></h1>
       <p id="p-price" style="font-size: 26px; font-weight: 800; margin-top: 10px;"></p>
@@ -73,6 +81,8 @@
   // anon key pública: el catálogo visible es público por diseño (RLS).
   var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtdnFrcGtieGFneHhnbWdxY3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE0ODYwNTcsImV4cCI6MjAzNzA2MjA1N30.Zx5G8Vnmy4ZW2dCKi8ScmcNa40KSqmWL4sEzZoMqwLM';
   var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.ledexsoft.oneblink';
+  var controller = new AbortController();
+  var requestTimer = setTimeout(function () { controller.abort(); }, 10000);
 
   function $(id) { return document.getElementById(id); }
 
@@ -80,13 +90,14 @@
   var id = params.get('id');
 
   if (!id || !/^\d{1,10}$/.test(id)) {
+    clearTimeout(requestTimer);
     $('loading').style.display = 'none';
     $('notfound').style.display = 'block';
     return;
   }
 
   fetch(URL_BASE + '/rest/v1/Ofertas?select=Titulo_Es,Descripcion_Es,Precio_base_UI,Moneda_base,Imagen_Portada,Seccion&id=eq.' + id + '&Activo=eq.true&limit=1', {
-    headers: { apikey: ANON, Authorization: 'Bearer ' + ANON }
+    headers: { apikey: ANON, Authorization: 'Bearer ' + ANON }, signal: controller.signal
   })
     .then(function (r) { if (!r.ok) throw new Error('No se pudo cargar el producto'); return r.json(); })
     .then(function (rows) {
@@ -95,7 +106,9 @@
       if (!p) { $('notfound').style.display = 'block'; return; }
 
       var img = p.Imagen_Portada;
-      if (img) { $('p-img').src = img; }
+      function noImage() { $('p-img').style.display = 'none'; $('p-placeholder').style.display = 'flex'; }
+      if (img) { $('p-img').onerror = noImage; $('p-img').src = img; $('p-img').alt = p.Titulo_Es || 'Imagen del producto'; }
+      else noImage();
       $('p-name').textContent = p.Titulo_Es || 'Producto';
       $('p-store').textContent = p.Seccion || '';
       var moneda = p.Moneda_base || 'CUP';
@@ -112,8 +125,10 @@
         var timer;
         function cancel() { clearTimeout(timer); document.removeEventListener('visibilitychange', onVisibility); window.removeEventListener('pagehide', cancel); }
         function onVisibility() { if (document.hidden) cancel(); }
-        document.addEventListener('visibilitychange', onVisibility);
-        window.addEventListener('pagehide', cancel, { once: true });
+        if (!isIOS) {
+          document.addEventListener('visibilitychange', onVisibility);
+          window.addEventListener('pagehide', cancel, { once: true });
+        }
         window.location.href = 'cumashop://producto/' + id;
         if (!isIOS) {
           timer = setTimeout(function () { if (!document.hidden) window.location.href = PLAY_URL; cancel(); }, 1800);
@@ -123,8 +138,10 @@
     })
     .catch(function () {
       $('loading').style.display = 'none';
-      $('notfound').style.display = 'block';
-    });
+      $('loaderror').style.display = 'block';
+    })
+    .finally(function () { clearTimeout(requestTimer); });
+  $('retry').addEventListener('click', function () { window.location.reload(); });
 })();
 </script>
 </body>

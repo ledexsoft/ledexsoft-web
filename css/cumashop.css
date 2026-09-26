@@ -84,6 +84,7 @@ header.site-nav.is-scrolled{ background-color:rgba(15,27,22,.8); backdrop-filter
 .logo img.mark{ object-fit:cover; background:none; }
 .app-campaign{ display:block; width:100%; height:auto; border-radius:10px; margin:0 auto 3rem; }
 .logo-by{ font-size:.68rem; color:var(--mist); font-weight:600; letter-spacing:.03em; margin-left:.6rem; padding-left:.6rem; border-left:1px solid var(--line-strong); }
+@media (max-width:520px){ .logo-by{ display:none; } }
 .nav-links{ display:flex; align-items:center; gap:2rem; }
 .nav-links a{ font-size:.9rem; font-weight:500; color:var(--mist); position:relative; padding:.2rem 0; }
 .nav-links a::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:1px; background:var(--paper); transition:width .35s var(--ease-out); }
