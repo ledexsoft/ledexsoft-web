@@ -15,8 +15,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/tienda.css?v=3">
-  <script src="js/tienda.js?v=4" defer></script>
+  <link rel="stylesheet" href="css/tienda.css?v=5">
+  <script src="js/tienda.js?v=5" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#catalogo">Saltar al catálogo</a>
@@ -29,17 +29,18 @@
   <main>
     <section class="hero">
       <div class="container hero-inner">
-        <div class="hero-copy"><span class="eyebrow"><span class="live-dot"></span> EL CATÁLOGO DE CUMASHOP</span><h1>De tu pueblo,<br><em>a tu pantalla.</em></h1><p>Explora lo que CumaShop tiene para ti. Elige una sección, descubre sus categorías y encuentra productos desde cualquier dispositivo.</p><a class="hero-link" href="#catalogo">Explorar catálogo <span aria-hidden="true">↓</span></a></div>
-        <div class="hero-visual" aria-hidden="true"><div class="visual-orbit"></div><span class="visual-star">✳</span><span class="visual-word">CUMA<br><i>SHOP</i></span><span class="visual-label">Tu mercado, más cerca.</span></div>
+        <div class="hero-copy"><span class="eyebrow"><span class="live-dot"></span> EL CATÁLOGO DE CUMASHOP</span><h1>De tu pueblo,<br><em>a tu pantalla.</em></h1><p>Explora lo que CumaShop tiene para ti. Elige una sección, descubre sus categorías y encuentra productos desde cualquier dispositivo.</p><a class="hero-link" href="#catalogo">Explorar catálogo <span aria-hidden="true">↓</span></a><p class="hero-summary" id="catalog-summary" role="status">Conectando con la tienda…</p></div>
+        <div class="hero-visual"><img class="hero-photo" src="images/cumashop-productos.jpg" alt="Imagen promocional de CumaShop: una tienda local con productos, su aplicación y una bolsa de compras" width="1402" height="1122" fetchpriority="high"><span class="hero-photo-tag">TU TIENDA, A UN TOQUE ↗</span></div>
       </div>
     </section>
     <section class="notice"><div class="container"><span class="notice-icon" aria-hidden="true">✦</span><p><strong>Una vista previa para explorar.</strong> Los precios y la disponibilidad pueden cambiar; confirma los detalles y realiza tus pedidos desde la app de CumaShop.</p></div></section>
+    <section class="featured container" id="destacados" hidden aria-labelledby="featured-title"><div class="featured-heading"><div><span class="section-index">UN PRIMER VISTAZO</span><h2 id="featured-title">Descubre algo <em>nuevo.</em></h2></div><a href="#catalogo">Ver todas las secciones ↗</a></div><div class="featured-grid" id="featured-grid"></div></section>
     <section class="catalog container" id="catalogo" aria-labelledby="catalog-title">
       <div class="catalog-heading"><div><span class="section-index">01 / ELIGE POR DÓNDE EMPEZAR</span><h2 id="catalog-title">Una tienda para <em>cada día.</em></h2></div><p>Seis secciones. Muchas formas de encontrar lo que buscas.</p></div>
       <nav class="departments" id="departments" aria-label="Secciones de la tienda"></nav>
       <div class="catalog-tools"><div><span class="section-index">02 / ENCUENTRA ALGO BUENO</span><h2 id="current-title">Explorar productos</h2><p id="current-subtitle">Cargando categorías y ofertas…</p></div><form class="search" id="search-form" role="search"><label for="search-input">Buscar en todas las secciones</label><div class="search-field"><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></svg><input id="search-input" type="search" placeholder="Buscar productos o categorías" maxlength="100" autocomplete="off"><button type="submit">Buscar</button></div><span class="search-scope" id="search-scope">Busca en todas las secciones</span></form></div>
-      <div class="category-wrap" id="category-wrap" hidden><span class="category-label">CATEGORÍAS</span><div class="categories" id="categories" aria-label="Filtrar por categoría"></div></div>
-      <div class="results-line" id="results-line" role="status" aria-live="polite">Preparando la tienda…</div>
+      <div class="category-wrap" id="category-wrap" hidden><span class="category-label">CATEGORÍAS</span><div class="categories" id="categories" aria-label="Filtrar por categoría"></div><div class="subcategory-wrap" id="subcategory-wrap" hidden><span class="category-label">AFINA TU BÚSQUEDA</span><div class="category-choices" id="subcategories"></div></div><div class="subcategory-wrap" id="subcategory3-wrap" hidden><span class="category-label">MÁS DETALLES</span><div class="category-choices" id="subcategories3"></div></div></div>
+      <div class="results-controls"><div class="results-line" id="results-line" role="status" aria-live="polite">Preparando la tienda…</div><label class="sort-control" for="sort-select">Ordenar por <select id="sort-select"><option value="recent">Más recientes</option><option value="price-low">Menor precio</option><option value="price-high">Mayor precio</option><option value="name">Nombre A–Z</option></select></label></div>
       <div class="products" id="products" aria-live="off"></div>
       <div class="empty" id="empty" hidden><span class="empty-spark" aria-hidden="true">✳</span><h3 id="empty-title">Aún no hay ofertas aquí</h3><p id="empty-text">Esta sección ya tiene sus categorías listas. Vuelve pronto para encontrar novedades.</p><button id="empty-reset" type="button">Ver todas las categorías ↗</button></div>
       <div class="error" id="error" role="alert" hidden><h3>No pudimos cargar el catálogo</h3><p>Comprueba tu conexión e inténtalo de nuevo.</p><button id="retry" type="button">Reintentar</button></div>
