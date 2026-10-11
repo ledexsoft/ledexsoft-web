@@ -8,12 +8,14 @@ Sitio estático de LedexSoft S.R.L. (HTML + CSS + JS, sin framework ni build). P
 ├── index.html                  # Landing corporativa LedexSoft
 ├── cumashop.html               # Landing del producto CumaShop
 ├── privacidad.html             # Política de Privacidad
+├── pymepedia-privacidad.html   # Política de privacidad de Pymepedia para Google Play
 ├── terminos-clientes.html      # Términos y condiciones para clientes
 ├── terminos-vendedores.html    # Términos y condiciones para vendedores
 ├── css/
 │   ├── index.css               # Estilos de la landing corporativa
 │   ├── cumashop.css            # Estilos de CumaShop
-│   └── legal.css              # Estilos compartidos de las páginas legales
+│   ├── legal.css              # Estilos compartidos de las páginas legales
+│   └── pymepedia-privacidad.css # Estilos de la política de Pymepedia
 ├── js/
 │   ├── index.js                # Interacciones de la landing (GSAP + Lenis)
 │   ├── cumashop.js             # Interacciones de CumaShop
