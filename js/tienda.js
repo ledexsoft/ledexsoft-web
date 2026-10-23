@@ -1,8 +1,8 @@
 /* Catálogo público de CumaShop: solo usa la clave pública y las políticas RLS de Supabase. */
 (function () {
   'use strict';
-  var SUPABASE = 'https://tmvqkpkbxagxxgmgqcpl.supabase.co';
-  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtdnFrcGtieGFneHhnbWdxY3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE0ODYwNTcsImV4cCI6MjAzNzA2MjA1N30.Zx5G8Vnmy4ZW2dCKi8ScmcNa40KSqmWL4sEzZoMqwLM';
+  var SUPABASE = window.CumaShopConfig.url;
+  var ANON = window.CumaShopConfig.anonKey;
   var sections = [
     {name:'Alimentos',db:'Alimentos',slug:'alimentos',icon:'✳',description:'Frescos, básicos y antojos de cada día'},
     {name:'Muebles y decoración',db:'Muebles y decoración',slug:'muebles',icon:'⌂',description:'Ideas para sentirte en casa'},

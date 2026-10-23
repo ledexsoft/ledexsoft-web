@@ -1,6 +1,7 @@
 (function(){
   "use strict";
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
   /* ---------------- smooth scroll ---------------- */
@@ -104,6 +105,9 @@
   gsap.fromTo('.doc-badges .badge', {opacity:0, y:14}, {opacity:1, y:0, duration:.6, ease:'power3.out', stagger:.08, delay:.1});
   gsap.fromTo('.doc-hero h1', {opacity:0, y:22}, {opacity:1, y:0, duration:.9, ease:'power3.out', delay:.15});
   gsap.fromTo('.doc-lede, .doc-meta', {opacity:0, y:18}, {opacity:1, y:0, duration:.8, ease:'power3.out', stagger:.1, delay:.3});
-  gsap.fromTo('.notice-inner', {opacity:0, y:20}, {opacity:1, y:0, duration:.8, ease:'power3.out', delay:.45});
+  var noticeInner = document.querySelector('.notice-inner');
+  if(noticeInner){
+    gsap.fromTo(noticeInner, {opacity:0, y:20}, {opacity:1, y:0, duration:.8, ease:'power3.out', delay:.45});
+  }
 
 })();

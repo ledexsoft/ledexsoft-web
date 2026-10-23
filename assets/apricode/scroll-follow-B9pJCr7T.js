@@ -1,0 +1,1 @@
+function e(e,t,n,r=.075){if(!Number.isFinite(e))return t;let i=e+(t-e)*(1-Math.exp(-Math.max(0,n)/r));return Math.abs(t-i)<1e-4?t:i}export{e as t};

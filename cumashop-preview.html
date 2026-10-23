@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8fa">
+  <link rel="icon" type="image/png" href="images/oneblink-app-icon.png">
+  <title>CumaShop · Vista previa</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font: 500 13px/1.35 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --blue: #0878e8;
+      --blue-dark: #075db4;
+      --ink: #172033;
+      --muted: #68758a;
+      --line: #e6eaf0;
+      --surface: #fff;
+      --canvas: #f7f8fa;
+      --orange: #ef7835;
+      --green: #32845a;
+      --red: #c54c4c;
+      --shadow: 0 4px 16px rgba(22, 39, 66, .08);
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    [hidden] { display: none !important; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body { background: var(--canvas); color: var(--ink); }
+    button, input { color: inherit; font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    #app { display: flex; flex-direction: column; width: 100%; height: 100%; min-height: 0; }
+    .status-bar { display: flex; flex: 0 0 4.4%; min-height: 27px; align-items: center; justify-content: space-between; padding: 0 5.2%; font-size: .75rem; font-weight: 700; }
+    .status-icons { display: flex; align-items: center; gap: .35rem; color: #30394a; font-size: .72rem; }
+    .signal { letter-spacing: -.12em; }
+    .battery { width: 1.4rem; height: .7rem; border: 1.3px solid currentColor; border-radius: 3px; padding: 1.5px; }
+    .battery::before { content: ""; display: block; width: 75%; height: 100%; border-radius: 1px; background: currentColor; }
+    .battery::after { content: ""; position: absolute; width: 2px; height: 4px; margin: 1px 0 0 1.4rem; border-radius: 0 2px 2px 0; background: currentColor; }
+    .app-header { display: flex; flex: 0 0 10%; min-height: 52px; max-height: 76px; align-items: center; gap: .72rem; padding: 0 5.2%; }
+    .brand-mark { display: grid; flex: none; width: 2.35rem; height: 2.35rem; place-items: center; border-radius: .8rem; background: var(--blue); color: white; font-size: 1.15rem; font-weight: 850; }
+    .brand-mark img { display: block; width: 100%; height: 100%; border-radius: inherit; object-fit: cover; }
+    .brand-copy { display: grid; gap: .05rem; line-height: 1.1; }
+    .brand-copy strong { font-size: 1.05rem; letter-spacing: -.04em; }
+    .brand-copy small { color: var(--muted); font-size: .66rem; }
+    .header-spacer { flex: 1; }
+    .icon-button { position: relative; display: grid; flex: none; width: 2.65rem; height: 2.65rem; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--ink); }
+    .icon-button:hover { background: #eaf0f8; }
+    .icon-button svg { width: 1.32rem; height: 1.32rem; }
+    .cart-count { position: absolute; top: .12rem; right: .02rem; display: grid; min-width: 1.05rem; height: 1.05rem; place-items: center; padding: 0 .2rem; border: 1.5px solid var(--canvas); border-radius: 99px; background: var(--orange); color: white; font-size: .62rem; font-weight: 800; }
+    .app-main { position: relative; flex: 1 1 auto; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 0 5.2% 1.2rem; scrollbar-width: none; }
+    .app-main::-webkit-scrollbar { display: none; }
+    .view { min-height: 100%; }
+    .home-view { padding: clamp(12px,6.1vw,24px) 1% .8rem; }
+    .home-heading { margin: 0 0 clamp(18px,6.1vw,24px); }
+    .home-heading .view-title { margin: 0; font-size: clamp(17px,7.12vw,28px); font-weight: 700; line-height: 1.2; letter-spacing: -.4px; }
+    .home-date { margin: 8px 0 0; color: var(--muted); font-size: clamp(9px,3.56vw,14px); font-weight: 500; text-transform: lowercase; }
+    .home-collections { display: grid; gap: clamp(18px,8.15vw,32px); padding-bottom: 1rem; }
+    .home-collection { position: relative; display: block; width: 100%; height: clamp(210px,106.9vw,420px); padding: 0; overflow: hidden; isolation: isolate; border: 1px solid rgba(255,255,255,.15); border-radius: clamp(14px,6.1vw,24px); background: #333; color: white; box-shadow: 0 8px 24px rgba(0,0,0,.4); text-align: left; }
+    .home-collection:active { transform: scale(.985); }
+    .collection-background { position: absolute; z-index: -2; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: collection-ken-burns 12s ease-in-out infinite alternate; }
+    .home-collection::before { position: absolute; z-index: -1; inset: 0; content: ""; background: linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.15) 50%,transparent 100%); }
+    .collection-copy { position: absolute; top: 6.7%; right: 7%; left: 7%; display: grid; justify-items: start; }
+    .collection-tag { margin-bottom: clamp(5px,2.2vw,9px); color: rgba(255,255,255,.62); font-size: clamp(8px,2.8vw,11px); font-weight: 700; letter-spacing: 1.4px; }
+    .collection-title { margin: 0; color: #fff; font-size: clamp(16px,8.15vw,32px); font-weight: 750; line-height: 1.1; letter-spacing: -.035em; white-space: pre-line; }
+    .collection-subtitle { margin-top: clamp(5px,2.2vw,9px); color: rgba(255,255,255,.72); font-size: clamp(9px,3.8vw,15px); font-weight: 500; line-height: 1.35; }
+    .collection-footer { position: absolute; right: 0; bottom: 0; left: 0; display: flex; align-items: center; gap: clamp(9px,4.1vw,16px); padding: clamp(9px,4.3vw,18px) clamp(10px,6.1vw,24px); border-top: 1px solid rgba(255,255,255,.12); background: linear-gradient(180deg,transparent 0%,rgba(0,0,0,.38) 28%,rgba(0,0,0,.55) 100%); }
+    .collection-icon { display: grid; flex: none; width: clamp(23px,12.2vw,48px); height: clamp(23px,12.2vw,48px); place-items: center; border-radius: clamp(7px,3.6vw,14px); background: linear-gradient(145deg,var(--accent),color-mix(in srgb,var(--accent),#111 24%)); color: #fff; box-shadow: 0 4px 12px color-mix(in srgb,var(--accent),transparent 62%); }
+    .collection-icon svg { width: 52%; height: 52%; }
+    .collection-footer-copy { display: grid; gap: 2px; }
+    .collection-footer-copy strong { font-size: clamp(8.5px,3.56vw,14px); font-weight: 600; }
+    .collection-footer-copy small { color: rgba(255,255,255,.5); font-size: clamp(7.5px,2.8vw,11px); }
+    @keyframes collection-ken-burns { from { transform: scale(1); } to { transform: scale(1.15); } }
+    .view-title { margin: .15rem 0 .8rem; font-size: 1.25rem; line-height: 1.1; letter-spacing: -.045em; }
+    .view-intro { margin: -.3rem 0 1rem; color: var(--muted); font-size: .78rem; }
+    .search-box { display: flex; min-height: 2.8rem; align-items: center; gap: .55rem; padding: 0 .85rem; border: 1px solid transparent; border-radius: 99px; background: #edf0f5; color: var(--muted); }
+    .search-box svg { flex: none; width: 1rem; height: 1rem; }
+    .search-box input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; font-size: .78rem; }
+    .search-box input::placeholder { color: #768196; opacity: 1; }
+    .categories { display: flex; gap: .42rem; margin: .75rem 0 1rem; overflow-x: auto; padding: 2px 1px 4px; scrollbar-width: none; }
+    .categories::-webkit-scrollbar { display: none; }
+    .category { flex: none; min-height: 1.9rem; padding: .38rem .72rem; border: 1px solid #e5eaf1; border-radius: 99px; background: white; color: #4f5c72; font-size: .7rem; transition: background .18s ease,color .18s ease,border-color .18s ease; }
+    .category[aria-pressed="true"] { border-color: var(--blue); background: var(--blue); color: white; }
+    .section-row { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; margin: .75rem 0 .6rem; }
+    .section-row h2 { margin: 0; font-size: .96rem; letter-spacing: -.025em; }
+    .section-row span { color: var(--muted); font-size: .66rem; }
+    .products { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .62rem; }
+    .product-card { min-width: 0; overflow: hidden; padding: 0 0 .65rem; border: 1px solid #edf0f4; border-radius: .85rem; background: var(--surface); box-shadow: 0 1px 5px rgba(16,35,58,.035); text-align: left; transition: transform .18s ease,box-shadow .18s ease; }
+    .product-card:active { transform: scale(.98); }
+    .product-card:hover { box-shadow: var(--shadow); }
+    .product-art { display: grid; aspect-ratio: 1.48; place-items: center; overflow: hidden; background: linear-gradient(140deg,#d9f1d8,#72b36c); color: #fff; }
+    .product-art svg { width: 40%; height: 40%; filter: drop-shadow(0 2px 2px rgba(0,0,0,.1)); }
+    .product-art--home { background: linear-gradient(140deg,#f3dfc9,#c78e67); }
+    .product-art--tech { background: linear-gradient(140deg,#d7eaff,#83aee1); }
+    .product-art--care { background: linear-gradient(140deg,#f9e2d8,#df9977); }
+    .product-art--market { background: linear-gradient(140deg,#f6e7ca,#d5a85e); }
+    .product-copy { display: grid; gap: .28rem; padding: .55rem .62rem 0; }
+    .product-copy strong { overflow: hidden; font-size: .72rem; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+    .product-copy small { color: var(--muted); font-size: .65rem; }
+    .product-price { color: var(--blue-dark); font-size: .7rem; font-weight: 800; }
+    .nearby { margin-top: 1rem; }
+    .store-list { display: grid; gap: .5rem; }
+    .store { display: flex; min-width: 0; align-items: center; gap: .62rem; padding: .58rem; border: 1px solid var(--line); border-radius: .8rem; background: var(--surface); text-align: left; }
+    .store-mark { display: grid; flex: none; width: 2.55rem; height: 2.55rem; place-items: center; border-radius: .72rem; background: linear-gradient(135deg,#e7f4e2,#a7ce9d); color: #3d7545; font-weight: 850; }
+    .store-mark--market { background: linear-gradient(135deg,#fff0d8,#e8bd7f); color: #936222; }
+    .store-copy { display: grid; min-width: 0; gap: .2rem; }
+    .store-copy strong { font-size: .7rem; }
+    .store-copy small { color: var(--muted); font-size: .62rem; }
+    .empty-state { display: grid; min-height: 11rem; align-content: center; justify-items: center; gap: .45rem; padding: 1rem; color: var(--muted); text-align: center; }
+    .empty-state svg { width: 2.4rem; height: 2.4rem; color: #94a2b4; }
+    .empty-state strong { color: var(--ink); font-size: .86rem; }
+    .empty-state p { max-width: 18rem; margin: 0; font-size: .72rem; }
+    .order-card,.profile-card { margin: .7rem 0; padding: .9rem; border: 1px solid var(--line); border-radius: .9rem; background: var(--surface); }
+    .order-head { display: flex; justify-content: space-between; gap: .5rem; }
+    .order-head strong { font-size: .78rem; }
+    .order-status { color: var(--green); font-size: .67rem; font-weight: 750; }
+    .order-card p { margin: .55rem 0; color: var(--muted); font-size: .7rem; }
+    .order-card small { color: var(--muted); font-size: .64rem; }
+    .profile-card { display: flex; align-items: center; gap: .7rem; }
+    .avatar { display: grid; flex: none; width: 2.8rem; height: 2.8rem; place-items: center; border-radius: 50%; background: #e5efff; color: var(--blue-dark); font-weight: 850; }
+    .profile-copy { display: grid; gap: .2rem; }
+    .profile-copy strong { font-size: .8rem; }
+    .profile-copy small { color: var(--muted); font-size: .66rem; }
+    .menu-list { display: grid; gap: .42rem; margin-top: .8rem; }
+    .menu-item { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: .6rem; padding: .75rem .8rem; border: 1px solid var(--line); border-radius: .72rem; background: white; text-align: left; font-size: .72rem; }
+    .menu-item span:last-child { color: #8792a3; }
+    .bottom-nav { display: flex; flex: 0 0 9%; min-height: 59px; justify-content: space-around; padding: .28rem 2.5% max(3px,env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: rgba(255,255,255,.97); }
+    .nav-button { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: .18rem; border: 0; border-radius: .65rem; background: transparent; color: #778398; font-size: .6rem; }
+    .nav-button svg { width: 1.18rem; height: 1.18rem; }
+    .nav-button[aria-current="page"] { color: var(--blue); font-weight: 750; }
+    dialog { width: min(100% - 1.2rem, 26rem); max-height: min(84%, 38rem); margin: auto auto 0; padding: 0; overflow: auto; border: 0; border-radius: 1.25rem 1.25rem 0 0; background: var(--canvas); color: var(--ink); box-shadow: 0 -12px 40px rgba(15,27,45,.22); }
+    dialog::backdrop { background: rgba(18,28,43,.42); backdrop-filter: blur(2px); }
+    .dialog-content { padding: 1.15rem 1.1rem max(1.15rem,env(safe-area-inset-bottom)); }
+    .dialog-top { display: flex; align-items: center; justify-content: space-between; gap: .6rem; margin-bottom: .8rem; }
+    .dialog-top h2 { margin: 0; font-size: 1rem; }
+    .close-button { display: grid; width: 2rem; height: 2rem; place-items: center; border: 0; border-radius: 50%; background: #e9edf2; font-size: 1.2rem; }
+    .detail-art { display: grid; min-height: 9rem; place-items: center; border-radius: .9rem; color: white; }
+    .detail-art svg { width: 4rem; height: 4rem; }
+    .detail-copy { display: grid; gap: .42rem; margin: .85rem 0 1rem; }
+    .detail-copy h3 { margin: 0; font-size: 1.02rem; }
+    .detail-copy p { margin: 0; color: var(--muted); font-size: .75rem; }
+    .detail-copy strong { color: var(--blue-dark); font-size: .86rem; }
+    .primary-button,.secondary-button { display: flex; width: 100%; min-height: 2.8rem; align-items: center; justify-content: center; gap: .45rem; padding: .65rem .9rem; border: 0; border-radius: .75rem; background: var(--blue); color: white; font-size: .76rem; font-weight: 800; }
+    .primary-button:hover { background: var(--blue-dark); }
+    .secondary-button { border: 1px solid var(--line); background: white; color: var(--ink); }
+    .cart-list { display: grid; gap: .55rem; }
+    .cart-item { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .5rem; padding: .65rem; border: 1px solid var(--line); border-radius: .75rem; background: white; }
+    .cart-item-copy { display: grid; gap: .2rem; }
+    .cart-item-copy strong { font-size: .72rem; }
+    .cart-item-copy small { color: var(--muted); font-size: .64rem; }
+    .quantity { display: flex; align-items: center; gap: .45rem; }
+    .quantity button { display: grid; width: 1.75rem; height: 1.75rem; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: white; }
+    .quantity output { min-width: 1rem; text-align: center; font-size: .7rem; font-weight: 800; }
+    .cart-total { display: flex; justify-content: space-between; margin: .9rem 0; padding-top: .7rem; border-top: 1px solid var(--line); font-size: .8rem; font-weight: 800; }
+    .cart-note { margin: .7rem 0 0; color: var(--muted); font-size: .64rem; text-align: center; }
+    .toast { position: absolute; z-index: 10; right: 5%; bottom: calc(10% + .75rem); left: 5%; padding: .7rem .8rem; border-radius: .75rem; background: #172033; color: #fff; font-size: .72rem; text-align: center; box-shadow: var(--shadow); animation: toast-in .2s ease-out; }
+    @keyframes toast-in { from { opacity: 0; transform: translateY(.4rem); } to { opacity: 1; transform: none; } }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; clip-path: inset(50%); }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } .collection-background { animation: none !important; } }
+  </style>
+  <link rel="stylesheet" href="css/cumashop-preview.css?v=2">
+</head>
+<body>
+  <div id="app">
+    <div class="status-bar" aria-label="Barra de estado">
+      <span>9:41</span>
+      <span class="status-icons" aria-hidden="true"><span class="signal">▂▄▆</span><span>Wi‑Fi</span><span class="battery"></span></span>
+    </div>
+    <header class="app-header">
+      <span class="brand-mark" aria-hidden="true"><img src="images/oneblink-app-icon.png" alt=""></span>
+      <span class="brand-copy"><strong>CumaShop</strong><small>De tu pueblo, a tu puerta</small></span>
+      <span class="header-spacer"></span>
+      <button class="icon-button" id="openCart" type="button" aria-label="Abrir carrito, vacío">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.1 10.2a2 2 0 002 1.6h7.8a2 2 0 001.9-1.4L21 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
+        <span class="cart-count" id="cartCount" hidden>0</span>
+      </button>
+    </header>
+
+    <main class="app-main" id="appMain">
+      <section class="view home-view" id="view-home" data-view="home" aria-labelledby="homeTitle">
+        <header class="home-heading">
+          <h1 class="view-title" id="homeTitle"></h1>
+          <p class="home-date" id="homeDate"></p>
+        </header>
+        <div class="home-collections" id="homeCollections" aria-label="Colecciones de CumaShop"></div>
+      </section>
+
+      <section class="view" id="view-search" data-view="search" aria-labelledby="searchTitle" hidden>
+        <h1 class="view-title" id="searchTitle">Buscar</h1>
+        <p class="view-intro">Encuentra productos y negocios de tu zona.</p>
+        <label class="search-box" aria-label="Buscar en CumaShop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 4.5 4.5"></path></svg>
+          <input id="searchSearch" type="search" autocomplete="off" placeholder="Producto o tienda">
+        </label>
+        <div class="categories" role="group" aria-label="Filtrar por categoría" data-category-group>
+          <button class="category" type="button" data-category="all" aria-pressed="true">Todo</button>
+          <button class="category" type="button" data-category="food" aria-pressed="false">Comida</button>
+          <button class="category" type="button" data-category="home" aria-pressed="false">Hogar</button>
+          <button class="category" type="button" data-category="tech" aria-pressed="false">Tecnología</button>
+        </div>
+        <div class="section-row"><h2>Resultados</h2><span id="searchResultCount" aria-live="polite"></span></div>
+        <div class="products" id="searchGrid" aria-label="Resultados de búsqueda"></div>
+      </section>
+
+      <section class="view" id="view-orders" data-view="orders" aria-labelledby="ordersTitle" hidden>
+        <h1 class="view-title" id="ordersTitle">Tus pedidos</h1>
+        <p class="view-intro">Consulta el estado de tus compras.</p>
+        <div id="ordersContent"></div>
+      </section>
+
+      <section class="view" id="view-profile" data-view="profile" aria-labelledby="profileTitle" hidden>
+        <h1 class="view-title" id="profileTitle">Tu perfil</h1>
+        <p class="view-intro">Gestiona tu cuenta de CumaShop.</p>
+        <div class="profile-card"><span class="avatar" aria-hidden="true">A</span><span class="profile-copy"><strong>Cliente CumaShop</strong><small>Cumanayagua, Cienfuegos</small></span></div>
+        <div class="menu-list">
+          <button class="menu-item" type="button" data-profile-action="Direcciones"><span>Mis direcciones</span><span aria-hidden="true">›</span></button>
+          <button class="menu-item" type="button" data-profile-action="Favoritos"><span>Mis favoritos</span><span aria-hidden="true">›</span></button>
+          <button class="menu-item" type="button" data-profile-action="Ayuda"><span>Ayuda y soporte</span><span aria-hidden="true">›</span></button>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button class="nav-button" type="button" data-nav="home" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v9a2 2 0 01-2 2h-4v-7H9v7H5a2 2 0 01-2-2z"></path></svg><span>Inicio</span></button>
+      <button class="nav-button" type="button" data-nav="search" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"></circle><path d="m16 16 4.5 4.5"></path></svg><span>Buscar</span></button>
+      <button class="nav-button" type="button" data-nav="orders" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h14v18l-7-4-7 4z"></path><path d="M9 8h6M9 12h6"></path></svg><span>Pedidos</span></button>
+      <button class="nav-button" type="button" data-nav="profile" aria-current="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.5"></circle><path d="M5 21a7 7 0 0114 0"></path></svg><span>Perfil</span></button>
+    </nav>
+
+    <dialog id="productDialog" aria-labelledby="productDialogTitle">
+      <div class="dialog-content">
+        <div class="dialog-top"><h2>Detalle del producto</h2><button class="close-button" type="button" data-close="productDialog" aria-label="Cerrar">×</button></div>
+        <div id="productDetail"></div>
+      </div>
+    </dialog>
+    <dialog id="cartDialog" aria-labelledby="cartTitle">
+      <div class="dialog-content">
+        <div class="dialog-top"><h2 id="cartTitle">Tu carrito</h2><button class="close-button" type="button" data-close="cartDialog" aria-label="Cerrar">×</button></div>
+        <div id="cartContent"></div>
+      </div>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    <div class="sr-only" id="appAnnouncement" aria-live="polite"></div>
+  </div>
+
+  <script src="js/cumashop-config.js?v=1" defer></script>
+  <script src="js/cumashop-preview.js?v=5" defer></script>
+</body>
+</html>
