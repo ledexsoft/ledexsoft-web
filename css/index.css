@@ -493,17 +493,44 @@ section{ position:relative; }
   position:relative; width:100%; height:100%; isolation:isolate; transform-style:preserve-3d; container-type:inline-size;
 }
 .wp-media--pymepedia .pymepedia-device{
-  position:absolute; z-index:2; top:58%; left:52%; width:min(52cqw,300px); aspect-ratio:410/864; padding:8px;
+  position:absolute; z-index:2; top:56%; left:52%; width:min(46cqw,270px); aspect-ratio:410/864; padding:8px;
   border:1px solid rgba(255,255,255,.34); border-radius:36px;
   background:linear-gradient(145deg,#fbfaff,#68718b 3%,#161824 9%,#080a10 88%,#51566a);
   box-shadow:0 38px 84px rgba(0,0,0,.5),0 0 68px rgba(79,101,153,.25),0 0 0 1px rgba(9,11,18,.88) inset;
   transform:translate(-50%,-50%) rotate(2deg);
 }
 .wp-media--pymepedia .pymepedia-device__screen{
-  width:100%; height:100%; overflow:hidden; border-radius:28px; background:#fffafd;
+  position:relative; width:100%; height:100%; overflow:hidden; border-radius:28px; background:#fffafd;
   box-shadow:0 0 0 1px rgba(255,255,255,.5) inset,0 0 0 2px rgba(0,0,0,.82);
 }
-.wp-media--pymepedia .pymepedia-device__screen img{
+.pymepedia-screen-placeholder{
+  position:absolute; z-index:1; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.65rem;
+  overflow:hidden; border-radius:inherit; color:#25212a; background:radial-gradient(ellipse at 50% 43%,#fff 0,#fff7f4 48%,#f8edf1 100%);
+  transition:opacity .38s ease,visibility .38s ease;
+}
+.pymepedia-screen-placeholder::before{
+  content:""; position:absolute; top:16%; left:50%; width:74%; aspect-ratio:1; border-radius:50%;
+  background:rgba(255,83,111,.15); filter:blur(30px); transform:translateX(-50%);
+}
+.pymepedia-screen-placeholder img{
+  position:relative; z-index:1; display:block; width:clamp(46px,10cqw,68px); height:auto; border-radius:19px;
+  box-shadow:0 9px 28px rgba(238,54,93,.18);
+}
+.pymepedia-screen-placeholder strong{ position:relative; z-index:1; font-size:clamp(.72rem,2.8cqw,.92rem); font-weight:800; letter-spacing:-.03em; }
+.pymepedia-screen-placeholder small{ position:relative; z-index:1; color:#8a7e83; font-size:clamp(.45rem,1.8cqw,.58rem); font-weight:600; }
+.pymepedia-screen-spinner{
+  position:relative; z-index:1; width:18px; height:18px; border:2px solid rgba(233,48,93,.16); border-top-color:#ec4268;
+  border-radius:50%; animation:pymepedia-screen-spin .8s linear infinite;
+}
+@keyframes pymepedia-screen-spin{ to{ transform:rotate(360deg); } }
+.wp-media--pymepedia .pymepedia-device__screen > img[data-pymepedia-screen-image]{
+  position:absolute; z-index:0; inset:0; opacity:0; transition:opacity .38s ease; object-fit:cover;
+}
+.pymepedia-device__screen.is-image-loaded img[data-pymepedia-screen-image]{ opacity:1; }
+.pymepedia-device__screen.is-image-loaded .pymepedia-screen-placeholder{ opacity:0; visibility:hidden; }
+.pymepedia-device__screen.is-image-error .pymepedia-screen-spinner{ display:none; }
+.pymepedia-device__screen.is-image-error .pymepedia-screen-placeholder small{ color:#a0445c; }
+.wp-media--pymepedia .pymepedia-device__screen > img{
   display:block; width:100%; height:100%; object-fit:cover; object-position:center; border-radius:inherit;
 }
 .pymepedia-device__button{
@@ -514,15 +541,18 @@ section{ position:relative; }
   position:absolute; z-index:1; inset:0; pointer-events:none;
 }
 .pymepedia-sector-chip{
-  position:absolute; top:50%; display:block; width:min(19cqw,100px); aspect-ratio:4/3; overflow:hidden;
+  position:absolute; display:block; width:min(17cqw,100px); aspect-ratio:4/3; overflow:hidden;
   border:1px solid rgba(255,255,255,.72); border-radius:13px; background:#f5f5f8;
   box-shadow:0 10px 22px rgba(0,0,0,.25);
 }
-.pymepedia-sector-chip--left{ left:2%; transform:translateY(-50%) rotate(-7deg); }
-.pymepedia-sector-chip--right{ right:2%; transform:translateY(-25%) rotate(7deg); }
+.pymepedia-sector-chip--food{ top:15%; left:7%; transform:rotate(-8deg); }
+.pymepedia-sector-chip--commerce{ top:17%; right:7%; transform:rotate(8deg); }
+.pymepedia-sector-chip--agro{ bottom:12%; left:8%; transform:rotate(7deg); }
+.pymepedia-sector-chip--catalog{ right:8%; bottom:11%; width:min(12cqw,72px); aspect-ratio:809/1800; transform:rotate(-7deg); }
 .wp-media--pymepedia .pymepedia-sector-chip img{
   width:100%; height:100%; object-fit:cover; border-radius:inherit; filter:brightness(.7);
 }
+.pymepedia-sector-chip--catalog img{ object-position:center 24%; }
 .pymepedia-sector-chip b{
   position:absolute; right:4px; bottom:5px; left:4px; overflow:hidden; color:#fff; font-size:.54rem;
   line-height:1.15; text-align:center; text-overflow:ellipsis; text-shadow:0 1px 4px rgba(0,0,0,.8); white-space:nowrap;
@@ -678,11 +708,13 @@ section{ position:relative; }
     background:linear-gradient(145deg,rgba(243,47,112,.68),rgba(87,125,206,.58));
     filter:blur(48px); transform:translate(-50%,-50%);
   }
-  .wp-media--pymepedia .pymepedia-device{ top:50%; left:50%; width:min(58cqw,230px); }
-  .pymepedia-sector-chip{ width:min(22cqw,82px); border-radius:11px; }
+  .wp-media--pymepedia .pymepedia-device{ top:50%; left:50%; width:min(51cqw,205px); }
+  .pymepedia-sector-chip{ width:min(20cqw,78px); border-radius:11px; }
   .pymepedia-sector-chip b{ right:2px; bottom:4px; left:2px; font-size:.46rem; }
-  .pymepedia-sector-chip--left{ top:41%; left:0; }
-  .pymepedia-sector-chip--right{ top:58%; right:0; }
+  .pymepedia-sector-chip--food{ top:10%; left:3%; }
+  .pymepedia-sector-chip--commerce{ top:14%; right:3%; }
+  .pymepedia-sector-chip--agro{ bottom:9%; left:3%; }
+  .pymepedia-sector-chip--catalog{ right:4%; bottom:10%; width:min(15cqw,58px); aspect-ratio:809/1800; }
   .cumashop-copy-area{ display:flex; flex-direction:column; gap:1.8rem; }
   .cumashop-intro .wp-tag{ margin-bottom:.8rem; }
   .cumashop-intro .wp-desc{ margin-top:.7rem; }
@@ -711,12 +743,15 @@ section{ position:relative; }
   .work-panel{ padding-top:2.3rem; padding-bottom:2.3rem; }
   .work-panel .wp-inner{ gap:1.1rem; }
   .wp-media--pymepedia{ min-height:440px; }
-  .wp-media--pymepedia .pymepedia-device{ width:min(58cqw,230px); }
+  .wp-media--pymepedia .pymepedia-device{ width:min(51cqw,205px); }
   .chapter-art--properties{ grid-template-rows:98px repeat(3,78px); gap:.38rem; }
   .chapter-property__type{ font-size:.62rem; }
   .chapter-property__label{ bottom:1.2rem; font-size:.45rem; }
 }
 @media (prefers-reduced-motion:reduce){
+  .pymepedia-screen-spinner{ animation:none; }
+  .pymepedia-screen-placeholder,
+  .wp-media--pymepedia .pymepedia-device__screen > img[data-pymepedia-screen-image]{ transition:none; }
   .cumashop-copy-area.is-story-pinned .cumashop-reveal-word,
   .cumashop-copy-area.is-story-pinned .cumashop-reveal-word::after{ color:var(--paper)!important; clip-path:none!important; opacity:1!important; transition:none!important; }
 }

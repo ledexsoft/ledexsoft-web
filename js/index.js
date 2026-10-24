@@ -1,6 +1,24 @@
 (function(){
   "use strict";
   var REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('[data-pymepedia-screen-image]').forEach(function(image){
+    var screen=image.closest('.pymepedia-device__screen');
+    var status=screen&&screen.querySelector('[data-pymepedia-screen-status]');
+    if(!screen) return;
+    var settled=false;
+    function settle(loaded){
+      if(settled) return;
+      settled=true;
+      screen.classList.add(loaded?'is-image-loaded':'is-image-error');
+      if(status) status.textContent=loaded?'Directorio listo':'Vista previa no disponible';
+    }
+    image.addEventListener('load',function(){ window.setTimeout(function(){settle(true);},360);},{once:true});
+    image.addEventListener('error',function(){settle(false);},{once:true});
+    if(image.complete){
+      var loaded=image.naturalWidth>0;
+      window.setTimeout(function(){settle(loaded);},loaded?360:0);
+    }
+  });
   if(!window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
 
