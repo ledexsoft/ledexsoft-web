@@ -4,13 +4,19 @@
   var section=document.querySelector('#manifiesto');
   if(!section || !section.querySelector('.project-image img')) return;
 
-  import('../assets/apricode/portfolio-sheets-MgpdmwSY.js?v=2')
+  window.__manifestoApricodeRevealOverride=0;
+  import('../assets/apricode/portfolio-sheets-MgpdmwSY.js?v=4')
     .then(function(module){
-      var controller=module.createPortfolioSheets({section:section,blocked:function(){return document.hidden;}});
+      var controller=module.createPortfolioSheets({
+        section:section,
+        blocked:function(){return document.hidden;},
+        revealProgress:function(){return window.__manifestoApricodeRevealOverride||0;}
+      });
       if(!controller) return;
       window.__manifestoApricodeSheet=controller;
       window.addEventListener('pagehide',function(){
         controller.dispose();
+        delete window.__manifestoApricodeRevealOverride;
         if(window.__manifestoApricodeSheet===controller) delete window.__manifestoApricodeSheet;
       },{once:true});
     })

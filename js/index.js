@@ -637,11 +637,7 @@
     wipeTimeline.to('.wipe-orbit-center', {y:'-22vh', duration:.55, ease:'power2.inOut'}, 1.05);
   }
 
-  /* ---------------- manifesto scroll-scrub reveal ---------------- */
-  var manifestoWords = splitWords(document.getElementById('manifestoText'));
-  gsap.timeline({
-    scrollTrigger:{ trigger:'#manifiesto', start:'top 75%', end:'bottom 80%', scrub:.6 }
-  }).to(manifestoWords, { opacity:1, stagger:.04, ease:'none' });
+  if(window.installManifestoTextEffect) window.installManifestoTextEffect();
 
   /* ---------------- productos horizontal pin ---------------- */
   var mm = gsap.matchMedia();
@@ -845,7 +841,12 @@
     ScrollTrigger.create({
       trigger:el, start:'top center', end:'bottom center',
       onToggle:function(self){
-        if(!self.isActive) return;
+        if(!self.isActive){
+          if(entry.sel==='#productos' && self.direction<0){
+            topLinks.forEach(function(link){ link.classList.toggle('is-active',link.getAttribute('href')==='#manifiesto'); });
+          }
+          return;
+        }
         topLinks.forEach(function(l){ l.classList.toggle('is-active', l.getAttribute('href')===entry.href); });
       }
     });

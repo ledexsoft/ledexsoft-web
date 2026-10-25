@@ -1,0 +1,8 @@
+name = "ledexsoft-web-development-router"
+main = "./desarrollo-web.js"
+compatibility_date = "2026-10-25"
+workers_dev = false
+
+routes = [
+  { pattern = "ledexsoft.com/desarrollo-web*", zone_name = "ledexsoft.com" }
+]

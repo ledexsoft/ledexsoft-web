@@ -462,8 +462,8 @@ section{ position:relative; }
 .cap-study__label{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin:0 0 12px; color:var(--petrol); font-size:9px; line-height:1.4; letter-spacing:.075em; text-transform:uppercase; }
 .cap-study figcaption{ margin-top:13px; color:var(--petrol); font-size:11px; line-height:1.5; }
 .manifesto-text{
-  font-family:var(--font-display); font-weight:400; font-size:clamp(1.5rem,3.2vw,2.6rem);
-  line-height:1.32; letter-spacing:-0.01em;
+  font-family:var(--font-display); font-weight:400; font-size:clamp(1.9rem,3.6vw,3rem);
+  line-height:1.06; letter-spacing:-0.015em; text-align:center; margin-inline:auto;
 }
 .manifesto-text .word{ opacity:.22; transition:none; }
 .manifesto-foot{
@@ -473,6 +473,7 @@ section{ position:relative; }
 @media (max-width:900px){
   .manifesto .wrap{ grid-template-columns:1fr; gap:2.4rem; }
   .manifesto-side{ position:static; max-width:260px; }
+  .manifesto-text{ font-size:clamp(2rem,5.3vw,2.5rem); line-height:1.08; }
 }
 
 /* ============================================================
