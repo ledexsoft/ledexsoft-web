@@ -778,8 +778,9 @@
   /* ---------------- founder rows: each reveals independently as it enters ---------------- */
   document.querySelectorAll('.founder-row').forEach(function(row){
     var img = row.querySelector('.founder-photo img');
-    gsap.fromTo(img, {clipPath:'inset(16% 30% 16% 30%)', scale:1.25}, {
-      clipPath:'inset(0% 0% 0% 0%)', scale:1, ease:'none',
+    var photo = row.querySelector('.founder-photo');
+    gsap.fromTo(photo, {'--founder-paper-progress':0}, {
+      '--founder-paper-progress':1, ease:'none',
       scrollTrigger:{ trigger:row, start:'top 80%', end:'top 40%', scrub:true }
     });
     var textEls = row.querySelectorAll('.founder-quote,.founder-name,.founder-role,.founder-bio');
@@ -796,11 +797,107 @@
     }
   });
 
+  /* ---------------- DOVV-style curved section handoff ---------------- */
+  var founderDome = document.querySelector('.founder-dome');
+  if(founderDome){
+    if(REDUCED){
+      gsap.set(founderDome,{scaleY:.6});
+    }else{
+      gsap.fromTo(founderDome,{scaleY:0},{
+        scaleY:1,ease:'none',
+        scrollTrigger:{trigger:'#fundador',start:'top bottom',end:'top top',scrub:true}
+      });
+    }
+  }
+
   /* ---------------- cta headline: dramatic scrub scale-in ---------------- */
   gsap.fromTo('.cta-head', {opacity:0, scale:.9, y:40}, {
     opacity:1, scale:1, y:0, ease:'none',
     scrollTrigger:{ trigger:'.cta', start:'top 85%', end:'top 40%', scrub:true }
   });
+
+  /* ---------------- products title: DOVV-style spring entrance ---------------- */
+  var workTitle = document.querySelector('.work-head h2');
+  if(workTitle && !REDUCED){
+    gsap.fromTo(workTitle, {opacity:0, y:90}, {
+      opacity:1, y:0, duration:1, delay:.4, ease:'back.out(1.35)',
+      clearProps:'opacity,transform',
+      scrollTrigger:{trigger:workTitle, start:'top 85%', once:true}
+    });
+  }
+
+  /* DOVV's headline changes each glyph's variable-font weight near the pointer. */
+  function enableDovvWeightHover(element){
+    if(!element || REDUCED) return;
+    var label = element.textContent.trim().replace(/\s+/g,' ');
+    var words = label.split(' ');
+    var glyphs = [];
+    var weightRest = 600;
+    var weightNear = 300;
+    var weightRadius = 400;
+    element.setAttribute('aria-label',label);
+    element.textContent = '';
+    words.forEach(function(word,wordIndex){
+      var wordElement = document.createElement('span');
+      wordElement.className = 'work-title-word';
+      if(wordIndex < words.length - 1) wordElement.setAttribute('data-word-gap','');
+      Array.from(word).forEach(function(character){
+        var glyph = document.createElement('span');
+        glyph.className = 'work-title-glyph';
+        glyph.textContent = character;
+        glyph.setAttribute('aria-hidden','true');
+        glyph.style.fontVariationSettings = '"wght" ' + weightRest;
+        wordElement.appendChild(glyph);
+        glyphs.push({element:glyph,weight:weightRest,x:0,y:0});
+      });
+      element.appendChild(wordElement);
+    });
+
+    var pointer = {x:-9999,y:-9999};
+    var frame = 0;
+    function measureGlyphs(){
+      var bounds = element.getBoundingClientRect();
+      glyphs.forEach(function(glyph){
+        var rect = glyph.element.getBoundingClientRect();
+        glyph.x = rect.left + rect.width / 2 - bounds.left;
+        glyph.y = rect.top + rect.height / 2 - bounds.top;
+      });
+    }
+    function animateWeights(){
+      frame = 0;
+      var bounds = element.getBoundingClientRect();
+      var moving = false;
+      glyphs.forEach(function(glyph){
+        var distance = Math.hypot(pointer.x - (bounds.left + glyph.x), pointer.y - (bounds.top + glyph.y));
+        var proximity = Math.max(0,1 - distance / weightRadius);
+        var influence = proximity * proximity * (3 - 2 * proximity);
+        var targetWeight = weightRest + (weightNear - weightRest) * influence;
+        glyph.weight += (targetWeight - glyph.weight) * .1;
+        if(Math.abs(targetWeight - glyph.weight) > .5) moving = true;
+        glyph.element.style.fontVariationSettings = '"wght" ' + glyph.weight.toFixed(1);
+      });
+      if(moving) frame = requestAnimationFrame(animateWeights);
+    }
+    function requestWeightUpdate(){
+      if(!frame) frame = requestAnimationFrame(animateWeights);
+    }
+    measureGlyphs();
+    if('ResizeObserver' in window) new ResizeObserver(measureGlyphs).observe(element);
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(measureGlyphs);
+    window.addEventListener('pointermove',function(event){
+      if(event.pointerType !== 'mouse') return;
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      requestWeightUpdate();
+    },{passive:true});
+    document.addEventListener('pointerleave',function(){
+      pointer.x = pointer.y = -9999;
+      requestWeightUpdate();
+    });
+  }
+  enableDovvWeightHover(workTitle);
+  enableDovvWeightHover(document.querySelector('#cumashop .spotlight-copy h2'));
+  enableDovvWeightHover(document.querySelector('.cta-head'));
 
   /* ---------------- generic section-head reveal (single treatment) ---------------- */
   gsap.utils.toArray('.section-head, .work-head, .cta-sub').forEach(function(el){
