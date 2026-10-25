@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/index.css?v=20">
+<link rel="stylesheet" href="css/index.css?v=58">
 </head>
 <body class="is-loading">
 <noscript><style>body.is-loading{overflow:auto;height:auto}.preloader{display:none!important}</style></noscript>
@@ -118,7 +118,31 @@
   <!-- ============ WIPE TRANSITION (pinned, scroll-driven) ============ -->
   <section class="wipe" id="wipeTransition">
     <div class="wipe-panel" id="wipePanel">
+      <div class="wipe-panel-gradient" aria-hidden="true"></div>
       <div class="wipe-orbit-field" id="wipeOrbitField" aria-hidden="true">
+        <div class="wipe-clock" id="wipeClock">
+          <div class="wipe-clock__analog" aria-hidden="true">
+            <div class="wipe-clock__ticks" id="wipeClockTicks"></div>
+            <div class="wipe-clock__dial" id="wipeClockDial">
+              <div class="wipe-clock__face"></div>
+              <svg class="wipe-clock__hand" viewBox="0 0 16 207">
+                <path d="M8.998047 162.063477 C12.945195 162.55481 16 165.919785 16 170 C16 174.08017 12.945137 177.444168 8.998047 177.935547 L8.998047 207 L6.998047 207 L6.998047 177.935547 C3.05282 177.442459 0 174.078842 0 170 C0 165.921112 3.052761 162.556519 6.998047 162.063477 L6.998047 0 L8.998047 0 L8.998047 162.063477 Z" fill="var(--wipe-clock-accent,#d97070)"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="wipe-clock__readout">
+            <span id="wipeClockMinutes">05</span><span class="wipe-clock__colon">:</span><span class="wipe-clock__accent" id="wipeClockSeconds">00</span>
+          </div>
+          <ol class="wipe-clock__steps" aria-hidden="true">
+            <li><span class="wipe-clock__step-label">Menos tareas repetitivas</span></li>
+            <li><span class="wipe-clock__step-label">Procesos más simples</span></li>
+            <li><span class="wipe-clock__step-label">Más tiempo para lo importante</span></li>
+          </ol>
+          <span class="wipe-clock__step-current" aria-live="polite">
+            <span class="wipe-clock__single-check wipe-clock__marker" id="wipeClockStepMarker" data-state="active" aria-hidden="true"><span class="wipe-clock__ring"></span><span class="wipe-clock__disc"></span><svg class="wipe-clock__check" viewBox="0 0 7 5"><path d="M6.918 .474 2.438 4.919a.28.28 0 0 1-.396 0L.082 2.974a.28.28 0 1 1 .396-.393L2.24 4.329 6.522.081a.28.28 0 0 1 .396.393Z" /></svg><span class="wipe-clock__spinner"><i style="--spoke-angle:0deg;--spoke-delay:-0s"></i><i style="--spoke-angle:45deg;--spoke-delay:-0.1s"></i><i style="--spoke-angle:90deg;--spoke-delay:-0.2s"></i><i style="--spoke-angle:135deg;--spoke-delay:-0.3s"></i><i style="--spoke-angle:180deg;--spoke-delay:-0.4s"></i><i style="--spoke-angle:225deg;--spoke-delay:-0.5s"></i><i style="--spoke-angle:270deg;--spoke-delay:-0.6s"></i><i style="--spoke-angle:315deg;--spoke-delay:-0.7s"></i></span></span>
+            <span id="wipeClockStepCurrentText">Conectando Figma</span>
+          </span>
+        </div>
         <div class="wipe-orbit-center" id="wipeOrbitCenter">
           <div class="wipe-orbit wipe-orbit--small" data-wipe-orbit="small"></div>
           <div class="wipe-orbit wipe-orbit--medium" data-wipe-orbit="medium"></div>
@@ -480,7 +504,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
 
-  <script src="js/index.js?v=13" defer></script>
+  <script src="js/index.js?v=36" defer></script>
 <script src="js/fallback.js" defer></script>
 
 </body>

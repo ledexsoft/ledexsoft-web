@@ -526,22 +526,100 @@
     }
   });
 
+  var wipeClockTicks = document.getElementById('wipeClockTicks');
+  var wipeClockMinutes = document.getElementById('wipeClockMinutes');
+  var wipeClockSeconds = document.getElementById('wipeClockSeconds');
+  var wipeClockSteps = Array.prototype.slice.call(document.querySelectorAll('.wipe-clock__steps li'));
+  var wipeClockStepCurrent = document.getElementById('wipeClockStepCurrentText');
+  var wipeClockStepMarker = document.getElementById('wipeClockStepMarker');
+  var wipeClockStepCurrentIndex = 0;
+  var wipeClockProgress = {value:0};
+  var wipeClockStepProgress = {value:0};
+  if(wipeClockTicks){
+    var svgNamespace = 'http://www.w3.org/2000/svg';
+    var tickSvg = document.createElementNS(svgNamespace,'svg');
+    tickSvg.setAttribute('viewBox','0 0 376 376');
+    tickSvg.setAttribute('aria-hidden','true');
+    for(var tickIndex=0;tickIndex<60;tickIndex++){
+      var tickAngle = tickIndex*Math.PI/30;
+      var majorTick = tickIndex%5===0;
+      var tickInnerRadius = majorTick?171:181;
+      var tickOuterRadius = 188;
+      var tick = document.createElementNS(svgNamespace,'line');
+      tick.setAttribute('class','wipe-clock__tick'+(majorTick?' wipe-clock__tick--major':''));
+      tick.setAttribute('x1',(188+Math.sin(tickAngle)*tickInnerRadius).toFixed(2));
+      tick.setAttribute('y1',(188-Math.cos(tickAngle)*tickInnerRadius).toFixed(2));
+      tick.setAttribute('x2',(188+Math.sin(tickAngle)*tickOuterRadius).toFixed(2));
+      tick.setAttribute('y2',(188-Math.cos(tickAngle)*tickOuterRadius).toFixed(2));
+      tickSvg.appendChild(tick);
+    }
+    wipeClockTicks.appendChild(tickSvg);
+  }
+  function renderWipeClock(){
+    var secondsRemaining = Math.max(0,Math.round(300*(1-wipeClockProgress.value)));
+    if(wipeClockMinutes) wipeClockMinutes.textContent = String(Math.floor(secondsRemaining/60)).padStart(2,'0');
+    if(wipeClockSeconds) wipeClockSeconds.textContent = String(secondsRemaining%60).padStart(2,'0');
+    var wipeClock = document.getElementById('wipeClock');
+    if(wipeClock){
+      wipeClock.classList.toggle('wipe-clock--orange-window',secondsRemaining<=150 && secondsRemaining>=120);
+      wipeClock.classList.toggle('wipe-clock--under-two-minutes',secondsRemaining<120);
+    }
+  }
+  function renderWipeClockSteps(){
+    var progress = Math.min(wipeClockSteps.length,Math.max(0,wipeClockStepProgress.value));
+    var completed = Math.min(wipeClockSteps.length,Math.floor(progress + 0.00001));
+    if(wipeClockStepMarker){
+      var withinStep = progress - Math.floor(progress);
+      wipeClockStepMarker.setAttribute('data-state',completed >= wipeClockSteps.length || withinStep >= .72 ? 'done' : 'active');
+    }
+    if(!wipeClockStepCurrent || !wipeClockSteps.length) return;
+    var nextIndex = Math.min(completed,wipeClockSteps.length-1);
+    if(nextIndex === wipeClockStepCurrentIndex) return;
+    wipeClockStepCurrentIndex = nextIndex;
+    var nextLabel = wipeClockSteps[nextIndex].querySelector('.wipe-clock__step-label');
+    if(!nextLabel) return;
+    var nextText = nextLabel.textContent;
+    if(REDUCED){
+      wipeClockStepCurrent.textContent = nextText;
+      return;
+    }
+    gsap.killTweensOf(wipeClockStepCurrent);
+    gsap.to(wipeClockStepCurrent,{
+      autoAlpha:0,y:-6,duration:.12,ease:'power1.in',
+      onComplete:function(){
+        if(wipeClockStepCurrentIndex !== nextIndex) return;
+        wipeClockStepCurrent.textContent = nextText;
+        gsap.fromTo(wipeClockStepCurrent,{autoAlpha:0,y:6},{autoAlpha:1,y:0,duration:.2,ease:'power2.out'});
+      }
+    });
+  }
+  renderWipeClockSteps();
+  gsap.set('#wipeClockDial', {rotation:0});
   if(REDUCED){
     gsap.set('.wipe-panel', {clipPath:'circle(145vmax at 50% 50%)'});
     gsap.set(['.wipe-orbit-field','.wipe-word'], {opacity:1});
+    wipeClockStepProgress.value = wipeClockSteps.length;
+    renderWipeClockSteps();
+    gsap.set('.wipe-clock__ring', {opacity:0});
+    gsap.set(['.wipe-clock__disc','.wipe-clock__check'], {opacity:1,scale:1});
+    renderWipeClock();
   } else {
     var wipeTimeline = gsap.timeline({
-      scrollTrigger:{ trigger:'.wipe', start:'top top', end:'+=160%', scrub:.6, pin:true }
+      scrollTrigger:{ trigger:'.wipe', start:'top top', end:'+=360%', scrub:.6, pin:true }
     });
     wipeTimeline.to('.wipe-panel', {clipPath:'circle(145vmax at 50% 50%)', duration:.78, ease:'none'}, 0);
     wipeTimeline.to('.wipe-orbit-field', {opacity:1, duration:.2, ease:'none'}, .22);
-    wipeTimeline.to('.wipe-orbit-field', {opacity:0, duration:.55, ease:'none'}, 1.05);
+    wipeTimeline.to('.wipe-orbit-field', {opacity:0, duration:.55, ease:'none'}, 3.05);
+    wipeTimeline.to('.wipe-panel-gradient', {opacity:0, duration:1.08, ease:'power2.inOut'}, 2.52);
+    wipeTimeline.to('#wipeClockDial', {rotation:-360, duration:3.6, ease:'none'}, 0);
+    wipeTimeline.to(wipeClockProgress, {value:1, duration:3.6, ease:'none', onUpdate:renderWipeClock}, 0);
+    wipeTimeline.to(wipeClockStepProgress, {value:wipeClockSteps.length, duration:.635, ease:'none', onUpdate:renderWipeClockSteps}, .28);
     wipeTimeline.to('.wipe-word', {opacity:1, duration:.2, ease:'none'}, .34);
     wipeRingSettings.forEach(function(config){
       var ring = document.querySelector('[data-wipe-orbit="'+config.name+'"]');
       if(!ring) return;
       var finalAngle = config.rotation*config.direction;
-      var cruiseDuration = .62;
+      var cruiseDuration = 2.62;
       var settleDuration = .20;
       var angularSpeed = config.rotation/.78;
       var cruiseAngle = finalAngle+config.direction*angularSpeed*cruiseDuration;
@@ -551,7 +629,11 @@
       wipeTimeline.to(ring, {rotation:stopAngle, duration:settleDuration, ease:'power1.out'}, .78+cruiseDuration);
     });
     wipeTimeline.to('.wipe-copy', {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 1.05);
-    wipeTimeline.to('.wipe-orbit-center', {y:'-22vh', duration:.55, ease:'power2.inOut'}, 1.05);
+    wipeTimeline.to('.wipe-clock__step-current', {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 2.05);
+    wipeTimeline.to('.wipe-clock__readout', {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 3.05);
+    wipeTimeline.to('.wipe-clock__hand', {y:'-22vh', opacity:0, duration:.12, ease:'power2.inOut'}, 2.76);
+    wipeTimeline.to('.wipe-clock__analog', {y:'-22vh', opacity:0, duration:.72, ease:'power2.inOut'}, 2.88);
+    wipeTimeline.to('.wipe-orbit-center', {y:'-22vh', duration:.55, ease:'power2.inOut'}, 3.05);
   }
 
   /* ---------------- manifesto scroll-scrub reveal ---------------- */
