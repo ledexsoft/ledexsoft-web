@@ -629,7 +629,9 @@
       wipeTimeline.to(ring, {rotation:stopAngle, duration:settleDuration, ease:'power1.out'}, .78+cruiseDuration);
     });
     wipeTimeline.to('.wipe-copy', {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 1.05);
-    wipeTimeline.to(['.wipe-clock__readout','.wipe-clock__step-current'], {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 1.05);
+    var oneClockSecond = 1.6/300;
+    wipeTimeline.to('.wipe-clock__step-current', {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 1.05+oneClockSecond);
+    wipeTimeline.to('.wipe-clock__readout', {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 1.05+oneClockSecond*2);
     wipeTimeline.to('.wipe-clock__hand', {y:'-22vh', opacity:0, duration:.0533, ease:'power2.inOut'}, 1.2267);
     wipeTimeline.to('.wipe-clock__analog', {y:'-22vh', opacity:0, duration:.32, ease:'power2.inOut'}, 1.28);
     wipeTimeline.to('.wipe-orbit-center', {y:'-22vh', duration:.55, ease:'power2.inOut'}, 1.05);
