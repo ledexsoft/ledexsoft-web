@@ -313,7 +313,7 @@ header.site-nav.is-scrolled{
 }
 .wipe-clock__face{
   position:absolute; inset:0; border-radius:50%;
-  background:conic-gradient(from 180deg at 50% 50%,#faf6ec 0%,#f5edda 100%);
+  background:conic-gradient(from 180deg at 50% 50%,#faf6ed 0%,#fdfbf6 100%);
   transform:rotate(180deg);
 }
 .wipe-clock__hand{
