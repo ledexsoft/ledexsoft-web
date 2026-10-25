@@ -605,21 +605,21 @@
     renderWipeClock();
   } else {
     var wipeTimeline = gsap.timeline({
-      scrollTrigger:{ trigger:'.wipe', start:'top top', end:'+=360%', scrub:.6, pin:true }
+      scrollTrigger:{ trigger:'.wipe', start:'top top', end:'+=160%', scrub:.6, pin:true }
     });
     wipeTimeline.to('.wipe-panel', {clipPath:'circle(145vmax at 50% 50%)', duration:.78, ease:'none'}, 0);
     wipeTimeline.to('.wipe-orbit-field', {opacity:1, duration:.2, ease:'none'}, .22);
-    wipeTimeline.to('.wipe-orbit-field', {opacity:0, duration:.55, ease:'none'}, 3.05);
-    wipeTimeline.to('.wipe-panel-gradient', {opacity:0, duration:1.08, ease:'power2.inOut'}, 2.52);
-    wipeTimeline.to('#wipeClockDial', {rotation:-360, duration:3.6, ease:'none'}, 0);
-    wipeTimeline.to(wipeClockProgress, {value:1, duration:3.6, ease:'none', onUpdate:renderWipeClock}, 0);
+    wipeTimeline.to('.wipe-orbit-field', {opacity:0, duration:.55, ease:'none'}, 1.05);
+    wipeTimeline.to('.wipe-panel-gradient', {opacity:0, duration:.48, ease:'power2.inOut'}, 1.12);
+    wipeTimeline.to('#wipeClockDial', {rotation:-360, duration:1.6, ease:'none'}, 0);
+    wipeTimeline.to(wipeClockProgress, {value:1, duration:1.6, ease:'none', onUpdate:renderWipeClock}, 0);
     wipeTimeline.to(wipeClockStepProgress, {value:wipeClockSteps.length, duration:.635, ease:'none', onUpdate:renderWipeClockSteps}, .28);
     wipeTimeline.to('.wipe-word', {opacity:1, duration:.2, ease:'none'}, .34);
     wipeRingSettings.forEach(function(config){
       var ring = document.querySelector('[data-wipe-orbit="'+config.name+'"]');
       if(!ring) return;
       var finalAngle = config.rotation*config.direction;
-      var cruiseDuration = 2.62;
+      var cruiseDuration = .62;
       var settleDuration = .20;
       var angularSpeed = config.rotation/.78;
       var cruiseAngle = finalAngle+config.direction*angularSpeed*cruiseDuration;
@@ -629,11 +629,10 @@
       wipeTimeline.to(ring, {rotation:stopAngle, duration:settleDuration, ease:'power1.out'}, .78+cruiseDuration);
     });
     wipeTimeline.to('.wipe-copy', {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 1.05);
-    wipeTimeline.to('.wipe-clock__step-current', {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 2.05);
-    wipeTimeline.to('.wipe-clock__readout', {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 3.05);
-    wipeTimeline.to('.wipe-clock__hand', {y:'-22vh', opacity:0, duration:.12, ease:'power2.inOut'}, 2.76);
-    wipeTimeline.to('.wipe-clock__analog', {y:'-22vh', opacity:0, duration:.72, ease:'power2.inOut'}, 2.88);
-    wipeTimeline.to('.wipe-orbit-center', {y:'-22vh', duration:.55, ease:'power2.inOut'}, 3.05);
+    wipeTimeline.to(['.wipe-clock__readout','.wipe-clock__step-current'], {y:'-22vh', opacity:0, duration:.55, ease:'power2.inOut'}, 1.05);
+    wipeTimeline.to('.wipe-clock__hand', {y:'-22vh', opacity:0, duration:.0533, ease:'power2.inOut'}, 1.2267);
+    wipeTimeline.to('.wipe-clock__analog', {y:'-22vh', opacity:0, duration:.32, ease:'power2.inOut'}, 1.28);
+    wipeTimeline.to('.wipe-orbit-center', {y:'-22vh', duration:.55, ease:'power2.inOut'}, 1.05);
   }
 
   /* ---------------- manifesto scroll-scrub reveal ---------------- */
