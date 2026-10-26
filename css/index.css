@@ -533,7 +533,7 @@ body.has-products-handoff .work-pin{ transform-origin:50% 50%; will-change:trans
 }
 .wp-media--cumashop{ aspect-ratio:4/5; display:grid; place-items:center; }
 .wp-media--cumashop .wp-visual{
-  position:relative; z-index:1; width:min(42%,410px); aspect-ratio:410/864;
+  position:relative; z-index:1; width:min(37.8%,410px); aspect-ratio:410/864;
   --device:#0c0b0a; --device-inset:2.44cqw; --screen-radius:calc(14.63cqw - var(--device-inset));
   isolation:isolate; transform-style:preserve-3d; container-type:inline-size;
 }
@@ -710,6 +710,8 @@ body.has-products-handoff .work-pin{ transform-origin:50% 50%; will-change:trans
   .work-track{ display:block; width:auto; height:auto; }
   .work-panel{ width:auto; height:auto; padding:2.8rem var(--pad); }
   .work-panel .wp-inner{ grid-template-columns:1fr; gap:1.35rem; }
+  .wp-media--cumashop{ aspect-ratio:auto; }
+  .wp-media--cumashop .wp-visual{ width:min(84%,410px); }
   .wp-media--pymepedia{ aspect-ratio:auto; min-height:490px; }
   .wp-media--pymepedia::before{
     top:50%; left:50%; width:190px; height:230px; opacity:.42;
