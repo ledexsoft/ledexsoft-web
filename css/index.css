@@ -788,13 +788,16 @@ body.has-products-handoff .spotlight{ position:relative; z-index:2; margin-top:-
   box-shadow:0 20px 40px rgba(0,0,0,.3);
 }
 @media (max-width:900px){
-  .spotlight{ padding:3rem 0 8rem; }
+  .spotlight{ padding:4rem 0 6rem; }
   .spotlight-kinetic{
     position:relative; top:24px; left:auto; width:calc(100% - 2 * var(--pad)); height:3.7rem; margin:0 auto .8rem;
-    transform:none; font-size:clamp(1.3rem,6vw,1.8rem); line-height:.9; letter-spacing:-.055em;
+    transform:none; font-size:clamp(1.25rem,5.8vw,1.7rem); line-height:1; letter-spacing:-.045em;
   }
-  .spotlight .wrap{ grid-template-columns:1fr; gap:3rem; }
+  .spotlight .wrap{ grid-template-columns:1fr; gap:2rem; }
   .spotlight-media{ order:-1; }
+  .spotlight-copy p{ font-size:clamp(1rem,4.5vw,1.125rem); line-height:1.55; }
+  .ticket{ margin-top:1.8rem; padding:1.45rem 1.3rem 2.15rem; }
+  .ticket-row{ font-size:.9rem; }
 }
 @media (prefers-reduced-motion:reduce){
   .spotlight-kinetic__state{ position:relative; opacity:1!important; transform:none!important; }
