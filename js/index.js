@@ -923,7 +923,7 @@
         scrollTrigger:{
           trigger:spotlightKineticTitle,
           start:'top 90%',
-          end:'top 30%',
+          end:function(){ return window.innerWidth<=900?'+='+(window.innerHeight*.55):'top 30%'; },
           scrub:1.4,
           invalidateOnRefresh:true,
           onUpdate:function(self){ setSpotlightTitleLabel(self.progress); },

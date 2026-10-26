@@ -788,7 +788,11 @@ body.has-products-handoff .spotlight{ position:relative; z-index:2; margin-top:-
   box-shadow:0 20px 40px rgba(0,0,0,.3);
 }
 @media (max-width:900px){
-  .spotlight-kinetic{ top:17%; left:50%; width:108vw; font-size:clamp(3rem,12.5vw,7.5rem); line-height:.82; letter-spacing:-.08em; }
+  .spotlight{ padding:3rem 0 8rem; }
+  .spotlight-kinetic{
+    position:relative; top:24px; left:auto; width:calc(100% - 2 * var(--pad)); height:3.7rem; margin:0 auto .8rem;
+    transform:none; font-size:clamp(1.3rem,6vw,1.8rem); line-height:.9; letter-spacing:-.055em;
+  }
   .spotlight .wrap{ grid-template-columns:1fr; gap:3rem; }
   .spotlight-media{ order:-1; }
 }
