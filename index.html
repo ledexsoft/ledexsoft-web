@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/index.css?v=86">
+  <link rel="stylesheet" href="css/index.css?v=92">
 </head>
 <body class="is-loading">
 <noscript><style>body.is-loading{overflow:auto;height:auto}.preloader{display:none!important}</style></noscript>
@@ -312,34 +312,53 @@
 
   <!-- ============ CUMASHOP SPOTLIGHT ============ -->
   <section class="spotlight" id="cumashop">
-    <h2 class="spotlight-kinetic" id="spotlightKineticTitle" aria-label="La beta ya está disponible">
-      <span class="spotlight-kinetic__state spotlight-kinetic__state--beta" aria-hidden="true">
-        <span>LA BETA YA</span><span>ESTÁ DISPONIBLE</span>
-      </span>
-      <span class="spotlight-kinetic__state spotlight-kinetic__state--download" aria-hidden="true">
-        <span>DESCÁRGALO</span><span>DESDE PLAY STORE</span>
-      </span>
-    </h2>
-    <div class="wrap">
-      <div class="spotlight-copy">
-        <span class="eyebrow" style="color:var(--mango);">CumaShop</span>
-        <p>Descarga CumaShop desde Google Play y conoce el comercio local de Cumanayagua desde tu celular. Estamos mejorando la app con las primeras experiencias de quienes la usan.</p>
+    <div class="spotlight-stage" id="cumashopSpotlightStage">
+      <h2 class="spotlight-kinetic" id="spotlightKineticTitle" aria-label="La beta ya está disponible">
+        <span class="spotlight-kinetic__state spotlight-kinetic__state--beta" aria-hidden="true">
+          <span>LA BETA YA</span><span>ESTÁ DISPONIBLE</span>
+        </span>
+        <span class="spotlight-kinetic__state spotlight-kinetic__state--download" aria-hidden="true">
+          <span>DESCÁRGALO</span><span>DESDE PLAY STORE</span>
+        </span>
+      </h2>
+      <div class="wrap">
+        <div class="spotlight-copy">
+          <span class="spotlight-kicker"><span class="spotlight-kicker__dot" aria-hidden="true"></span>Comercio local · Cumanayagua</span>
+          <p class="spotlight-lead">Descubre productos y ofertas de los negocios de tu comunidad, directamente desde el celular.</p>
 
-        <div class="ticket">
-          <div class="ticket-row"><span>Producto</span><span>CumaShop</span></div>
-          <div class="ticket-row"><span>Zona</span><span>Cumanayagua, Cienfuegos</span></div>
-          <div class="ticket-row"><span>Plataforma</span><span>Google Play</span></div>
-          <div class="ticket-row"><span>Estado</span><span>Beta disponible</span></div>
-          <a class="ticket-download" href="https://play.google.com/store/apps/details?id=com.ledexsoft.oneblink" target="_blank" rel="noopener noreferrer">Descargar en Google Play ↗</a>
+          <ul class="spotlight-highlights" aria-label="Lo que puedes hacer con CumaShop">
+            <li>
+              <span class="spotlight-highlight__index">01</span>
+              <span><strong>Explora el comercio de tu zona</strong><small>Encuentra productos publicados por negocios locales.</small></span>
+            </li>
+            <li>
+              <span class="spotlight-highlight__index">02</span>
+              <span><strong>Consulta opciones desde la app</strong><small>Revisa el catálogo local desde tu teléfono.</small></span>
+            </li>
+            <li>
+              <span class="spotlight-highlight__index">03</span>
+              <span><strong>Prueba la beta en Android</strong><small>Tu experiencia ayuda a mejorar CumaShop.</small></span>
+            </li>
+          </ul>
+
+          <div class="spotlight-actions">
+            <a class="spotlight-play-badge" href="https://play.google.com/store/apps/details?id=com.ledexsoft.oneblink" target="_blank" rel="noopener noreferrer" aria-label="Descargar CumaShop en Google Play">
+              <img src="images/google-play-badge-es-419.png" alt="Descargar en Google Play" width="646" height="250" decoding="async">
+            </a>
+            <a href="cumashop.html" class="spotlight-more" data-cursor="Ver">Conocer CumaShop <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
 
-        <a href="cumashop.html" class="btn-primary" data-cursor="Ver">Saber más sobre CumaShop</a>
+        <div class="spotlight-media">
+          <picture>
+            <source type="image/webp" srcset="images/cumashop-campana-640.webp 640w, images/cumashop-campana-1280.webp 1280w" sizes="(max-width: 900px) calc(100vw - 2.5rem), (max-width: 1500px) 45vw, 612px">
+            <img id="spotlightImg" src="images/cumashop-campana.jpg" width="1536" height="1024" alt="Presentación de CumaShop con su app, productos locales e icono" loading="lazy" decoding="async">
+          </picture>
+          <div class="float-chip"><span class="float-chip__dot" aria-hidden="true"></span><span>Primero en Cumanayagua, Cienfuegos</span></div>
+          <span class="spotlight-media-caption">Compra cerca. Descubre lo local.</span>
+        </div>
       </div>
-
-      <div class="spotlight-media">
-        <img id="spotlightImg" src="images/cumashop-campana.jpg" alt="Presentación de CumaShop con su app, productos locales e icono" loading="lazy" decoding="async">
-        <div class="float-chip">Disponible primero en Cumanayagua, Cienfuegos</div>
-      </div>
+    </div>
     </div>
   </section>
 
@@ -438,7 +457,7 @@
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
 
   <script src="js/manifesto-text-effect.js?v=13" defer></script>
-  <script src="js/index.js?v=63" defer></script>
+  <script src="js/index.js?v=76" defer></script>
   <script type="module" src="js/founder-paper.js?v=5"></script>
 <script src="js/fallback.js" defer></script>
 

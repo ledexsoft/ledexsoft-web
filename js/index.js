@@ -648,6 +648,7 @@
         }
       },
       scrollTrigger:{
+        id:'productsStory',
         trigger:'#workPin',
         start:'top top',
         end:function(){ return '+='+(distance()+transitionDistance()); },
@@ -676,6 +677,24 @@
         }
       }
     });
+
+    /* Let the CumaShop panel finish its approach as it enters the viewport,
+       before the horizontal track begins carrying it out of frame. */
+    var cumaShopPanel = track.querySelector('.work-panel');
+    var cumaShopContent = cumaShopPanel && cumaShopPanel.querySelector('.wp-inner');
+    if(cumaShopContent && !REDUCED){
+      gsap.fromTo(cumaShopContent,{scale:.94},{
+        scale:1,
+        ease:'none',
+        scrollTrigger:{
+          trigger:pin,
+          start:'top bottom',
+          end:'top top',
+          scrub:true,
+          invalidateOnRefresh:true
+        }
+      });
+    }
 
     story.to(track,{
       x:function(){ return -distance(); },
@@ -720,6 +739,24 @@
         gsap.set(nextSection,{clearProps:'transform,opacity,visibility'});
       }
     };
+  });
+
+  mm.add('(max-width:899px)', function(){
+    if(REDUCED) return;
+    var cumaShopPanel=document.querySelector('#workTrack .work-panel');
+    var cumaShopContent=cumaShopPanel && cumaShopPanel.querySelector('.wp-inner');
+    if(!cumaShopContent) return;
+    gsap.fromTo(cumaShopContent,{scale:.94},{
+      scale:1,
+      ease:'none',
+      scrollTrigger:{
+        trigger:cumaShopPanel,
+        start:'top 88%',
+        end:'top 42%',
+        scrub:true,
+        invalidateOnRefresh:true
+      }
+    });
   });
 
   /* ---------------- spotlight media reveal ---------------- */
@@ -914,27 +951,39 @@
         return Array.prototype.slice.call(state.querySelectorAll('.work-title-glyph'));
       });
       var setSpotlightTitleLabel=function(progress){
-        spotlightKineticTitle.setAttribute('aria-label',spotlightTitleLabels[progress<.52?0:1]);
+        spotlightKineticTitle.setAttribute('aria-label',spotlightTitleLabels[progress<.56?0:1]);
       };
       gsap.set(spotlightPhraseChars[0],{yPercent:105});
       gsap.set(spotlightPhraseChars[1],{yPercent:105});
       gsap.set(spotlightKineticStates[1],{autoAlpha:0});
       var spotlightTitleTimeline=gsap.timeline({
         scrollTrigger:{
-          trigger:spotlightKineticTitle,
-          start:'top 90%',
-          end:function(){ return window.innerWidth<=900?'+='+(window.innerHeight*.55):'top 30%'; },
+          id:'cumashopTitleReveal',
+          trigger:'#cumashop',
+          start:function(){
+            var productsStory=ScrollTrigger.getById('productsStory');
+            return productsStory?productsStory.end:'top top';
+          },
+          end:function(){ return '+='+(window.innerHeight*1.2); },
+          pin:document.getElementById('cumashopSpotlightStage'),
+          pinReparent:true,
+          pinSpacing:true,
+          anticipatePin:1,
           scrub:1.4,
           invalidateOnRefresh:true,
+          onEnter:function(){ gsap.set(document.getElementById('cumashopSpotlightStage'),{visibility:'visible'}); },
+          onEnterBack:function(){ gsap.set(document.getElementById('cumashopSpotlightStage'),{visibility:'visible'}); },
+          onLeaveBack:function(){ gsap.set(document.getElementById('cumashopSpotlightStage'),{clearProps:'visibility'}); },
           onUpdate:function(self){ setSpotlightTitleLabel(self.progress); },
           onRefresh:function(self){ setSpotlightTitleLabel(self.progress); }
         }
       });
       spotlightTitleTimeline
         .to(spotlightPhraseChars[0],{yPercent:0,duration:.34,stagger:{amount:.2},ease:'back.out(1.7)'},0)
-        .to(spotlightKineticStates[0],{yPercent:-105,autoAlpha:0,duration:.2,ease:'back.in(1.7)'},.38)
-        .fromTo(spotlightKineticStates[1],{autoAlpha:0},{autoAlpha:1,duration:.01,ease:'none'},.55)
-        .to(spotlightPhraseChars[1],{yPercent:0,duration:.34,stagger:{amount:.2},ease:'back.out(1.7)'},.55);
+        .to(spotlightKineticStates[0],{yPercent:-105,autoAlpha:0,duration:.2,ease:'back.in(1.7)'},.74)
+        .fromTo(spotlightKineticStates[1],{autoAlpha:0},{autoAlpha:1,duration:.01,ease:'none'},.91)
+        .to(spotlightPhraseChars[1],{yPercent:0,duration:.34,stagger:{amount:.2},ease:'back.out(1.7)'},.91)
+        .to(spotlightKineticTitle,{y:-24,autoAlpha:0,duration:.12,ease:'power2.in'},1.49);
       gsap.timeline({
         scrollTrigger:{trigger:'#cumashop',start:'top bottom',end:'bottom top',scrub:1.4,invalidateOnRefresh:true}
       })
