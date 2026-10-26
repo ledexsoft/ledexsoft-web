@@ -78,6 +78,8 @@ window.installManifestoTextEffect=function(){
     return top;
   }
 
+  var textRevealProgress=0;
+
   var pinTrigger=ScrollTrigger.create({
     trigger:text,
     start:function(){ return 'top '+startOffset()+'px'; },
@@ -101,7 +103,8 @@ window.installManifestoTextEffect=function(){
     }
     var top=image.getBoundingClientRect().top;
     var base=Math.max(0,Math.min(1,(window.innerHeight-top)/(window.innerHeight*1.4)));
-    window.__manifestoApricodeRevealOverride=base+(1-base)*pinProgress;
+    var imageProgress=Math.min(1,textRevealProgress*2);
+    window.__manifestoApricodeRevealOverride=base+(1-base)*imageProgress;
   }
 
   var timeline=gsap.timeline({
@@ -117,6 +120,7 @@ window.installManifestoTextEffect=function(){
       fastScrollEnd:true,
       preventOverlaps:true,
       onUpdate:function(self){
+        textRevealProgress=self.progress;
         updateImageReveal();
         if(pinTrigger.isActive){
           document.querySelectorAll('.nav-links a[href^="#"]').forEach(function(link){

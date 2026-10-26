@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/index.css?v=62">
+  <link rel="stylesheet" href="css/index.css?v=78">
 </head>
 <body class="is-loading">
 <noscript><style>body.is-loading{overflow:auto;height:auto}.preloader{display:none!important}</style></noscript>
@@ -211,22 +211,14 @@
                 <span class="wp-tag">Beta disponible en Google Play</span>
                 <h3 class="wp-title">CumaShop</h3>
                 <p class="wp-desc">Marketplace de comercio local para Cumanayagua, Cienfuegos. Conecta los negocios del municipio con sus clientes desde el celular — el primer paso antes de llegar a más lugares.</p>
+                <div class="cumashop-download">
+                  <img class="cumashop-download__icon" src="images/oneblink-app-icon.png" alt="" width="48" height="48" decoding="async">
+                  <span class="cumashop-download__app"><strong>CumaShop</strong><small>Beta para Android</small></span>
+                  <a class="cumashop-download__badge" href="https://play.google.com/store/apps/details?id=com.ledexsoft.oneblink" target="_blank" rel="noopener noreferrer" aria-label="Descargar la beta de CumaShop en Google Play">
+                    <img src="images/google-play-badge-es-419.png" alt="Descargar en Google Play" width="646" height="250" decoding="async">
+                  </a>
+                </div>
                 <a href="#cumashop" class="wp-link" data-cursor="Ver">Ver CumaShop</a>
-              </div>
-              <div class="cumashop-story" id="cumashopStory" aria-label="Descarga la beta de CumaShop" aria-live="polite">
-                <article class="cumashop-chapter" data-cumashop-chapter="0" aria-current="false">
-                  <span class="cumashop-chapter__progress" aria-hidden="true"></span>
-                  <span class="cumashop-chapter__eyebrow">Beta disponible en Google Play</span>
-                  <h4>Prueba CumaShop en tu Android.</h4>
-                  <p>Descarga la beta y descubre productos, comercios y oportunidades de Cumanayagua desde tu celular.</p>
-                  <div class="chapter-art chapter-art--download">
-                    <img class="chapter-download__icon" src="images/oneblink-app-icon.png" alt="" width="48" height="48" decoding="async">
-                    <span class="chapter-download__app"><strong>CumaShop</strong><small>Beta para Android</small></span>
-                    <a class="chapter-download__badge" href="https://play.google.com/store/apps/details?id=com.ledexsoft.oneblink" target="_blank" rel="noopener noreferrer" aria-label="Descargar la beta de CumaShop en Google Play">
-                      <img src="images/google-play-badge-es-419.png" alt="Descargar en Google Play" width="646" height="250" decoding="async">
-                    </a>
-                  </div>
-                </article>
               </div>
             </div>
             <div class="wp-media wp-media--cumashop">
@@ -240,7 +232,7 @@
                       <span class="cumashop-splash-powered">Power by LedexSoft</span>
                       <span class="cumashop-splash-spinner" role="status" aria-label="Cargando CumaShop"></span>
                     </div>
-          <iframe class="wp-screen-preview" data-src="cumashop-preview.html?v=4" title="Vista previa interactiva de CumaShop" scrolling="no"></iframe>
+                    <iframe class="wp-screen-preview" data-src="cumashop-preview.html?v=4" title="Vista previa interactiva de CumaShop" scrolling="no"></iframe>
                   </div>
                   <span class="wp-device-island" aria-hidden="true"></span>
                   <span class="wp-device-button wp-device-button--left-one" aria-hidden="true"></span>
@@ -320,10 +312,17 @@
 
   <!-- ============ CUMASHOP SPOTLIGHT ============ -->
   <section class="spotlight" id="cumashop">
+    <h2 class="spotlight-kinetic" id="spotlightKineticTitle" aria-label="La beta ya está disponible">
+      <span class="spotlight-kinetic__state spotlight-kinetic__state--beta" aria-hidden="true">
+        <span>LA BETA YA</span><span>ESTÁ DISPONIBLE</span>
+      </span>
+      <span class="spotlight-kinetic__state spotlight-kinetic__state--download" aria-hidden="true">
+        <span>DESCÁRGALO</span><span>DESDE PLAY STORE</span>
+      </span>
+    </h2>
     <div class="wrap">
       <div class="spotlight-copy">
         <span class="eyebrow" style="color:var(--mango);">CumaShop</span>
-        <h2>La beta ya está disponible</h2>
         <p>Descarga CumaShop desde Google Play y conoce el comercio local de Cumanayagua desde tu celular. Estamos mejorando la app con las primeras experiencias de quienes la usan.</p>
 
         <div class="ticket">
@@ -432,15 +431,15 @@
   </div>
 </footer>
 
-<script src="js/manifesto-effect.js?v=4" defer></script>
+<script src="js/manifesto-effect.js?v=5" defer></script>
 <script src="js/cumashop-frame.js?v=4" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
 
-  <script src="js/manifesto-text-effect.js?v=12" defer></script>
-  <script src="js/index.js?v=47" defer></script>
-<script src="js/founder-paper.js?v=1" defer></script>
+  <script src="js/manifesto-text-effect.js?v=13" defer></script>
+  <script src="js/index.js?v=62" defer></script>
+  <script type="module" src="js/founder-paper.js?v=5"></script>
 <script src="js/fallback.js" defer></script>
 
 </body>
