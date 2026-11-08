@@ -1,0 +1,12 @@
+.apps-policy { max-width: 940px; }
+.app-policy-list { display: grid; gap: .75rem; margin-top: 2rem; }
+.app-policy-card { display: grid; grid-template-columns: 3rem 1fr auto; align-items: center; gap: 1rem; padding: 1.2rem 1.35rem; border: 1px solid rgb(15 27 22 / 12%); border-radius: 1rem; background: #fffdf7; color: var(--ink); text-decoration: none; transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+.app-policy-card:hover { transform: translateY(-2px); border-color: var(--mango); background: #fffaf0; }
+.app-policy-index { color: var(--mango); font-size: .8rem; font-weight: 800; letter-spacing: .08em; }
+.app-policy-card strong, .app-policy-card small { display: block; }
+.app-policy-card strong { font-size: 1.05rem; }
+.app-policy-card small { margin-top: .2rem; color: var(--muted); font-size: .84rem; line-height: 1.5; }
+.app-policy-arrow { color: var(--petrol); font-size: 1.25rem; }
+.policy-note { margin-top: 1.5rem; padding: 1rem 1.1rem; border-left: 3px solid var(--mango); background: #f8f2e4; color: #46554b; font-size: .88rem; line-height: 1.65; }
+@media (max-width: 560px) { .app-policy-card { grid-template-columns: 2rem 1fr auto; gap: .7rem; padding: 1rem; } }
+@media (prefers-reduced-motion: reduce) { .app-policy-card { transition: none; } }
