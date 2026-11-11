@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1b16">
+  <meta name="description" content="Plan de Ciudad Digital 1.1: alcance inicial, progreso, hitos y mecánicas consideradas para la simulación de Cumanayagua.">
+  <link rel="canonical" href="https://ledexsoft.com/Proyectos/CiudadDigital11/plan.html">
+  <title>Plan y mecánicas — Ciudad Digital 1.1 | LedexSoft</title>
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../css/fonts.css">
+  <link rel="stylesheet" href="css/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="docs-header">
+    <a class="brand" href="../../" aria-label="LedexSoft, inicio"><span>Ledex<em>Soft</em></span><small>PROYECTOS</small></a>
+    <nav aria-label="Navegación principal">
+      <a href="./">Ciudad Digital</a>
+      <a class="is-current" href="plan.html">Plan y mecánicas</a>
+      <a href="desarrolladores.html">Desarrolladores</a>
+      <a class="nav-github" href="https://github.com/ledexsoft/ciudad-digital-11" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="contenido" class="doc-page shell">
+    <div class="doc-heading">
+      <p class="eyebrow"><a href="./">Ciudad Digital 1.1</a> / PLAN Y MECÁNICAS</p>
+      <h1>La hoja de ruta,<br><em>tal como está.</em></h1>
+      <p class="doc-lead">El proyecto se construye por sectores comprobables. Esta página distingue lo que ya existe, lo que requiere validación y las ideas que aún no tienen diseño ni compromiso de entrega.</p>
+      <p class="updated">Actualizado <time datetime="2026-11-11">11 nov 2026</time></p>
+    </div>
+
+    <div class="doc-layout">
+      <aside class="doc-sidebar" aria-label="En esta página">
+        <span>PLAN DEL PROYECTO</span>
+        <a href="#proposito">Propósito</a>
+        <a href="#estado">Estado</a>
+        <a href="#hitos">Hitos siguientes</a>
+        <a href="#mecanicas">Mecánicas</a>
+      </aside>
+
+      <article class="doc-content">
+        <section id="proposito">
+          <p class="eyebrow">01 / Propósito</p>
+          <h2>Una ciudad que se pueda recorrer y comprender.</h2>
+          <p>Ciudad Digital 1.1 busca representar el núcleo urbano de Cumanayagua, Cienfuegos, usando fuentes geográficas identificables y referencias verificables. El primer recorrido debe servir para observar y explicar el lugar, no para llenar el mapa de sistemas de juego antes de que el mapa sea fiable.</p>
+          <div class="callout"><strong>Alcance de la primera versión</strong><p>Movimiento en primera persona, orientación y explicación del mapa. Sin combate, misiones, tráfico simulado ni economía como requisito inicial.</p></div>
+        </section>
+
+        <section id="estado">
+          <p class="eyebrow">02 / Estado real</p>
+          <h2>Qué está hecho, qué se está comprobando y qué falta.</h2>
+          <div class="status-board">
+            <div class="status-column">
+              <h3><span class="status status--done">Hecho</span></h3>
+              <ul>
+                <li>Proyecto configurado para Unreal Engine 5.8.</li>
+                <li>Mapa geográfico con Landscape basado en Copernicus DEM GLO-30: 8,064 × 8,064 m, 253 × 253 muestras y 32 m entre muestras.</li>
+                <li>GeoReferencing en WGS 84 / UTM 17N (EPSG:32617); las pruebas editoriales consultaron la superficie y su colisión en 15 puntos.</li>
+                <li>Subsistemas C++ de posición solar y colisión del personaje; compilan en Mac para `CumaPlayEditor Development`.</li>
+                <li>El GameMode y el personaje de primera persona de la plantilla están asignados en el proyecto local.</li>
+              </ul>
+            </div>
+            <div class="status-column">
+              <h3><span class="status status--progress">En curso</span></h3>
+              <ul>
+                <li>Ejecutar el mapa en PIE y confirmar aparición, controles y apoyo visual de los pies sobre las pendientes.</li>
+                <li>Confirmar que la posición del `PlayerStart` quedó guardada en el mapa.</li>
+                <li>Verificar y activar el streaming de celdas de World Partition; el mapa tiene World Partition, pero eso no confirma el streaming activo.</li>
+                <li>Medir rendimiento y exposición día/noche en la Mac M1 con 8 GB.</li>
+              </ul>
+            </div>
+            <div class="status-column">
+              <h3><span class="status status--todo">Por hacer</span></h3>
+              <ul>
+                <li>Elegir el primer sector urbano y comparar sus datos con referencias locales.</li>
+                <li>Integrar calles y huellas de edificios; todavía no hay geometría urbana real en el nivel.</li>
+                <li>Aplicar una base visual con licencias claras. Sentinel-2 está guardado como referencia, no aplicado como material del Landscape.</li>
+                <li>Organizar Data Layers y HLOD después de validar los primeros objetos urbanos.</li>
+                <li>Crear perfiles de escritorio y probar por separado Android/iOS; esas plataformas aún no están verificadas.</li>
+              </ul>
+            </div>
+          </div>
+          <p class="small-note">“Compila” significa que el módulo C++ pasó la compilación en Mac. No significa que las funciones hayan sido probadas durante el juego.</p>
+        </section>
+
+        <section id="hitos">
+          <p class="eyebrow">03 / Hitos siguientes</p>
+          <h2>Primero un sector que funcione de principio a fin.</h2>
+          <ol class="milestone-list">
+            <li><span class="milestone-number">01</span><div><h3>Validar el paseo</h3><p>Probar spawn, caminar, mirar, salto heredado de la plantilla y colisión del Landscape en PIE. Ajustar solo tras observar el resultado.</p><span class="status status--progress">Siguiente</span></div></li>
+            <li><span class="milestone-number">02</span><div><h3>Fijar el sector y sus fuentes</h3><p>Elegir una zona pequeña del núcleo, registrar CRS, altura, fecha, licencia y atribución de cada capa. Marcar los datos que falten.</p><span class="status status--todo">Pendiente</span></div></li>
+            <li><span class="milestone-number">03</span><div><h3>Construir y explicar esa zona</h3><p>Integrar calles, edificios y señalización basada en datos comprobables; organizar la carga espacial y medir memoria antes de ampliar.</p><span class="status status--todo">Pendiente</span></div></li>
+            <li><span class="milestone-number">04</span><div><h3>Ampliar con evidencia</h3><p>Repetir el flujo para sectores contiguos usando el mismo origen UTM y el mismo datum vertical, evitando saltos entre tiles.</p><span class="status status--later">Después</span></div></li>
+          </ol>
+        </section>
+
+        <section id="mecanicas">
+          <p class="eyebrow">04 / Mecánicas</p>
+          <h2>Lo que la persona puede hacer.</h2>
+          <div class="mechanic-row"><span class="status status--progress">Base de plantilla</span><div><h3>Caminar, mirar y saltar</h3><p>El mapa usa el personaje de primera persona incluido en la plantilla de Unreal. El salto también viene de esa plantilla; su conveniencia para el recorrido final todavía no está decidida.</p></div></div>
+          <div class="mechanic-row"><span class="status status--progress">Código hecho</span><div><h3>Transición solar con hora real</h3><p>El sistema calcula el sol para Cumanayagua usando el reloj del dispositivo y el plugin Sun Position. Falta observarlo en juego.</p></div></div>
+          <div class="mechanic-row"><span class="status status--todo">Por diseñar</span><div><h3>Orientación y explicación del mapa</h3><p>La página de documentación describe el objetivo; todavía no hay una interfaz de información, marcadores o recorrido guiado implementados en el juego.</p></div></div>
+          <div class="callout callout--quiet"><strong>Ideas futuras, todavía sin aprobar</strong><p>Se han conversado una tienda virtual dentro del mundo y el deterioro de alimentos con el paso del tiempo. No existe una base de datos de juego ni una economía implementada, y estas ideas no pertenecen al alcance confirmado de la primera versión.</p></div>
+        </section>
+
+        <div class="doc-next"><a href="desarrolladores.html">Siguiente: guía para desarrolladores <span aria-hidden="true">→</span></a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="docs-footer"><div class="shell footer-inner"><a class="brand" href="../../"><span>Ledex<em>Soft</em></span></a><p>Ciudad Digital 1.1 · Cumanayagua</p><a href="https://github.com/ledexsoft/ciudad-digital-11/issues">Proponer una tarea <span aria-hidden="true">↗</span></a></div></footer>
+</body>
+</html>

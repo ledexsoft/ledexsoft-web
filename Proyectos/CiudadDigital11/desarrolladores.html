@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1b16">
+  <meta name="description" content="Guía técnica para colaborar en Ciudad Digital 1.1: estructura C++, coordenadas GIS, terreno, movimiento, iluminación y flujo de contribución.">
+  <link rel="canonical" href="https://ledexsoft.com/Proyectos/CiudadDigital11/desarrolladores.html">
+  <title>Guía para desarrolladores — Ciudad Digital 1.1 | LedexSoft</title>
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../css/fonts.css">
+  <link rel="stylesheet" href="css/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="docs-header">
+    <a class="brand" href="../../" aria-label="LedexSoft, inicio"><span>Ledex<em>Soft</em></span><small>PROYECTOS</small></a>
+    <nav aria-label="Navegación principal">
+      <a href="./">Ciudad Digital</a>
+      <a href="plan.html">Plan y mecánicas</a>
+      <a class="is-current" href="desarrolladores.html">Desarrolladores</a>
+      <a class="nav-github" href="https://github.com/ledexsoft/ciudad-digital-11" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="contenido" class="doc-page shell">
+    <div class="doc-heading">
+      <p class="eyebrow"><a href="./">Ciudad Digital 1.1</a> / GUÍA PARA DESARROLLADORES</p>
+      <h1>Entender el sistema<br><em>antes de ampliarlo.</em></h1>
+      <p class="doc-lead">Esta guía explica qué hace cada parte, qué falta comprobar y cómo preparar una contribución. El mapa y los assets del proyecto completo no se distribuyen en el repositorio público.</p>
+      <div class="doc-heading-actions"><a class="button button--primary" href="https://github.com/ledexsoft/ciudad-digital-11" target="_blank" rel="noopener noreferrer">Abrir repositorio <span aria-hidden="true">↗</span></a><a class="button button--quiet" href="https://github.com/ledexsoft/ciudad-digital-11/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">Cómo contribuir <span aria-hidden="true">↗</span></a></div>
+    </div>
+
+    <div class="doc-layout">
+      <aside class="doc-sidebar" aria-label="En esta página">
+        <span>GUÍA TÉCNICA</span>
+        <a href="#reconstruir">Preparar el proyecto</a>
+        <a href="#arquitectura">Arquitectura runtime</a>
+        <a href="#coordenadas">Coordenadas y terreno</a>
+        <a href="#streaming">World Partition</a>
+        <a href="#fuentes">Fuentes y licencias</a>
+        <a href="#contribuir">Contribuir</a>
+      </aside>
+
+      <article class="doc-content">
+        <section id="reconstruir">
+          <p class="eyebrow">01 / Antes de compilar</p>
+          <h2>El repositorio público solo contiene código y documentación.</h2>
+          <p>El repo <a href="https://github.com/ledexsoft/ciudad-digital-11">ledexsoft/ciudad-digital-11</a> no es un clon listo para abrir en Unreal. No incluye el `.uproject`, el mapa, los Blueprints, el contenido de la plantilla de Epic ni los datos GIS; tampoco distribuye esos materiales bajo MIT.</p>
+          <ol class="step-list">
+            <li><b>01</b><div><strong>Usa una copia autorizada del proyecto.</strong><p>Necesitas Unreal Engine 5.8 y una copia del proyecto local que contenga los assets. Si partes de un proyecto nuevo, crea uno de plantilla First Person en UE 5.8; los Blueprints que usa el mapa deben estar disponibles localmente.</p></div></li>
+            <li><b>02</b><div><strong>Integra el módulo.</strong><p>Copia `Source/CumaPlay` y los dos archivos target del repositorio. El `.uproject` debe declarar el módulo runtime `CumaPlay`; el módulo depende de `Core`, `CoreUObject`, `Engine` y `SunPosition`.</p></div></li>
+            <li><b>03</b><div><strong>Habilita el plugin requerido y compila.</strong><p>El plugin oficial `SunPosition` viene con UE 5.8. Revisa que esté habilitado para el proyecto, genera los archivos de proyecto si tu sistema lo requiere y compila el target Editor.</p></div></li>
+            <li><b>04</b><div><strong>Prueba dentro del motor.</strong><p>Abre un mapa que tenga el personaje de primera persona y terreno con colisión. La compilación de C++ no confirma spawn, controles, apoyo de pies ni aspecto visual.</p></div></li>
+          </ol>
+          <div class="callout callout--warning"><strong>Límite actual</strong><p>La única compilación registrada es `CumaPlayEditor Mac Development` en UE 5.8. PIE, Windows y móviles siguen sin validar. Para una contribución de gameplay, añade pasos de prueba claros.</p></div>
+        </section>
+
+        <section id="arquitectura">
+          <p class="eyebrow">02 / Arquitectura runtime</p>
+          <h2>Dos subsistemas acotados.</h2>
+          <div class="tech-card">
+            <div class="tech-card-head"><code>UCumaDayNightSubsystem</code><span class="status status--progress">Compila · PIE pendiente</span></div>
+            <p>Un `UTickableWorldSubsystem` de mundos de juego y PIE. Lee `UtcNow()` para el instante astronómico y `Now()` para obtener la hora civil del dispositivo; calcula el sol sobre Cumanayagua con `USunPositionFunctionLibrary` del plugin oficial `SunPosition`. Actualiza la luz direccional, temperatura, intensidad ambiental y los actores de cielo que falten.</p>
+            <p class="file-link"><a href="https://github.com/ledexsoft/ciudad-digital-11/blob/main/Source/CumaPlay/Private/CumaDayNightSubsystem.cpp">Ver implementación en GitHub ↗</a></p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-card-head"><code>UCumaCharacterCollisionSubsystem</code><span class="status status--progress">Compila · PIE pendiente</span></div>
+            <p>Espera al pawn local de tipo `ACharacter` y después aplica una sola vez los ajustes. La cápsula es el cuerpo físico que barre el suelo; los pies dibujados no colisionan por separado. La cápsula bloquea `WorldStatic`, canal que usa el Landscape, y `CharacterMovement` comprueba el suelo con base plana, pendiente caminable hasta 50°, escalón de 45 cm y un umbral de percha de 10 cm.</p>
+            <p class="file-link"><a href="https://github.com/ledexsoft/ciudad-digital-11/blob/main/Source/CumaPlay/Private/CumaCharacterCollisionSubsystem.cpp">Ver implementación en GitHub ↗</a></p>
+          </div>
+          <div class="tech-card">
+            <div class="tech-card-head"><code>BP_FirstPersonGameMode / BP_FirstPersonCharacter</code><span class="status status--progress">Plantilla local</span></div>
+            <p>El proyecto local usa el GameMode y personaje de la plantilla First Person de Unreal, con cámara, movimiento, mirada y salto. Esos Blueprints no están incluidos en el repositorio abierto. El mapa de ciudad apunta a un `PlayerStart`, pero hay que volver a comprobar su ubicación guardada en el nivel y ejecutar PIE.</p>
+          </div>
+        </section>
+
+        <section id="coordenadas">
+          <p class="eyebrow">03 / Coordenadas y terreno</p>
+          <h2>Conservar el mismo origen al ampliar.</h2>
+          <div class="data-table" role="table" aria-label="Referencia geográfica del mapa">
+            <div role="row"><b role="cell">CRS horizontal</b><span role="cell">WGS 84 / UTM 17N · EPSG:32617</span></div>
+            <div role="row"><b role="cell">Coordenada del centro urbano</b><span role="cell">22.14938° N, 80.20212° O</span></div>
+            <div role="row"><b role="cell">Origen proyectado local</b><span role="cell">E 582273 m · N 2449577 m · Up 0 m</span></div>
+            <div role="row"><b role="cell">Ejes de Unreal</b><span role="cell">+X Este · −Y Norte · +Z arriba</span></div>
+            <div role="row"><b role="cell">Datum vertical de la fuente</b><span role="cell">EGM2008 · EPSG:3855</span></div>
+          </div>
+          <p>El terreno actual deriva de Copernicus DEM GLO-30, remuestreado a 253 × 253 alturas y 32 m entre muestras. Es un modelo digital de superficie, no un levantamiento de aceras o cunetas. Mantén el origen local y el datum vertical al añadir tiles; convierte nuevas fuentes al CRS acordado antes de importarlas.</p>
+          <div class="callout"><strong>Colisión del suelo</strong><p>El Landscape tiene componentes de colisión y respondió a consultas verticales en 15 puntos del área muestreada. Esa prueba en editor comprueba la superficie, pero no sustituye recorrer pendientes y bordes con el pawn real.</p></div>
+        </section>
+
+        <section id="streaming">
+          <p class="eyebrow">04 / Carga por zonas</p>
+          <h2>World Partition está presente; el streaming sigue por verificar.</h2>
+          <p>El nivel referencia World Partition. No se debe concluir que las celdas cargan automáticamente: hay que comprobar `Enable Streaming`, Runtime Hash, radio y fuente de streaming en el editor. No fijes tamaños finales de celda con la Mac de 8 GB sin medir memoria y tiempos sobre un sector real.</p>
+          <p>Después de validar geometría urbana, Data Layers pueden separar capas temáticas (calles, edificios, señalización y vegetación) y HLOD puede simplificar masas lejanas. Ninguno de esos sistemas está configurado para la ciudad en este momento.</p>
+          <p class="reference-links"><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/world-partition-in-unreal-engine">World Partition en UE ↗</a><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/georeferencing-a-level-in-unreal-engine">GeoReferencing en UE ↗</a></p>
+        </section>
+
+        <section id="fuentes">
+          <p class="eyebrow">05 / Procedencia y licencias</p>
+          <h2>La fuente forma parte del dato.</h2>
+          <ul class="check-list">
+            <li><strong>OpenStreetMap:</strong> conservar fecha, consulta, atribución © OpenStreetMap contributors y condiciones ODbL en los derivados que se redistribuyan.</li>
+            <li><strong>Copernicus DEM/Sentinel-2:</strong> registrar producto, fecha, CRS, datum, cobertura, transformaciones y atribución del proveedor.</li>
+            <li><strong>Mapas comerciales:</strong> no usar teselas ni capturas de Google Maps/Earth como texturas sin una licencia que permita ese uso y redistribución.</li>
+            <li><strong>Contenido de Unreal/Epic:</strong> sus assets tienen licencia distinta a MIT; no copiarlos al repositorio público como fuente sin autorización expresa.</li>
+          </ul>
+        </section>
+
+        <section id="contribuir">
+          <p class="eyebrow">06 / Contribuir</p>
+          <h2>Una tarea concreta vale más que una promesa general.</h2>
+          <ol class="step-list">
+            <li><b>01</b><div><strong>Lee la tarea y pregunta si falta contexto.</strong><p>Empieza por errores verificables, documentación, coordenadas, colisión o rendimiento de un sector pequeño.</p></div></li>
+            <li><b>02</b><div><strong>Haz un cambio enfocado.</strong><p>Propón una incidencia, usa una rama con nombre descriptivo y evita añadir contenido con procedencia o licencia incierta.</p></div></li>
+            <li><b>03</b><div><strong>Describe la evidencia.</strong><p>Incluye comando de compilación, plataforma, mapa probado, pasos de PIE y cualquier cosa que aún no pudiste comprobar.</p></div></li>
+          </ol>
+          <div class="contribute-actions"><a class="button button--primary" href="https://github.com/ledexsoft/ciudad-digital-11/blob/main/CONTRIBUTING.md">Leer CONTRIBUTING.md <span aria-hidden="true">↗</span></a><a class="button button--quiet" href="https://github.com/ledexsoft/ciudad-digital-11/issues">Ver incidencias abiertas <span aria-hidden="true">↗</span></a></div>
+        </section>
+
+        <div class="doc-next"><a href="plan.html">Anterior: plan y mecánicas <span aria-hidden="true">←</span></a><a href="./">Volver al inicio de la documentación <span aria-hidden="true">→</span></a></div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="docs-footer"><div class="shell footer-inner"><a class="brand" href="../../"><span>Ledex<em>Soft</em></span></a><p>Ciudad Digital 1.1 · Cumanayagua</p><a href="https://github.com/ledexsoft/ciudad-digital-11">Código fuente <span aria-hidden="true">↗</span></a></div></footer>
+</body>
+</html>

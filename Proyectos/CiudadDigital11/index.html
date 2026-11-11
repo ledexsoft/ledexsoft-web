@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f1b16">
+  <meta name="description" content="Plan, estado y guía para desarrolladores de Ciudad Digital 1.1, una simulación explorable de Cumanayagua, Cienfuegos.">
+  <link rel="canonical" href="https://ledexsoft.com/Proyectos/CiudadDigital11/">
+  <title>Ciudad Digital 1.1 — Documentación | LedexSoft</title>
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../css/fonts.css">
+  <link rel="stylesheet" href="css/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="docs-header">
+    <a class="brand" href="../../" aria-label="LedexSoft, inicio"><span>Ledex<em>Soft</em></span><small>PROYECTOS</small></a>
+    <nav aria-label="Navegación principal">
+      <a class="is-current" href="./">Ciudad Digital</a>
+      <a href="plan.html">Plan y mecánicas</a>
+      <a href="desarrolladores.html">Desarrolladores</a>
+      <a class="nav-github" href="https://github.com/ledexsoft/ciudad-digital-11" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="hero shell">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> Cumanayagua · Cienfuegos · Cuba</p>
+        <h1>Ciudad <em>Digital</em><br><span>1.1</span></h1>
+        <p class="hero-lead">Una simulación explorable que toma como referencia el mapa real de Cumanayagua. Aquí puedes entender el plan del proyecto o entrar directamente a la documentación para contribuir.</p>
+        <div class="hero-actions">
+          <a class="button button--primary" href="plan.html">Ver plan y estado <span aria-hidden="true">↗</span></a>
+          <a class="button button--quiet" href="desarrolladores.html">Leer guía técnica <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="updated">Estado documentado el <time datetime="2026-11-11">11 de noviembre de 2026</time></p>
+      </div>
+      <div class="hero-art" role="img" aria-label="Mapa esquemático de calles y terreno, ilustración conceptual">
+        <div class="map-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <span class="map-point" aria-hidden="true"></span>
+        <span class="map-label">22.14938° N<br>80.20212° O</span>
+        <span class="map-caption">CUMANAYAGUA<br>CIENFUEGOS</span>
+        <span class="map-index">CD / 01</span>
+      </div>
+    </section>
+
+    <section class="status-section shell" aria-labelledby="status-title">
+      <div class="section-heading">
+        <p class="eyebrow">En qué punto estamos</p>
+        <h2 id="status-title">Un mapa en construcción.<br><em>Un estado sin adornos.</em></h2>
+      </div>
+      <div class="status-grid">
+        <article class="status-card status-card--done">
+          <span class="status-label"><i aria-hidden="true"></i> Hecho</span>
+          <h3>La base geográfica</h3>
+          <p>Landscape con relieve, sistema de coordenadas WGS 84 / UTM 17N y una base de colisión comprobada en el editor.</p>
+        </article>
+        <article class="status-card status-card--progress">
+          <span class="status-label"><i aria-hidden="true"></i> En curso</span>
+          <h3>La primera persona</h3>
+          <p>Se usa la plantilla de Unreal; los ajustes de colisión y día/noche compilan, pero falta probarlos recorriendo el mapa en PIE.</p>
+        </article>
+        <article class="status-card status-card--todo">
+          <span class="status-label"><i aria-hidden="true"></i> Por hacer</span>
+          <h3>La ciudad reconocible</h3>
+          <p>Faltan calles, edificios y referencias locales verificadas. El streaming por celdas también está pendiente de validación.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="routes-section">
+      <div class="shell">
+        <div class="section-heading section-heading--light">
+          <p class="eyebrow">Dos maneras de entrar</p>
+          <h2>¿Vienes a conocerlo<br>o a <em>construirlo?</em></h2>
+        </div>
+        <div class="route-grid">
+          <a class="route-card route-card--plan" href="plan.html">
+            <span class="route-number">01 / VISIÓN</span>
+            <span class="route-icon" aria-hidden="true">↗</span>
+            <h3>Plan y mecánicas</h3>
+            <p>Objetivo de la primera versión, hitos, decisiones y lo que sigue siendo una idea.</p>
+            <span class="route-link">Explorar el plan <b aria-hidden="true">→</b></span>
+          </a>
+          <a class="route-card route-card--dev" href="desarrolladores.html">
+            <span class="route-number">02 / CÓDIGO</span>
+            <span class="route-icon" aria-hidden="true">⌘</span>
+            <h3>Guía para desarrolladores</h3>
+            <p>Cómo se organiza el proyecto, sus coordenadas, sistemas C++ y cómo proponer cambios.</p>
+            <span class="route-link">Leer la guía <b aria-hidden="true">→</b></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="principle-section shell">
+      <div class="principle-mark" aria-hidden="true">1.1</div>
+      <div>
+        <p class="eyebrow">Alcance inicial</p>
+        <h2>Primero, recorrer y entender el mapa.</h2>
+        <p>La primera entrega se centra en caminar, mirar y explicar el entorno urbano. No hay combate, misiones, economía, ni compras reales. Las ideas de tienda virtual o conservación de alimentos aparecen en el plan como posibilidades futuras, no como funciones aprobadas o ya construidas.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="docs-footer">
+    <div class="shell footer-inner">
+      <a class="brand" href="../../"><span>Ledex<em>Soft</em></span></a>
+      <p>Documentación viva de Ciudad Digital 1.1 · <a href="https://github.com/ledexsoft/ciudad-digital-11/blob/main/CONTRIBUTING.md">Cómo contribuir</a></p>
+      <a href="../../">ledexsoft.com <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="shell footer-note">Organizada con separación entre explicación, guías y plan; basada en el marco <a href="https://diataxis.fr/start-here/" target="_blank" rel="noopener noreferrer">Diátaxis</a>.</div>
+  </footer>
+</body>
+</html>
