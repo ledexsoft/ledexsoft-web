@@ -3,6 +3,7 @@
   'use strict';
   var SUPABASE = window.CumaShopConfig.url;
   var ANON = window.CumaShopConfig.anonKey;
+  var catalog = window.CumaShopCatalog;
   var sections = [
     {name:'Alimentos',db:'Alimentos',slug:'alimentos',icon:'✳',description:'Frescos, básicos y antojos de cada día'},
     {name:'Muebles y decoración',db:'Muebles y decoración',slug:'muebles',icon:'⌂',description:'Ideas para sentirte en casa'},
@@ -38,7 +39,7 @@
       .finally(function () { clearTimeout(timeout); });
   }
   function loadOffers(offset, collected) {
-    return api('Ofertas',{select:'id,Titulo_Es,Precio_base_UI,Precio_Min,Precio_Max,Moneda_base,Imagen_Portada,Seccion,Categoria,Categoria2,Categoria3,Stock_Disponible,EnOferta,PorcentajeDescuento,Unidad_de_Medidas,Cantidad_por_Unidad,Pais',Activo:'eq.true',order:'id.desc',limit:'200',offset:String(offset)})
+    return api('Ofertas',{select:'id,Titulo_Es,Precio_base_UI,Precio_Min,Precio_Max,Moneda_base,Imagen_Portada,Seccion,Categoria,Categoria2,Categoria3,Stock_Disponible,EnOferta,PorcentajeDescuento,Unidad_de_Medidas,Cantidad_por_Unidad,Pais',Activo:'eq.true',id:catalog.exclusionFilter,order:'id.desc',limit:'200',offset:String(offset)})
       .then(function (rows) { collected.push.apply(collected, rows); return rows.length === 200 ? loadOffers(offset + 200, collected) : collected; });
   }
   function chooseSection(item) {
@@ -126,8 +127,9 @@
     var q=normalize(search);
     var rows=offers.filter(function(p){return (q?normalize((p.Titulo_Es||'')+' '+(p.Categoria||'')+' '+(p.Categoria2||'')+' '+(p.Categoria3||'')+' '+(p.Seccion||'')).includes(q):p.Seccion===section.db && (!category || p.Categoria===category) && (!subcategory||p.Categoria2===subcategory) && (!subcategory3||p.Categoria3===subcategory3));});
     if(sort==='price-low'||sort==='price-high')rows.sort(function(a,b){
-      var av=Number(a.Precio_base_UI),bv=Number(b.Precio_base_UI),aMissing=a.Precio_base_UI==null||!Number.isFinite(av),bMissing=b.Precio_base_UI==null||!Number.isFinite(bv);
+      var av=Number(a.Precio_base_UI),bv=Number(b.Precio_base_UI),aMissing=a.Precio_base_UI==null||!Number.isFinite(av)||av<=0,bMissing=b.Precio_base_UI==null||!Number.isFinite(bv)||bv<=0;
       if(aMissing!==bMissing)return aMissing?1:-1;
+      if(aMissing)return 0;
       return sort==='price-low'?av-bv:bv-av;
     });
     else if(sort==='name')rows.sort(function(a,b){return String(a.Titulo_Es||'').localeCompare(String(b.Titulo_Es||''),'es');});
@@ -155,8 +157,9 @@
       loadOffers(0,[])
     ]).then(function(data){
       if(current!==requestId)return;
-      categories=data[0];offers=data[1].filter(function(p){return sections.some(function(s){return s.db===p.Seccion;});});loaded=true;
-      $('catalog-summary').textContent=offers.length+' ofertas activas en '+sections.filter(function(s){return offers.some(function(p){return p.Seccion===s.db;});}).length+' secciones';
+      categories=data[0];offers=data[1].filter(function(p){return catalog.isPublicOffer(p) && sections.some(function(s){return s.db===p.Seccion;});});loaded=true;
+      var sectionCount=sections.filter(function(s){return offers.some(function(p){return p.Seccion===s.db;});}).length;
+      $('catalog-summary').textContent=offers.length+(offers.length===1?' oferta activa en ':' ofertas activas en ')+sectionCount+(sectionCount===1?' sección':' secciones');
       renderFeatured();
       render();
     }).catch(function(){if(current!==requestId)return;$('results-line').textContent='';$('products').replaceChildren();$('empty').hidden=true;$('more').hidden=true;$('error').hidden=false;})
