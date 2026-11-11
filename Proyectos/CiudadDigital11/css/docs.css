@@ -170,13 +170,13 @@ h1,h2,h3,p{margin-top:0}
   .doc-sidebar{position:static;display:flex;overflow:auto;gap:7px;padding-bottom:12px;border-bottom:1px solid var(--line)}
   .doc-sidebar>span{align-self:center;flex:none;margin:0 6px 0 0}
   .doc-sidebar a{flex:none;padding:7px 9px;border:1px solid var(--line);border-radius:999px;font-size:.65rem}
-  .status-board{grid-template-columns:1fr}
+  .status-grid{grid-template-columns:1fr}
 }
 @media(max-width:600px){
   :root{--shell:calc(100% - 34px)}
   .docs-header{min-height:66px;align-items:flex-start;flex-direction:column;gap:7px;padding:10px 17px 9px}
   .brand{font-size:1.1rem}.brand small{font-size:.5rem}
-  .docs-header nav{width:100%;gap:18px;overflow:auto;font-size:.67rem;white-space:nowrap}
+  .docs-header nav{width:100%;flex-wrap:wrap;gap:2px 14px;overflow:visible;font-size:.67rem;white-space:normal}
   .docs-header nav a{padding:4px 0}
   .docs-header nav .nav-github{padding:4px 10px}
   .hero{padding-block:57px 68px}
