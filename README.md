@@ -30,6 +30,12 @@ Sitio estático de LedexSoft S.R.L. (HTML + CSS + JS, sin framework ni build). P
 - Librerías por CDN: GSAP 3.12.5 + ScrollTrigger, Lenis 1.1.18. Cargan antes del JS de página (con `defer`).
 - Respeta `prefers-reduced-motion` en todas las páginas.
 
+## Comprobaciones ligeras
+
+Sin framework, instalaciones ni compilación: `node --test tests/*.test.cjs` (Node 18 o posterior). Las pruebas del catálogo usan scripts reales con fronteras DOM/red controladas; no sustituyen una comprobación visual en navegador ni la validación del backend.
+
+Consulta `docs/catalog-publication.md` para el aislamiento temporal de ofertas de prueba y `docs/privacy-review.md` para las diferencias de privacidad pendientes de aprobación.
+
 ## Publicación
 
 GitHub Pages sirve desde `main` (raíz). Para publicar un cambio: commit + push a `main` y el build de Pages se dispara solo.

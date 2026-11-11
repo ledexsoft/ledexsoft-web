@@ -1,8 +1,9 @@
 /* Ficha de ofertas activas de CumaShop. Usa únicamente la clave pública de Supabase. */
 (function(){
   'use strict';
-  var SUPABASE='https://tmvqkpkbxagxxgmgqcpl.supabase.co';
-  var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtdnFrcGtieGFneHhnbWdxY3BsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjE0ODYwNTcsImV4cCI6MjAzNzA2MjA1N30.Zx5G8Vnmy4ZW2dCKi8ScmcNa40KSqmWL4sEzZoMqwLM';
+  var SUPABASE=window.CumaShopConfig.url;
+  var ANON=window.CumaShopConfig.anonKey;
+  var catalog=window.CumaShopCatalog;
   var PLAY='https://play.google.com/store/apps/details?id=com.ledexsoft.oneblink';
   var slugs={'Alimentos':'alimentos','Muebles y decoración':'muebles','Aseo y limpieza':'aseo','Electrónicos':'electricos','Moda':'moda','Construcción':'construccion'};
   var labels={'Electrónicos':'Eléctricos','Construcción':'Materiales de construcción'};
@@ -27,10 +28,10 @@
       .finally(function(){clearTimeout(timer);});
   }
   function load(){
-    if(!id||!/^\d{1,10}$/.test(id)){state('notfound');return;}
+    if(!id||!/^\d{1,10}$/.test(id)||!catalog.isPublicOffer({id:id})){state('notfound');return;}
     state('loading');
     api('Ofertas',{select:'id,Titulo_Es,Descripcion_Es,Precio_base_UI,Precio_Min,Precio_Max,Moneda_base,Imagen_Portada,Imagen_1,Imagen_2,Imagen_3,Imagen_4,Seccion,Categoria,Categoria2,Categoria3,Stock_Disponible,EnOferta,PorcentajeDescuento,Unidad_de_Medidas,Cantidad_por_Unidad,Garantia_Dias,Envio_Incluido,Pais',id:'eq.'+id,Activo:'eq.true',limit:'1'})
-      .then(function(rows){var p=rows[0];if(!p){state('notfound');return;}render(p);state('product');loadRelated(p);})
+      .then(function(rows){var p=rows[0];if(!catalog.isPublicOffer(p)){state('notfound');return;}render(p);state('product');loadRelated(p);})
       .catch(function(){state('loaderror');});
   }
   function renderGallery(p,title){
@@ -59,7 +60,7 @@
       var el=$(item[0]),value=p[item[1]];el.hidden=!value;if(value){el.textContent=value;el.href=categoryUrl(p,item[2],item[3]);}
     });
     var low=Number(p.Precio_Min),high=Number(p.Precio_Max),base=Number(p.Precio_base_UI);
-    if(p.Precio_Min!=null&&p.Precio_Max!=null&&high>low&&low>=0)$('p-price').textContent=money(low,p.Moneda_base)+' – '+money(high,p.Moneda_base);
+    if(p.Precio_Min!=null&&p.Precio_Max!=null&&Number.isFinite(low)&&Number.isFinite(high)&&high>low&&low>0)$('p-price').textContent=money(low,p.Moneda_base)+' – '+money(high,p.Moneda_base);
     else $('p-price').textContent=p.Precio_base_UI!=null&&Number.isFinite(base)&&base>0?money(base,p.Moneda_base):'Consultar precio en la app';
     $('p-availability').hidden=p.Stock_Disponible!==false;
     $('p-availability').textContent='Sin stock en este momento · consulta la app para novedades';
@@ -80,16 +81,16 @@
     $('related-link').href=sectionLink;
   }
   function loadRelated(p){
-    api('Ofertas',{select:'id,Titulo_Es,Precio_base_UI,Moneda_base,Imagen_Portada,Categoria,Stock_Disponible',Activo:'eq.true',Seccion:'eq.'+p.Seccion,order:'id.desc',limit:'12'})
+    api('Ofertas',{select:'id,Titulo_Es,Precio_base_UI,Moneda_base,Imagen_Portada,Categoria,Stock_Disponible',Activo:'eq.true',id:catalog.exclusionFilter,Seccion:'eq.'+p.Seccion,order:'id.desc',limit:'12'})
       .then(function(rows){
         var box=$('related-grid');box.replaceChildren();
-        rows.filter(function(item){return String(item.id)!==String(p.id);}).slice(0,4).forEach(function(item){
+        rows.filter(function(item){return catalog.isPublicOffer(item) && String(item.id)!==String(p.id);}).slice(0,4).forEach(function(item){
           var card=node('a','related-card');card.href='p.html?id='+encodeURIComponent(String(item.id));
           var media=node('span','related-media');var image=Number(item.id)===44?'':safeImage(item.Imagen_Portada);
           if(image){var img=node('img');img.src=image;img.alt='';img.loading='lazy';img.onerror=function(){img.replaceWith(node('span','related-fallback','✳'));};media.append(img);}
           else media.append(node('span','related-fallback','✳'));
           var body=node('span','related-content');body.append(node('span','related-category',item.Categoria||'CumaShop'),node('strong','',item.Titulo_Es||'Producto'));
-          var price=item.Precio_base_UI!=null&&Number(item.Precio_base_UI)>0?money(item.Precio_base_UI,item.Moneda_base):'Consultar precio';
+          var price=item.Precio_base_UI!=null&&Number.isFinite(Number(item.Precio_base_UI))&&Number(item.Precio_base_UI)>0?money(item.Precio_base_UI,item.Moneda_base):'Consultar precio';
           body.append(node('span','related-price',price));if(item.Stock_Disponible===false)body.append(node('span','related-unavailable','Sin stock'));
           card.append(media,body);box.append(card);
         });
