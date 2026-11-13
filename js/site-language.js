@@ -472,6 +472,34 @@
     });
   });
 
+  Object.assign(translations.en, {
+    'Habla con IA': 'Chat with AI', 'Abrir asistente de LedexSoft': 'Open LedexSoft assistant',
+    'Asistente LedexSoft': 'LedexSoft assistant', 'En línea · IA de Z.ai': 'Online · Z.ai AI',
+    '¡Hola! Puedo contarte sobre LedexSoft, CumaShop, Pymepedia y nuestros proyectos.': 'Hi! Ask me about LedexSoft, CumaShop, Pymepedia, and our projects.',
+    '¿Qué es CumaShop?': 'What is CumaShop?', '¿Qué servicios ofrecen?': 'What services do you offer?',
+    'Escribe tu pregunta': 'Write your question', 'Escribe tu pregunta…': 'Ask a question…',
+    'Enviar mensaje': 'Send message', 'Cerrar asistente': 'Close assistant',
+    'Respuestas de IA, pueden contener errores. No envíes datos personales.': 'AI responses may be inaccurate. Do not send personal information.'
+  });
+  Object.assign(translations.pt, {
+    'Habla con IA': 'Fale com a IA', 'Abrir asistente de LedexSoft': 'Abrir assistente da LedexSoft',
+    'Asistente LedexSoft': 'Assistente LedexSoft', 'En línea · IA de Z.ai': 'Online · IA da Z.ai',
+    '¡Hola! Puedo contarte sobre LedexSoft, CumaShop, Pymepedia y nuestros proyectos.': 'Olá! Pergunte sobre a LedexSoft, CumaShop, Pymepedia e nossos projetos.',
+    '¿Qué es CumaShop?': 'O que é a CumaShop?', '¿Qué servicios ofrecen?': 'Quais serviços vocês oferecem?',
+    'Escribe tu pregunta': 'Escreva sua pergunta', 'Escribe tu pregunta…': 'Escreva sua pergunta…',
+    'Enviar mensaje': 'Enviar mensagem', 'Cerrar asistente': 'Fechar assistente',
+    'Respuestas de IA, pueden contener errores. No envíes datos personales.': 'As respostas da IA podem conter erros. Não envie dados pessoais.'
+  });
+  Object.assign(translations.zh, {
+    'Habla con IA': '与 AI 对话', 'Abrir asistente de LedexSoft': '打开 LedexSoft 助手',
+    'Asistente LedexSoft': 'LedexSoft 助手', 'En línea · IA de Z.ai': '在线 · Z.ai AI',
+    '¡Hola! Puedo contarte sobre LedexSoft, CumaShop, Pymepedia y nuestros proyectos.': '你好！我可以介绍 LedexSoft、CumaShop、Pymepedia 和我们的项目。',
+    '¿Qué es CumaShop?': 'CumaShop 是什么？', '¿Qué servicios ofrecen?': '你们提供哪些服务？',
+    'Escribe tu pregunta': '请输入问题', 'Escribe tu pregunta…': '请输入问题…',
+    'Enviar mensaje': '发送消息', 'Cerrar asistente': '关闭助手',
+    'Respuestas de IA, pueden contener errores. No envíes datos personales.': 'AI 回复可能不准确。请勿发送个人信息。'
+  });
+
   function detectLanguage() {
     var stored = '';
     try { stored = localStorage.getItem('ledexsoft-language') || ''; } catch (e) {}
@@ -564,6 +592,7 @@
         if (link.getAttribute('href') === '#cumashop' && next === 'en') link.setAttribute('aria-label', 'CumaShop');
       });
       lang = next;
+      window.dispatchEvent(new CustomEvent('ledexsoft:languagechange', { detail: { language: next } }));
     }
 
     select.addEventListener('change', function () {

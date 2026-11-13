@@ -21,7 +21,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
   <link rel="stylesheet" href="css/fonts.css">
-<link rel="stylesheet" href="css/index.css?v=93">
+<link rel="stylesheet" href="css/index.css?v=94">
 <link rel="canonical" href="https://ledexsoft.com/">
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "Organization", "name": "LedexSoft", "url": "https://ledexsoft.com/", "description": "Startup cubana de software: CumaShop, Pymepedia y Ledexia", "foundingDate": "2024", "logo": "https://ledexsoft.com/favicon.svg"}
@@ -51,6 +51,10 @@
     <a href="#contacto" class="nav-cta" data-cursor="Ir">Contacto</a>
   </nav>
   <div class="nav-right">
+    <button class="assistant-toggle" id="assistantToggle" type="button" aria-label="Abrir asistente de LedexSoft" aria-expanded="false" aria-controls="assistantPanel">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 14.2 9.8 21.2 12l-7 2.2-2.2 7-2.2-7-7-2.2 7-2.2L12 2.8Zm7.1 12.6.9 2.8 2.8.9-2.8.9-.9 2.8-.9-2.8-2.8-.9 2.8-.9.9-2.8Z"/></svg>
+      <span>Habla con IA</span>
+    </button>
     <label class="language-switcher" aria-label="Idioma del sitio">
       <span class="language-switcher__globe" aria-hidden="true">◎</span>
       <select id="siteLanguage" aria-label="Seleccionar idioma">
@@ -71,6 +75,31 @@
   <a href="#contacto">Contacto</a>
 </div>
 
+<section class="assistant-panel" id="assistantPanel" role="dialog" aria-labelledby="assistantTitle" aria-modal="false" hidden>
+  <header class="assistant-panel__header">
+    <div class="assistant-panel__identity">
+      <span class="assistant-panel__avatar" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.8 14.2 9.8 21.2 12l-7 2.2-2.2 7-2.2-7-7-2.2 7-2.2L12 2.8Z"/></svg></span>
+      <div><h2 id="assistantTitle">Asistente LedexSoft</h2><p>En línea · IA de Z.ai</p></div>
+    </div>
+    <button class="assistant-panel__close" id="assistantClose" type="button" aria-label="Cerrar asistente">×</button>
+  </header>
+  <div class="assistant-panel__messages" id="assistantMessages" aria-live="polite" aria-relevant="additions text">
+    <div class="assistant-message assistant-message--bot">¡Hola! Puedo contarte sobre LedexSoft, CumaShop, Pymepedia y nuestros proyectos.</div>
+  </div>
+  <div class="assistant-panel__suggestions" id="assistantSuggestions">
+    <button type="button">¿Qué es CumaShop?</button>
+    <button type="button">¿Qué servicios ofrecen?</button>
+  </div>
+  <form class="assistant-panel__form" id="assistantForm">
+    <label class="sr-only" for="assistantInput">Escribe tu pregunta</label>
+    <textarea id="assistantInput" rows="1" maxlength="1500" placeholder="Escribe tu pregunta…" required></textarea>
+    <button type="submit" aria-label="Enviar mensaje"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20.5 21 12 3 3.5l.2 6.6L15 12 3.2 13.9 3 20.5Z"/></svg></button>
+  </form>
+  <p class="assistant-panel__note">Respuestas de IA, pueden contener errores. No envíes datos personales.</p>
+</section>
+<script defer src="js/cumashop-config.js"></script>
+<script defer src="js/ledexsoft-chat.js?v=1"></script>
+
 <main id="top">
 
   <!-- ============ HERO ============ -->
@@ -81,6 +110,12 @@
       <span class="hero-blob hero-blob-3"></span>
       <span class="hero-blob hero-blob-4"></span>
     </div>
+    <div class="hero-reference-orbs" aria-hidden="true">
+      <span class="hero-reference-orb hero-reference-orb--blue"></span>
+      <span class="hero-reference-orb hero-reference-orb--violet"></span>
+      <span class="hero-reference-orb hero-reference-orb--pink"></span>
+    </div>
+    <canvas class="hero-globe" id="heroGlobe" aria-hidden="true"></canvas>
     <div class="hero-glow" aria-hidden="true"></div>
 
     <figure class="hero-photo" id="heroPhoto">
@@ -479,9 +514,10 @@
 <script src="js/vendor/gsap.min.js" defer></script>
 <script src="js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="js/vendor/lenis.min.js" defer></script>
+<script src="js/hero-globe.js?v=1" defer></script>
 
   <script src="js/manifesto-text-effect.js?v=13" defer></script>
-<script src="js/site-language.js?v=6" defer></script>
+  <script src="js/site-language.js?v=7" defer></script>
 <script src="js/index.js?v=76" defer></script>
   <script type="module" src="js/founder-paper.js?v=5"></script>
 <script src="js/fallback.js" defer></script>
