@@ -1,6 +1,6 @@
 /* ============================================================
    LEDEXSOFT — DESIGN TOKENS
-   Ink #0F1B16 · Paper #F3EEDD · Mango #FF7A3D · Petrol #17483C
+   Ink #0F1B16 · Paper #F3EEDD · Apple Blue #007AFF · Petrol #17483C
    Guava #E1483F · Mist #A9BDB2
    Display: Fraunces · UI/body: Plus Jakarta Sans
    ============================================================ */
@@ -9,7 +9,7 @@
   --ink-2:#152720;
   --paper:#F3EEDD;
   --paper-dim:#DCD6C2;
-  --mango:#FF7A3D;
+  --mango:#007AFF;
   --petrol:#17483C;
   --guava:#E1483F;
   --mist:#9FB4A8;
@@ -213,7 +213,7 @@ header.site-nav.is-scrolled{
 }
 .hero-glow{
   position:absolute; width:60vw; height:60vw; max-width:820px; max-height:820px; border-radius:50%;
-  background:radial-gradient(circle, rgba(255,122,61,.28), rgba(255,122,61,0) 68%);
+  background:radial-gradient(circle, rgba(0,122,255,.28), rgba(0,122,255,0) 68%);
   top:-10%; right:-10%; pointer-events:none; filter:blur(10px);
 }
 .hero-tag{
@@ -696,7 +696,7 @@ body.has-products-handoff .work-pin{ transform-origin:50% 50%; will-change:trans
 }
 .wp-tag{
   display:inline-flex; align-items:center; gap:.5rem; font-size:.8rem; font-weight:600; color:var(--mango);
-  border:1px solid rgba(255,122,61,.4); border-radius:999px; padding:.35rem .8rem; margin-bottom:1.4rem;
+  border:1px solid rgba(0,122,255,.4); border-radius:999px; padding:.35rem .8rem; margin-bottom:1.4rem;
 }
 .wp-tag.is-dev{ color:var(--mist); border-color:var(--line-strong); }
 .wp-title{ font-family:var(--font-display); font-size:clamp(2.2rem,5vw,4rem); font-weight:500; }
@@ -953,16 +953,16 @@ footer > .footer-grid, footer > .footer-marquee, footer > .footer-bottom{ positi
   padding:clamp(28px,5vw,60px);
   border:1px solid rgba(243,238,221,.16);
   border-radius:22px;
-  background:radial-gradient(circle at 90% 10%,rgba(255,122,61,.15),transparent 34%),linear-gradient(125deg,#172b22,#111d17 70%);
+  background:radial-gradient(circle at 90% 10%,rgba(0,122,255,.15),transparent 34%),linear-gradient(125deg,#172b22,#111d17 70%);
 }
 .city-docs-promo__copy{position:relative;z-index:1;max-width:710px}
 .city-docs-promo__copy .eyebrow{display:flex;align-items:center;gap:9px;color:var(--mist);font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.city-docs-promo__dot{width:7px;height:7px;border-radius:50%;background:var(--mango);box-shadow:0 0 0 5px rgba(255,122,61,.13)}
+.city-docs-promo__dot{width:7px;height:7px;border-radius:50%;background:var(--mango);box-shadow:0 0 0 5px rgba(0,122,255,.13)}
 .city-docs-promo__copy h2{max-width:700px;margin:0 0 13px;font-family:var(--font-display);font-size:clamp(2.2rem,4.5vw,4rem);font-weight:500;line-height:1.03;letter-spacing:-.045em}
 .city-docs-promo__copy h2 em{color:var(--mango);font-weight:450}
 .city-docs-promo__copy p{max-width:650px;margin:0;color:var(--mist);font-size:var(--fs-body);line-height:1.65}
 .city-docs-promo__link{display:inline-flex;align-items:center;gap:15px;margin-top:25px;padding:11px 17px;border-radius:999px;background:var(--mango);color:var(--ink);font-size:.76rem;font-weight:800;transition:transform .2s ease,background .2s ease}
-.city-docs-promo__link:hover{transform:translateY(-2px);background:#ff9566;color:var(--ink)}
+.city-docs-promo__link:hover{transform:translateY(-2px);background:#3395ff;color:var(--ink)}
 .city-docs-promo__index{position:relative;display:grid;min-height:186px;place-items:center;align-content:center;gap:1px;border:1px solid rgba(243,238,221,.13);border-radius:16px;background:rgba(10,18,14,.28);text-align:center;transform:rotate(3deg)}
 .city-docs-promo__index::before,.city-docs-promo__index::after{position:absolute;inset:13px;border:1px solid rgba(243,238,221,.08);border-radius:50%;content:""}
 .city-docs-promo__index::after{inset:31px}
