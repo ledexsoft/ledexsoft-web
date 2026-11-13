@@ -809,7 +809,7 @@ body.has-products-handoff .work-pin{ transform-origin:50% 50%; will-change:trans
    ============================================================ */
 .spotlight{ position:relative; isolation:isolate; overflow:visible; }
 body.has-products-handoff .spotlight{ z-index:2; margin-top:-100vh; }
-.spotlight-stage{ position:relative; z-index:2; isolation:isolate; background:var(--petrol); padding:8.5rem 0 14.375rem; overflow:clip; }
+.spotlight-stage{ position:relative; z-index:2; isolation:isolate; background:linear-gradient(to bottom,#171717 0%,var(--petrol) clamp(22rem,48vh,38rem)); padding:8.5rem 0 14.375rem; overflow:clip; }
 body.has-products-handoff .spotlight-stage{ border-radius:0; box-shadow:0 -24px 72px rgba(0,0,0,.2); }
 .spotlight-kinetic{
   position:relative; z-index:1; top:auto; left:auto; width:100%; max-width:var(--container); height:1.76em;
@@ -1029,7 +1029,7 @@ footer > .footer-grid, footer > .footer-marquee, footer > .footer-bottom{ positi
 /* Neutral background palette for the home page only. */
 html,body{background:#171717}
 body,.preloader,.wipe,footer,.city-docs-promo{background:#171717}
-.mobile-menu,.spotlight-stage{background:#343434}
+.mobile-menu{background:#343434}
 .marquee{background:#252525}
 .hero-glow{background:radial-gradient(circle,rgba(0,122,255,.28),rgba(0,122,255,0) 68%)}
 .work{background:#171717}
