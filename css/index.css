@@ -1029,7 +1029,6 @@ footer > .footer-grid, footer > .footer-marquee, footer > .footer-bottom{ positi
 /* Neutral background palette for the home page only. */
 html,body{background:#171717}
 body,.preloader,.wipe,footer,.city-docs-promo{background:#171717}
-header.site-nav.is-scrolled{background-color:rgba(23,23,23,.82)}
 .mobile-menu,.spotlight-stage{background:#343434}
 .marquee{background:#252525}
 .hero-blob-1,.hero-blob-2,.hero-blob-3,.hero-blob-4{background:#777}
