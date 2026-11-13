@@ -133,7 +133,7 @@ body.is-products-visible > .grain{ opacity:0; }
    ============================================================ */
 header.site-nav{
   position:fixed; top:0; left:0; right:0; z-index:150;
-  height:64px; padding:0 clamp(1.25rem,3.8vw,3.5rem);
+  height:44px; padding:0 clamp(1.25rem,3.8vw,3.5rem);
   display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; column-gap:1rem;
   background:rgba(15,27,22,.76); border-bottom:1px solid rgba(243,238,221,.1);
   backdrop-filter:blur(20px) saturate(145%); -webkit-backdrop-filter:blur(20px) saturate(145%);
@@ -145,7 +145,7 @@ header.site-nav button,header.site-nav select,header.site-nav .nav-links,header.
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
 }
 header.site-nav.is-scrolled{
-  height:56px; background-color:rgba(15,27,22,.92);
+  height:44px; background-color:rgba(15,27,22,.92);
   border-bottom-color:var(--line); box-shadow:0 6px 24px rgba(0,0,0,.08);
 }
 .logo{
@@ -232,7 +232,7 @@ header.site-nav.is-scrolled{
 .menu-open .burger span::after{ top:0; transform:rotate(-45deg); background:var(--paper); }
 
 .mobile-menu{
-  position:fixed; inset:64px 0 0; background:rgba(15,27,22,.97); z-index:140;
+  position:fixed; inset:44px 0 0; background:rgba(15,27,22,.97); z-index:140;
   display:flex; flex-direction:column; justify-content:flex-start; padding:1rem clamp(1.25rem,5vw,2.5rem);
   -webkit-backdrop-filter:blur(22px); backdrop-filter:blur(22px);
   clip-path:inset(0 0 100%); opacity:0; transition:clip-path .32s cubic-bezier(.4,0,.6,1),opacity .24s cubic-bezier(.4,0,.6,1) 80ms;
@@ -248,9 +248,9 @@ header.site-nav.is-scrolled{
 .menu-open .mobile-menu a{opacity:1;transform:translateY(0)}
 .mobile-menu a:nth-child(1){--nav-index:0}.mobile-menu a:nth-child(2){--nav-index:1}.mobile-menu a:nth-child(3){--nav-index:2}.mobile-menu a:nth-child(4){--nav-index:3}.mobile-menu a:nth-child(5){--nav-index:4}
 .mobile-menu a::after{content:'↗';color:var(--mist);font-size:.85rem;font-weight:400}
-.nav-scrim{position:fixed;z-index:145;inset:64px 0 0;background:rgba(0,0,0,.32);opacity:0;transition:opacity .32s cubic-bezier(.4,0,.6,1) 80ms,visibility .32s step-end 80ms;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.nav-scrim{position:fixed;z-index:145;inset:44px 0 0;background:rgba(0,0,0,.32);opacity:0;transition:opacity .32s cubic-bezier(.4,0,.6,1) 80ms,visibility .32s step-end 80ms;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
 body.nav-layer-open .nav-scrim{opacity:1}
-.nav-flyout,.nav-search-panel,.nav-apps-panel{position:fixed;z-index:149;top:64px;color:var(--paper);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;background:rgba(15,27,22,.98);border-bottom:1px solid rgba(243,238,221,.12);box-shadow:0 28px 60px rgba(0,0,0,.24);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
+.nav-flyout,.nav-search-panel,.nav-apps-panel{position:fixed;z-index:149;top:44px;color:var(--paper);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;background:rgba(15,27,22,.98);border-bottom:1px solid rgba(243,238,221,.12);box-shadow:0 28px 60px rgba(0,0,0,.24);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%)}
 .nav-flyout a,.nav-flyout button,.nav-search-panel a,.nav-search-panel button,.nav-apps-panel a,.nav-apps-panel button{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif}
 .nav-flyout{left:0;right:0;box-sizing:border-box;height:0;overflow:hidden;padding:2.8rem var(--pad) 3rem;opacity:1;transform:none;transition:height .24s cubic-bezier(.4,0,.6,1)}
 .nav-flyout.is-open{height:var(--nav-flyout-height,0px);transition-delay:0s}
@@ -291,7 +291,7 @@ body.nav-layer-open .nav-scrim{opacity:1}
 .nav-search-result:hover{color:var(--mango)}
 .nav-search-result small{color:var(--mist);font-size:.7rem}
 .nav-search-empty{padding:.7rem .3rem;color:var(--mist);font-size:.82rem}
-.nav-apps-panel{top:64px;right:clamp(1rem,3.8vw,3.5rem);left:auto;width:min(470px,calc(100vw - 2rem));padding:1.35rem;border:1px solid rgba(243,238,221,.14);border-radius:0 0 18px 18px;opacity:0;transform:translateY(-4px);transition:opacity .32s cubic-bezier(.4,0,.6,1),transform .32s cubic-bezier(.4,0,.6,1)}
+.nav-apps-panel{top:44px;right:clamp(1rem,3.8vw,3.5rem);left:auto;width:min(470px,calc(100vw - 2rem));padding:1.35rem;border:1px solid rgba(243,238,221,.14);border-radius:0 0 18px 18px;opacity:0;transform:translateY(-4px);transition:opacity .32s cubic-bezier(.4,0,.6,1),transform .32s cubic-bezier(.4,0,.6,1)}
 .nav-apps-panel__heading{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.75rem}
 .nav-apps-panel__heading h2{font-size:1.55rem}
 .nav-apps-panel__heading .nav-flyout__eyebrow{margin-bottom:.35rem}
@@ -1025,23 +1025,23 @@ footer > .footer-grid, footer > .footer-marquee, footer > .footer-bottom{ positi
 }
 
 @media(max-width:1100px){
-  header.site-nav{height:58px;grid-template-columns:minmax(0,1fr) auto;column-gap:.5rem}
-  header.site-nav.is-scrolled{height:52px}
+  header.site-nav{height:48px;grid-template-columns:minmax(0,1fr) auto;column-gap:.5rem}
+  header.site-nav.is-scrolled{height:48px}
   .nav-links{display:none}
   .burger{display:flex}
   .nav-apps-toggle{display:none}
-  .mobile-menu{inset:58px 0 0}
-  header.site-nav.is-scrolled~.mobile-menu{top:52px}
-  .nav-scrim{inset:58px 0 0}
-  .nav-search-panel{top:58px}
-  header.site-nav.is-scrolled~.nav-search-panel{top:52px}
-  header.site-nav.is-scrolled~.nav-scrim{inset:52px 0 0}
+  .mobile-menu{inset:48px 0 0}
+  header.site-nav.is-scrolled~.mobile-menu{top:48px}
+  .nav-scrim{inset:48px 0 0}
+  .nav-search-panel{top:48px}
+  header.site-nav.is-scrolled~.nav-search-panel{top:48px}
+  header.site-nav.is-scrolled~.nav-scrim{inset:48px 0 0}
   .nav-apps-panel{display:none}
 }
 
 @media(min-width:1101px){
-  header.site-nav.is-scrolled~.nav-flyout,header.site-nav.is-scrolled~.nav-search-panel,header.site-nav.is-scrolled~.nav-apps-panel{top:56px}
-  header.site-nav.is-scrolled~.nav-scrim{inset:56px 0 0}
+  header.site-nav.is-scrolled~.nav-flyout,header.site-nav.is-scrolled~.nav-search-panel,header.site-nav.is-scrolled~.nav-apps-panel{top:44px}
+  header.site-nav.is-scrolled~.nav-scrim{inset:44px 0 0}
 }
 
 @media(max-width:600px){
