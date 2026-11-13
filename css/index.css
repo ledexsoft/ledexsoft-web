@@ -809,8 +809,8 @@ body.has-products-handoff .work-pin{ transform-origin:50% 50%; will-change:trans
    ============================================================ */
 .spotlight{ position:relative; isolation:isolate; overflow:visible; }
 body.has-products-handoff .spotlight{ z-index:2; margin-top:-100vh; }
-.spotlight-stage{ position:relative; z-index:2; isolation:isolate; background:linear-gradient(to bottom,#171717 0%,var(--petrol) clamp(22rem,48vh,38rem)); padding:8.5rem 0 14.375rem; overflow:clip; }
-body.has-products-handoff .spotlight-stage{ border-radius:0; box-shadow:0 -24px 72px rgba(0,0,0,.2); }
+.spotlight-stage{ position:relative; z-index:2; isolation:isolate; background:linear-gradient(to bottom,transparent 0%,var(--petrol) clamp(22rem,48vh,38rem)); padding:8.5rem 0 14.375rem; overflow:clip; }
+body.has-products-handoff .spotlight-stage{ border-radius:0; box-shadow:none; }
 .spotlight-kinetic{
   position:relative; z-index:1; top:auto; left:auto; width:100%; max-width:var(--container); height:1.76em;
   margin:0 auto 2rem; padding:0 var(--pad); overflow:visible; transform:none;
