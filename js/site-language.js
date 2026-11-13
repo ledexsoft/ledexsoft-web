@@ -597,6 +597,7 @@
       }
     }
     collectText(document.body);
+    var protectedBrandTerms = {Ledex:1,Soft:1,LedexSoft:1,CumaShop:1,Pymepedia:1,Ledexia:1};
     var attributes = [];
     document.querySelectorAll('[aria-label],[title],[alt],[placeholder]').forEach(function (el) {
       ['aria-label','title','alt','placeholder'].forEach(function (attr) {
@@ -604,13 +605,19 @@
       });
     });
 
+    window.translateLedexSoftText = function (text) {
+      if (protectedBrandTerms[text]) return text;
+      var dictionary = translations[lang] || {};
+      return dictionary[text] || text;
+    };
+
     function apply(next) {
       var dict = translations[next] || {};
       nodes.forEach(function (entry) {
         if (!entry.node.isConnected) return;
         var original = entry.original;
         var key = original.trim();
-        var translated = dict[key];
+        var translated = protectedBrandTerms[key] ? '' : dict[key];
         if (translated) {
           var start = original.match(/^\s*/)[0];
           var end = original.match(/\s*$/)[0];

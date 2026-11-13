@@ -185,13 +185,16 @@
     if(button) button.setAttribute('aria-expanded','true');
     updateLayerScrim();
   }
+  function navText(text){
+    return typeof window.translateLedexSoftText==='function'?window.translateLedexSoftText(text):text;
+  }
   function populateFlyout(item){
     var key=item.getAttribute('data-nav-item');
     var data=navFlyoutData[key];
     if(!data) return;
-    navFlyoutTitle.textContent=data.title;
-    navFlyoutDescription.textContent=data.description;
-    navFlyoutAllLabel.textContent=data.all;
+    navFlyoutTitle.textContent=navText(data.title);
+    navFlyoutDescription.textContent=navText(data.description);
+    navFlyoutAllLabel.textContent=navText(data.all);
     navFlyoutAll.dataset.href=data.allHref;
     navFlyoutLinks.replaceChildren();
     data.links.forEach(function(entry,index){
@@ -201,9 +204,9 @@
       link.style.setProperty('--nav-close-duration',Math.min(160+(data.links.length-index-1)*20,240)+'ms');
       link.href=entry[2];
       var copy=document.createElement('span');
-      copy.textContent=entry[0];
+      copy.textContent=navText(entry[0]);
       var detail=document.createElement('small');
-      detail.textContent=entry[1];
+      detail.textContent=navText(entry[1]);
       copy.appendChild(detail);
       var arrow=document.createElement('span');
       arrow.setAttribute('aria-hidden','true');
@@ -216,6 +219,12 @@
     navFlyoutAll.style.setProperty('--nav-close-duration','160ms');
     syncFlyoutHeight();
   }
+  window.addEventListener('ledexsoft:languagechange',function(){
+    if(activeNavItem&&navFlyout&&!navFlyout.hidden){
+      populateFlyout(activeNavItem);
+      syncFlyoutHeight();
+    }
+  });
   function renderFlyout(item){
     if(!item) return;
     if(activeNavItem===item&&!navFlyout.hidden) return;
