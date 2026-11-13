@@ -49,6 +49,9 @@
     var lang = (languageSelect && languageSelect.value) || document.documentElement.lang || 'es';
     return copy[lang] ? lang : 'es';
   }
+  function setTextIfChanged(element, value) {
+    if (element && element.textContent !== value) element.textContent = value;
+  }
   function addMessage(text, kind) {
     var bubble = document.createElement('div');
     bubble.className = 'assistant-message assistant-message--' + kind;
@@ -59,20 +62,20 @@
   }
   function localize() {
     var strings = copy[currentLanguage()];
-    title.textContent = strings.title;
-    subtitle.textContent = strings.online;
-    note.textContent = strings.note;
+    setTextIfChanged(title, strings.title);
+    setTextIfChanged(subtitle, strings.online);
+    setTextIfChanged(note, strings.note);
     input.placeholder = strings.placeholder;
     input.setAttribute('aria-label', strings.placeholder);
     toggle.setAttribute('aria-label', strings.title);
     closeButton.setAttribute('aria-label', strings.close);
     sendButton.setAttribute('aria-label', strings.send);
     if (messagesElement.children.length === 1 && messagesElement.firstElementChild.dataset.greeting === 'true') {
-      messagesElement.firstElementChild.textContent = strings.greeting;
+      setTextIfChanged(messagesElement.firstElementChild, strings.greeting);
     }
     if (suggestions) {
       Array.prototype.forEach.call(suggestions.querySelectorAll('button'), function (button, index) {
-        if (strings.suggestions[index]) button.textContent = strings.suggestions[index];
+        if (strings.suggestions[index]) setTextIfChanged(button, strings.suggestions[index]);
       });
     }
   }

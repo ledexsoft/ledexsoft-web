@@ -768,11 +768,6 @@
     opacity:1, y:0, ease:'none',
     scrollTrigger:{ trigger:'.spotlight', start:'top 70%', end:'top 38%', scrub:true }
   });
-  gsap.fromTo('.ticket', {opacity:0, y:60, rotate:5}, {
-    opacity:1, y:0, rotate:-1.4, ease:'none',
-    scrollTrigger:{ trigger:'.spotlight', start:'top 78%', end:'top 42%', scrub:true }
-  });
-
   /* ---------------- founder rows: each reveals independently as it enters ---------------- */
   document.querySelectorAll('.founder-row').forEach(function(row){
     var img = row.querySelector('.founder-photo img');

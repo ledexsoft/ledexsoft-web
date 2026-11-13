@@ -533,6 +533,7 @@
     var initialDescriptionText = initialDescription ? initialDescription.content : '';
     var nodes = [];
     var seenNodes = new WeakSet();
+    var lastDispatchedLanguage = null;
     function collectText(root) {
       var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
         acceptNode: function (node) {
@@ -592,7 +593,10 @@
         if (link.getAttribute('href') === '#cumashop' && next === 'en') link.setAttribute('aria-label', 'CumaShop');
       });
       lang = next;
-      window.dispatchEvent(new CustomEvent('ledexsoft:languagechange', { detail: { language: next } }));
+      if (lastDispatchedLanguage !== next) {
+        lastDispatchedLanguage = next;
+        window.dispatchEvent(new CustomEvent('ledexsoft:languagechange', { detail: { language: next } }));
+      }
     }
 
     select.addEventListener('change', function () {
