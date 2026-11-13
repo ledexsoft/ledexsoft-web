@@ -105,6 +105,7 @@
   var flyoutSwapTimer = 0;
   var navCloseDelay = REDUCED ? 0 : 120;
   var navLayerExitDelay = REDUCED ? 0 : 320;
+  var navFlyoutExitDelay = REDUCED ? 0 : 360;
   var navScrimExitDelay = REDUCED ? 0 : 400;
   var navHiddenTimers = new WeakMap();
   var activeNavItem = null;
@@ -122,6 +123,9 @@
       ['Nuestra historia','De sitios web a productos propios.','#fundador'],['El equipo','Conoce a quienes construyen LedexSoft.','#fundador'],['Hablemos','Cuéntanos qué necesitas resolver.','#contacto']
     ]}
   };
+  function syncFlyoutHeight(){
+    if(navFlyout) navFlyout.style.setProperty('--nav-flyout-height',navFlyout.scrollHeight+'px');
+  }
   function setLayerVisible(layer,open){
     if(!layer) return;
     window.clearTimeout(navHiddenTimers.get(layer));
@@ -129,7 +133,11 @@
       layer.hidden=false;
       layer.inert=false;
       layer.classList.remove('is-closing');
-      requestAnimationFrame(function(){layer.classList.add('is-open');});
+      if(layer===navFlyout) syncFlyoutHeight();
+      requestAnimationFrame(function(){
+        if(layer===navFlyout) syncFlyoutHeight();
+        layer.classList.add('is-open');
+      });
       return;
     }
     layer.classList.remove('is-open');
@@ -140,7 +148,7 @@
         layer.hidden=true;
         layer.classList.remove('is-closing');
       }
-    },navLayerExitDelay));
+    },layer===navFlyout?navFlyoutExitDelay:navLayerExitDelay));
   }
   function updateLayerScrim(){
     var open=!!(navFlyout&&!navFlyout.hidden&&!navFlyout.inert)||!!(navSearchPanel&&!navSearchPanel.hidden&&!navSearchPanel.inert)||!!(navAppsPanel&&!navAppsPanel.hidden&&!navAppsPanel.inert);
@@ -190,7 +198,7 @@
       var link=document.createElement('a');
       link.className='nav-flyout-link';
       link.style.setProperty('--nav-index',String(index+1));
-      link.style.setProperty('--nav-close-delay',String(Math.max(0,(data.links.length-index-1)*20))+'ms');
+      link.style.setProperty('--nav-close-duration',Math.min(160+(data.links.length-index-1)*20,240)+'ms');
       link.href=entry[2];
       var copy=document.createElement('span');
       copy.textContent=entry[0];
@@ -204,8 +212,9 @@
       wireOverlayAnchor(link);
       navFlyoutLinks.appendChild(link);
     });
-    navFlyout.querySelector('.nav-flyout__intro').style.setProperty('--nav-close-delay',Math.max(0,(data.links.length-1)*20)+'ms');
-    navFlyoutAll.style.setProperty('--nav-close-delay','0ms');
+    navFlyout.querySelector('.nav-flyout__intro').style.setProperty('--nav-close-duration',Math.min(160+data.links.length*20,240)+'ms');
+    navFlyoutAll.style.setProperty('--nav-close-duration','160ms');
+    syncFlyoutHeight();
   }
   function renderFlyout(item){
     if(!item) return;
@@ -220,6 +229,7 @@
       flyoutSwapTimer=window.setTimeout(function(){
         if(activeNavItem!==item) return;
         populateFlyout(item);
+        syncFlyoutHeight();
         navFlyout.classList.remove('is-switching-next','is-switching-prev');
         navFlyout.classList.add('is-entering-'+direction);
         void navFlyout.offsetWidth;
