@@ -9,8 +9,8 @@
 
   var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var small=window.matchMedia('(max-width: 767px)').matches;
-  var dpr=Math.min(window.devicePixelRatio||1,1.75);
-  var width=0,height=0,radius=0,cx=0,cy=0,rotation=0,last=0,frame=0,visible=true;
+  var dpr=Math.min(window.devicePixelRatio||1,1.25);
+  var width=0,height=0,radius=0,cx=0,cy=0,rotation=0,last=0,lastDraw=0,frame=0,visible=true;
   var points=[],routes=[];
   var regions=[
     [58,-122,13,32],[48,-102,14,28],[35,-82,12,23],[12,-76,12,20],
@@ -35,7 +35,9 @@
   }
   function buildPoints(){
     points=[];routes=[];
-    var latCount=small?30:58,lonCount=small?60:116;
+    // A coarser grid keeps the globe detailed while avoiding thousands of
+    // Canvas path allocations on every display refresh, especially on mobile.
+    var latCount=small?22:42,lonCount=small?44:84;
     for(var row=1;row<latCount;row++){
       var lat=row/latCount*180-90,phi=lat*Math.PI/180;
       for(var col=0;col<lonCount;col++){
@@ -113,13 +115,14 @@
     frame=0;
     if(!visible||document.hidden) return;
     if(!last) last=timestamp;
-    var delta=Math.min(40,timestamp-last);last=timestamp;
+    if(timestamp-lastDraw<1000/30){frame=requestAnimationFrame(animate);return;}
+    var delta=Math.min(100,timestamp-last);last=timestamp;lastDraw=timestamp;
     if(!reduced&&!small) rotation+=delta*.00009;
     draw(timestamp);
     if(!reduced&&!small) frame=requestAnimationFrame(animate);
   }
-  function start(){if(!frame&&!reduced&&!small&&visible&&!document.hidden){last=0;frame=requestAnimationFrame(animate);}}
-  function stop(){if(frame){cancelAnimationFrame(frame);frame=0;}last=0;}
+  function start(){if(!frame&&!reduced&&!small&&visible&&!document.hidden){last=0;lastDraw=0;frame=requestAnimationFrame(animate);}}
+  function stop(){if(frame){cancelAnimationFrame(frame);frame=0;}last=0;lastDraw=0;}
 
   buildPoints();resize();
   if('ResizeObserver'in window) new ResizeObserver(resize).observe(hero); else window.addEventListener('resize',resize,{passive:true});
