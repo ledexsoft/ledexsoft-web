@@ -85,6 +85,200 @@
     nav.classList.toggle('is-scrolled', (window.scrollY||0) > 80);
   }, {passive:true});
 
+  /* Apple-style global navigation interactions, adapted to LedexSoft's sections. */
+  var navItems = Array.from(document.querySelectorAll('[data-nav-item]'));
+  var navFlyout = document.getElementById('navFlyout');
+  var navFlyoutTitle = document.getElementById('navFlyoutTitle');
+  var navFlyoutDescription = document.getElementById('navFlyoutDescription');
+  var navFlyoutLinks = document.getElementById('navFlyoutLinks');
+  var navFlyoutAll = document.getElementById('navFlyoutAll');
+  var navFlyoutAllLabel = document.getElementById('navFlyoutAllLabel');
+  var navSearchToggle = document.getElementById('navSearchToggle');
+  var navSearchPanel = document.getElementById('navSearchPanel');
+  var navSearchInput = document.getElementById('navSearchInput');
+  var navSearchResults = document.getElementById('navSearchResults');
+  var navAppsToggle = document.getElementById('navAppsToggle');
+  var navAppsPanel = document.getElementById('navAppsPanel');
+  var navScrim = document.getElementById('navScrim');
+  var navCloseTimer = 0;
+  var navHiddenTimers = new WeakMap();
+  var activeNavItem = null;
+  var navFlyoutData = {
+    manifesto:{title:'Tecnología que te devuelve tiempo.',description:'Conoce el propósito y las ideas que guían cada herramienta de LedexSoft.',all:'Leer el manifiesto',allHref:'#manifiesto',links:[
+      ['Nuestra visión','Resolver necesidades de la vida cotidiana.','#manifiesto'],['Lo que estamos construyendo','Productos creados para ser útiles.','#productos'],['El origen del proyecto','Tecnología con raíces en Cumanayagua.','#fundador']
+    ]},
+    products:{title:'Herramientas para avanzar.',description:'Aplicaciones propias para el comercio local, la productividad y el trabajo de cada día.',all:'Explorar productos',allHref:'#productos',links:[
+      ['CumaShop','Marketplace local · Beta','#cumashop'],['Pymepedia','Directorio económico cubano · Beta','Proyectos/PymepediaWeb/'],['Ledexia','Asistente de productividad · En desarrollo','#productos']
+    ]},
+    cumashop:{title:'Lo que necesitas, cerca de casa.',description:'Descubre el comercio local de Cumanayagua y conecta con los negocios de tu comunidad.',all:'Conocer CumaShop',allHref:'cumashop.html',links:[
+      ['Explorar la app','Productos, ofertas y comercios locales.','cumashop.html'],['Descargar la beta','Disponible para Android en Google Play.','https://play.google.com/store/apps/details?id=com.ledexsoft.oneblink'],['Volver a la sección','Ver CumaShop en la portada.','#cumashop']
+    ]},
+    founder:{title:'Tecnología hecha cerca de casa.',description:'Conoce a las personas y la historia detrás de los productos de LedexSoft.',all:'Conocer al fundador',allHref:'#fundador',links:[
+      ['Nuestra historia','De sitios web a productos propios.','#fundador'],['El equipo','Conoce a quienes construyen LedexSoft.','#fundador'],['Hablemos','Cuéntanos qué necesitas resolver.','#contacto']
+    ]}
+  };
+  function setLayerVisible(layer,open){
+    if(!layer) return;
+    window.clearTimeout(navHiddenTimers.get(layer));
+    if(open){
+      layer.hidden=false;
+      layer.inert=false;
+      requestAnimationFrame(function(){layer.classList.add('is-open');});
+      return;
+    }
+    layer.classList.remove('is-open');
+    layer.inert=true;
+    navHiddenTimers.set(layer,window.setTimeout(function(){if(!layer.classList.contains('is-open')) layer.hidden=true;},260));
+  }
+  function updateLayerScrim(){
+    var open=!!(navFlyout&&!navFlyout.hidden)||!!(navSearchPanel&&!navSearchPanel.hidden)||!!(navAppsPanel&&!navAppsPanel.hidden);
+    document.body.classList.toggle('nav-layer-open',open);
+    if(navScrim){navScrim.hidden=!open;}
+  }
+  function closeNavLayers(){
+    window.clearTimeout(navCloseTimer);
+    setLayerVisible(navFlyout,false);
+    setLayerVisible(navSearchPanel,false);
+    setLayerVisible(navAppsPanel,false);
+    navItems.forEach(function(item){
+      item.classList.remove('is-open');
+      var trigger=item.querySelector('.nav-menu-trigger');
+      if(trigger) trigger.setAttribute('aria-expanded','false');
+    });
+    activeNavItem=null;
+    [navSearchToggle,navAppsToggle].forEach(function(button){if(button) button.setAttribute('aria-expanded','false');});
+    window.setTimeout(updateLayerScrim,260);
+  }
+  function openNavLayer(layer,button){
+    closeNavLayers();
+    if(!layer) return;
+    setLayerVisible(layer,true);
+    if(button) button.setAttribute('aria-expanded','true');
+    updateLayerScrim();
+  }
+  function renderFlyout(item){
+    if(!item) return;
+    var key=item.getAttribute('data-nav-item');
+    var data=navFlyoutData[key];
+    if(!data) return;
+    if(activeNavItem===item&&!navFlyout.hidden) return;
+    activeNavItem=item;
+    navFlyoutTitle.textContent=data.title;
+    navFlyoutDescription.textContent=data.description;
+    navFlyoutAllLabel.textContent=data.all;
+    navFlyoutAll.dataset.href=data.allHref;
+    navFlyoutLinks.replaceChildren();
+    data.links.forEach(function(entry){
+      var link=document.createElement('a');
+      link.className='nav-flyout-link';
+      link.href=entry[2];
+      var copy=document.createElement('span');
+      copy.textContent=entry[0];
+      var detail=document.createElement('small');
+      detail.textContent=entry[1];
+      copy.appendChild(detail);
+      var arrow=document.createElement('span');
+      arrow.setAttribute('aria-hidden','true');
+      arrow.textContent='↗';
+      link.append(copy,arrow);
+      wireOverlayAnchor(link);
+      navFlyoutLinks.appendChild(link);
+    });
+  }
+  function showNavFlyout(item){
+    window.clearTimeout(navCloseTimer);
+    renderFlyout(item);
+    navItems.forEach(function(other){
+      other.classList.toggle('is-open',other===item);
+      var trigger=other.querySelector('.nav-menu-trigger');
+      if(trigger) trigger.setAttribute('aria-expanded',other===item?'true':'false');
+    });
+    if(navSearchPanel&&!navSearchPanel.hidden) setLayerVisible(navSearchPanel,false);
+    if(navAppsPanel&&!navAppsPanel.hidden) setLayerVisible(navAppsPanel,false);
+    setLayerVisible(navFlyout,true);
+    updateLayerScrim();
+  }
+  function scheduleNavClose(){
+    window.clearTimeout(navCloseTimer);
+    navCloseTimer=window.setTimeout(function(){
+      if(navFlyout&&navFlyout.matches(':hover')) return;
+      closeNavLayers();
+    },180);
+  }
+  navItems.forEach(function(item){
+    var trigger=item.querySelector('.nav-menu-trigger');
+    item.addEventListener('mouseenter',function(){showNavFlyout(item);});
+    item.addEventListener('focusin',function(event){if(event.target.matches('a')) showNavFlyout(item);});
+    item.addEventListener('mouseleave',scheduleNavClose);
+    if(trigger) trigger.addEventListener('click',function(){showNavFlyout(item);trigger.setAttribute('aria-expanded','true');});
+  });
+  if(navFlyout){
+    navFlyout.addEventListener('mouseenter',function(){window.clearTimeout(navCloseTimer);});
+    navFlyout.addEventListener('mouseleave',scheduleNavClose);
+    navFlyout.addEventListener('click',function(event){if(event.target.closest('a')) closeNavLayers();});
+  }
+  if(navFlyoutAll) navFlyoutAll.addEventListener('click',function(){
+    var href=navFlyoutAll.dataset.href||'#productos';
+    closeNavLayers();
+    if(href.charAt(0)==='#') smoothScrollTo(document.querySelector(href));
+    else window.location.href=href;
+  });
+  if(navSearchToggle) navSearchToggle.addEventListener('click',function(){
+    if(document.body.classList.contains('menu-open')) setMenu(false);
+    var open=navSearchPanel.hidden;
+    if(open){openNavLayer(navSearchPanel,navSearchToggle);window.setTimeout(function(){navSearchInput.focus();},40);}
+    else closeNavLayers();
+  });
+  if(navAppsToggle) navAppsToggle.addEventListener('click',function(){
+    if(navAppsPanel.hidden) openNavLayer(navAppsPanel,navAppsToggle); else closeNavLayers();
+  });
+  var navSearchClose=document.getElementById('navSearchClose');
+  var navAppsClose=document.getElementById('navAppsClose');
+  if(navSearchClose) navSearchClose.addEventListener('click',function(){closeNavLayers();navSearchToggle.focus();});
+  if(navAppsClose) navAppsClose.addEventListener('click',function(){closeNavLayers();navAppsToggle.focus();});
+  if(navScrim) navScrim.addEventListener('click',closeNavLayers);
+
+  var navSearchIndex=[
+    {title:'Manifiesto',href:'#manifiesto',selector:'#manifiesto',type:'Ideas y propósito',searchBody:true},
+    {title:'Productos',href:'#productos',selector:'#productos',type:'CumaShop, Pymepedia y Ledexia'},
+    {title:'CumaShop',href:'#cumashop',selector:'#cumashop',type:'Marketplace local · Beta'},
+    {title:'Pymepedia',href:'Proyectos/PymepediaWeb/',selector:'.pymepedia-copy',type:'Directorio económico cubano · Beta',searchBody:true},
+    {title:'Ledexia',href:'#productos',selector:'#productos',type:'Asistente de productividad · En desarrollo'},
+    {title:'Fundador',href:'#fundador',selector:'#fundador',type:'Nuestra historia y equipo',searchBody:true},
+    {title:'Contacto',href:'#contacto',selector:'#contacto',type:'Hablemos de tu proyecto',searchBody:true}
+  ];
+  function renderNavSearch(query){
+    if(!navSearchResults) return;
+    var term=String(query||'').trim().toLocaleLowerCase();
+    var hits=navSearchIndex.map(function(item){
+      var section=document.querySelector(item.selector);
+      var content=section&&item.searchBody?section.textContent:'';
+      var title=item.title.toLocaleLowerCase();
+      var type=item.type.toLocaleLowerCase();
+      return {item:item,haystack:(title+' '+type+' '+content).toLocaleLowerCase(),score:title===term?0:(title.indexOf(term)===0?1:(title.indexOf(term)!==-1?2:(type.indexOf(term)!==-1?3:4)))};
+    }).filter(function(row){return !term||row.haystack.indexOf(term)!==-1;}).sort(function(a,b){return a.score-b.score;}).slice(0,5);
+    navSearchResults.replaceChildren();
+    if(term){
+      var label=document.createElement('span');label.className='nav-search-results__label';label.textContent=hits.length?'Resultados':'Búsqueda';navSearchResults.appendChild(label);
+    }else{
+      var label=document.createElement('span');label.className='nav-search-results__label';label.textContent='Accesos rápidos';navSearchResults.appendChild(label);
+    }
+    if(!hits.length){var empty=document.createElement('span');empty.className='nav-search-empty';empty.textContent='No encontramos resultados. Prueba con CumaShop, Pymepedia o productos.';navSearchResults.appendChild(empty);return;}
+    hits.forEach(function(row){
+      var link=document.createElement('a');link.className='nav-search-result';link.href=row.item.href;
+      var title=document.createElement('span');title.textContent=row.item.title;
+      var type=document.createElement('small');type.textContent=row.item.type;
+      link.append(title,type);wireOverlayAnchor(link);navSearchResults.appendChild(link);
+    });
+  }
+  if(navSearchInput){
+    renderNavSearch('');
+    navSearchInput.addEventListener('input',function(){renderNavSearch(navSearchInput.value);});
+    navSearchInput.addEventListener('keydown',function(event){
+      if(event.key==='Enter'){event.preventDefault();var first=navSearchResults.querySelector('a');if(first) first.click();}
+    });
+  }
+
   /* ---------------- custom cursor ---------------- */
   var cursor = document.getElementById('cursor');
   if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
@@ -354,6 +548,16 @@
     if(lenis){ lenis.scrollTo(target, {duration:1.2}); }
     else{ target.scrollIntoView({behavior: REDUCED ? 'auto' : 'smooth'}); }
   }
+  function wireOverlayAnchor(anchor){
+    var href=anchor.getAttribute('href');
+    if(!href||href.charAt(0)!=='#'){
+      anchor.addEventListener('click',closeNavLayers);
+      return;
+    }
+    var target=document.querySelector(href);
+    if(!target) return;
+    anchor.addEventListener('click',function(event){event.preventDefault();closeMenu();smoothScrollTo(target);});
+  }
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     var id = a.getAttribute('href');
     if(!id || id.length < 2) return;
@@ -375,15 +579,20 @@
     burger.setAttribute('aria-expanded', open ? 'true':'false');
     burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
   }
-  function closeMenu(){ setMenu(false); }
+  function closeMenu(){ setMenu(false); closeNavLayers(); }
   burger.addEventListener('click', function(){
     var open = !document.body.classList.contains('menu-open');
     setMenu(open);
-    if(open) mobileMenu.querySelector('a').focus();
+    if(open){closeNavLayers();mobileMenu.querySelector('a').focus();}
   });
   document.addEventListener('keydown', function(e){
-    if(!document.body.classList.contains('menu-open')) return;
-    if(e.key === 'Escape'){ closeMenu(); burger.focus(); }
+    var menuOpen=document.body.classList.contains('menu-open');
+    if(e.key === 'Escape'){
+      if(menuOpen){closeMenu();burger.focus();}
+      else if(document.body.classList.contains('nav-layer-open')){closeNavLayers();if(document.activeElement===navSearchInput)navSearchToggle.focus();}
+      return;
+    }
+    if(!menuOpen) return;
     if(e.key === 'Tab'){
       var items = [burger].concat(Array.from(mobileMenu.querySelectorAll('a')));
       var i = items.indexOf(document.activeElement);

@@ -21,7 +21,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
   <link rel="stylesheet" href="css/fonts.css">
-<link rel="stylesheet" href="css/index.css?v=100">
+<link rel="stylesheet" href="css/index.css?v=101">
 <link rel="canonical" href="https://ledexsoft.com/">
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "Organization", "name": "LedexSoft", "url": "https://ledexsoft.com/", "description": "Startup cubana de software: CumaShop, Pymepedia y Ledexia", "foundingDate": "2024", "logo": "https://ledexsoft.com/favicon.svg"}
@@ -44,13 +44,31 @@
 <header class="site-nav" id="siteNav">
   <a href="#top" class="logo">Ledex<em>Soft</em></a>
   <nav class="nav-links" aria-label="Navegación principal">
-    <a href="#manifiesto">Manifiesto</a>
-    <a href="#productos">Productos</a>
-    <a href="#cumashop">CumaShop</a>
-    <a href="#fundador">Fundador</a>
+    <div class="nav-item" data-nav-item="manifesto">
+      <a href="#manifiesto">Manifiesto</a>
+      <button class="nav-menu-trigger" type="button" aria-label="Abrir opciones de Manifiesto" aria-expanded="false" aria-controls="navFlyout"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"/></svg></button>
+    </div>
+    <div class="nav-item" data-nav-item="products">
+      <a href="#productos">Productos</a>
+      <button class="nav-menu-trigger" type="button" aria-label="Abrir opciones de Productos" aria-expanded="false" aria-controls="navFlyout"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"/></svg></button>
+    </div>
+    <div class="nav-item" data-nav-item="cumashop">
+      <a href="#cumashop">CumaShop</a>
+      <button class="nav-menu-trigger" type="button" aria-label="Abrir opciones de CumaShop" aria-expanded="false" aria-controls="navFlyout"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"/></svg></button>
+    </div>
+    <div class="nav-item" data-nav-item="founder">
+      <a href="#fundador">Fundador</a>
+      <button class="nav-menu-trigger" type="button" aria-label="Abrir opciones de Fundador" aria-expanded="false" aria-controls="navFlyout"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 6 4.5 4 4.5-4"/></svg></button>
+    </div>
     <a href="#contacto" class="nav-cta" data-cursor="Ir">Contacto</a>
   </nav>
   <div class="nav-right">
+    <button class="nav-icon-button nav-search-toggle" id="navSearchToggle" type="button" aria-label="Buscar en LedexSoft" aria-expanded="false" aria-controls="navSearchPanel">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"/><path d="m16 16 4.2 4.2"/></svg>
+    </button>
+    <button class="nav-icon-button nav-apps-toggle" id="navAppsToggle" type="button" aria-label="Explorar aplicaciones" aria-expanded="false" aria-controls="navAppsPanel">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.4"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.4"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.4"/><rect x="14" y="14" width="6.5" height="6.5" rx="1.4"/></svg>
+    </button>
     <button class="assistant-toggle" id="assistantToggle" type="button" aria-label="Abrir asistente de LedexSoft" aria-expanded="false" aria-controls="assistantPanel">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 14.2 9.8 21.2 12l-7 2.2-2.2 7-2.2-7-7-2.2 7-2.2L12 2.8Zm7.1 12.6.9 2.8 2.8.9-2.8.9-.9 2.8-.9-2.8-2.8-.9 2.8-.9.9-2.8Z"/></svg>
       <span>Habla con IA</span>
@@ -74,6 +92,38 @@
   <a href="#fundador">Fundador</a>
   <a href="#contacto">Contacto</a>
 </nav>
+
+<div class="nav-scrim" id="navScrim" hidden></div>
+<section class="nav-flyout" id="navFlyout" aria-label="Opciones de navegación" hidden inert>
+  <div class="nav-flyout__inner">
+    <div class="nav-flyout__intro">
+      <span class="nav-flyout__eyebrow" id="navFlyoutEyebrow">Descubre LedexSoft</span>
+      <h2 id="navFlyoutTitle">Herramientas para el día a día.</h2>
+      <p id="navFlyoutDescription">Software propio, diseñado para resolver necesidades reales y ahorrar tiempo.</p>
+    </div>
+    <div class="nav-flyout__links" id="navFlyoutLinks"></div>
+    <button class="nav-flyout__all" id="navFlyoutAll" type="button" data-href="#productos"><span id="navFlyoutAllLabel">Explorar productos</span><span aria-hidden="true">↗</span></button>
+  </div>
+</section>
+
+<section class="nav-search-panel" id="navSearchPanel" role="search" aria-label="Buscar en LedexSoft" hidden inert>
+  <div class="nav-search-panel__inner">
+    <label class="sr-only" for="navSearchInput">Busca una sección o aplicación</label>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.7"/><path d="m16 16 4.2 4.2"/></svg>
+    <input id="navSearchInput" type="search" placeholder="Busca una sección o aplicación" autocomplete="off">
+    <button id="navSearchClose" type="button" aria-label="Cerrar búsqueda">×</button>
+    <div class="nav-search-results" id="navSearchResults" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="nav-apps-panel" id="navAppsPanel" aria-label="Aplicaciones de LedexSoft" hidden inert>
+  <div class="nav-apps-panel__heading"><div><span class="nav-flyout__eyebrow">Ecosistema LedexSoft</span><h2>Nuestras aplicaciones</h2></div><button id="navAppsClose" type="button" aria-label="Cerrar aplicaciones">×</button></div>
+  <div class="nav-apps-grid">
+    <a class="nav-app-card" href="#cumashop"><img src="images/cumashop-icono.jpg" alt="" width="48" height="48"><span><b>CumaShop</b><small>Comercio local · Beta</small></span><i aria-hidden="true">↗</i></a>
+    <a class="nav-app-card" href="Proyectos/PymepediaWeb/"><img src="images/pymepedia/icon.jpg" alt="" width="48" height="48"><span><b>Pymepedia</b><small>Directorio económico · Beta</small></span><i aria-hidden="true">↗</i></a>
+    <a class="nav-app-card" href="#productos"><span class="nav-app-card__letter">L</span><span><b>Ledexia</b><small>Asistente de productividad · En desarrollo</small></span><i aria-hidden="true">↗</i></a>
+  </div>
+</section>
 
 <section class="assistant-panel" id="assistantPanel" role="dialog" aria-labelledby="assistantTitle" aria-modal="false" hidden>
   <header class="assistant-panel__header">
@@ -517,8 +567,8 @@
 <script src="js/hero-globe.js?v=3" defer></script>
 
   <script src="js/manifesto-text-effect.js?v=13" defer></script>
-  <script src="js/site-language.js?v=8" defer></script>
-<script src="js/index.js?v=77" defer></script>
+  <script src="js/site-language.js?v=9" defer></script>
+<script src="js/index.js?v=78" defer></script>
   <script type="module" src="js/founder-paper.js?v=5"></script>
 <script src="js/fallback.js" defer></script>
 
