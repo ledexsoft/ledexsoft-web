@@ -39,3 +39,9 @@ Consulta `docs/catalog-publication.md` para el aislamiento temporal de ofertas d
 ## Publicación
 
 GitHub Pages sirve desde `main` (raíz). Para publicar un cambio: commit + push a `main` y el build de Pages se dispara solo.
+
+## Luma (prototipo)
+
+`luma.html`, `css/luma.css` y `js/luma.js`: página pública conceptual del asistente personal Luma. Incluye una ilustración CSS original del wearable y una demo local de tres conversaciones ficticias con resúmenes y tareas. No captura audio ni utiliza servicios de IA. El contacto abre el correo; no existe lista de espera ni venta. Accesos desde la portada, el panel de aplicaciones y el pie. Imagen social: `images/luma-social.png`.
+
+Referencia de categoría: https://www.omi.me/ (voz, memoria y tareas). Identidad, textos e ilustración propios; no implica afiliación ni incorpora código o recursos de Omi.
