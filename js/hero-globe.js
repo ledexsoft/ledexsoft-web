@@ -94,7 +94,7 @@
       ctx.beginPath();ctx.arc(screen[0],screen[1],point[3]?.8+.9*depth:.5+.35*depth,0,Math.PI*2);ctx.fill();
     }
 
-    var elapsed=reduced||small?0:timestamp;
+    var elapsed=reduced?0:timestamp;
     for(var r=0;r<routes.length;r++){
       var route=routes[r],start=project(route.from),end=project(route.to);
       if(start[2]<-.25&&end[2]<-.25) continue;
@@ -115,13 +115,14 @@
     frame=0;
     if(!visible||document.hidden) return;
     if(!last) last=timestamp;
-    if(timestamp-lastDraw<1000/30){frame=requestAnimationFrame(animate);return;}
+    var frameInterval=small?1000/22:1000/30;
+    if(timestamp-lastDraw<frameInterval){frame=requestAnimationFrame(animate);return;}
     var delta=Math.min(100,timestamp-last);last=timestamp;lastDraw=timestamp;
-    if(!reduced&&!small) rotation+=delta*.00009;
+    if(!reduced) rotation+=delta*(small?.000055:.00009);
     draw(timestamp);
-    if(!reduced&&!small) frame=requestAnimationFrame(animate);
+    if(!reduced) frame=requestAnimationFrame(animate);
   }
-  function start(){if(!frame&&!reduced&&!small&&visible&&!document.hidden){last=0;lastDraw=0;frame=requestAnimationFrame(animate);}}
+  function start(){if(!frame&&!reduced&&visible&&!document.hidden){last=0;lastDraw=0;frame=requestAnimationFrame(animate);}}
   function stop(){if(frame){cancelAnimationFrame(frame);frame=0;}last=0;lastDraw=0;}
 
   buildPoints();resize();
