@@ -1185,7 +1185,7 @@ body,.preloader,.wipe,footer,.city-docs-promo{background:#171717}
 
 /* Hero móvil: título más compacto (menos espaciado en pantalla chica) */
 @media (max-width:760px){
-  :root{ --fs-hero:clamp(2rem, 8.6vw, 2.7rem); }
+  :root{ --fs-hero:clamp(1.5rem, 6.4vw, 2.2rem); }
   .hero-bottom{ margin-top:1.5rem; }
 }
 
