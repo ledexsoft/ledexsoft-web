@@ -100,6 +100,8 @@
   var navAppsToggle = document.getElementById('navAppsToggle');
   var navAppsPanel = document.getElementById('navAppsPanel');
   var navScrim = document.getElementById('navScrim');
+  var languageToggle = document.getElementById('languageToggle');
+  var languagePanel = document.getElementById('navLanguagePanel');
   var navCloseTimer = 0;
   var navScrimTimer = 0;
   var flyoutSwapTimer = 0;
@@ -151,13 +153,13 @@
     },layer===navFlyout?navFlyoutExitDelay:navLayerExitDelay));
   }
   function updateLayerScrim(){
-    var open=!!(navFlyout&&!navFlyout.hidden&&!navFlyout.inert)||!!(navSearchPanel&&!navSearchPanel.hidden&&!navSearchPanel.inert)||!!(navAppsPanel&&!navAppsPanel.hidden&&!navAppsPanel.inert);
+    var open=!!(navFlyout&&!navFlyout.hidden&&!navFlyout.inert)||!!(navSearchPanel&&!navSearchPanel.hidden&&!navSearchPanel.inert)||!!(navAppsPanel&&!navAppsPanel.hidden&&!navAppsPanel.inert)||!!(languagePanel&&!languagePanel.hidden&&!languagePanel.inert);
     document.body.classList.toggle('nav-layer-open',open);
     if(navScrim){
       window.clearTimeout(navScrimTimer);
       if(open) navScrim.hidden=false;
       else navScrimTimer=window.setTimeout(function(){
-        var stillOpen=[navFlyout,navSearchPanel,navAppsPanel].some(function(layer){return layer&&!layer.hidden&&!layer.inert;});
+        var stillOpen=[navFlyout,navSearchPanel,navAppsPanel,languagePanel].some(function(layer){return layer&&!layer.hidden&&!layer.inert;});
         if(!stillOpen) navScrim.hidden=true;
       },navScrimExitDelay);
     }
@@ -169,13 +171,14 @@
     setLayerVisible(navFlyout,false);
     setLayerVisible(navSearchPanel,false);
     setLayerVisible(navAppsPanel,false);
+    setLayerVisible(languagePanel,false);
     navItems.forEach(function(item){
       item.classList.remove('is-open');
       var trigger=item.querySelector('.nav-menu-trigger');
       if(trigger) trigger.setAttribute('aria-expanded','false');
     });
     activeNavItem=null;
-    [navSearchToggle,navAppsToggle].forEach(function(button){if(button) button.setAttribute('aria-expanded','false');});
+    [navSearchToggle,navAppsToggle,languageToggle].forEach(function(button){if(button) button.setAttribute('aria-expanded','false');});
     updateLayerScrim();
   }
   function openNavLayer(layer,button){
@@ -300,6 +303,58 @@
   var navAppsClose=document.getElementById('navAppsClose');
   if(navSearchClose) navSearchClose.addEventListener('click',function(){closeNavLayers();navSearchToggle.focus();});
   if(navAppsClose) navAppsClose.addEventListener('click',function(){closeNavLayers();navAppsToggle.focus();});
+  if(languageToggle) languageToggle.addEventListener('click',function(){
+    if(document.body.classList.contains('menu-open')) setMenu(false);
+    if(languagePanel.hidden||languagePanel.inert) openNavLayer(languagePanel,languageToggle); else closeNavLayers();
+  });
+  var navLanguageClose=document.getElementById('navLanguageClose');
+  if(navLanguageClose) navLanguageClose.addEventListener('click',function(){closeNavLayers();languageToggle.focus();});
+  var languageSelect=document.getElementById('siteLanguage');
+  var languageOptionsHost=document.getElementById('navLanguageOptions');
+  var languageToggleCode=document.getElementById('languageToggleCode');
+  var languageEyebrow=document.getElementById('navLanguageEyebrow');
+  var languageTitle=document.getElementById('navLanguageTitle');
+  var languageNote=document.getElementById('navLanguageNote');
+  var languageList=[
+    ['es','Español','Texto original del sitio'],
+    ['en','English','Full site translation'],
+    ['pt','Português','Tradução completa do site'],
+    ['zh','中文','完整网站翻译']
+  ];
+  function languageLabel(code){ return code==='zh'?'中':code.toUpperCase(); }
+  function syncLanguagePanel(){
+    var active=languageSelect?languageSelect.value:'es';
+    if(languageToggleCode) languageToggleCode.textContent=languageLabel(active);
+    if(languageEyebrow) languageEyebrow.textContent=navText('Idioma del sitio');
+    if(languageTitle) languageTitle.textContent=navText('Elige tu idioma');
+    if(languageNote) languageNote.textContent=navText('La traducción se aplica al contenido de esta página.');
+    if(!languageOptionsHost) return;
+    languageOptionsHost.replaceChildren();
+    languageList.forEach(function(entry,index){
+      var button=document.createElement('button');
+      button.type='button';
+      button.className='language-option'+(entry[0]===active?' is-active':'');
+      button.style.setProperty('--nav-index',String(index));
+      if(entry[0]===active) button.setAttribute('aria-pressed','true');
+      var code=document.createElement('span');code.className='language-option__code';code.textContent=languageLabel(entry[0]);
+      var name=document.createElement('span');name.className='language-option__name';
+      var lead=document.createElement('span');lead.textContent=navText('Mostrar el sitio en ');
+      var strong=document.createElement('strong');strong.textContent=entry[1];
+      var small=document.createElement('small');small.textContent=entry[2];
+      name.append(lead,strong,small);
+      var check=document.createElement('span');check.className='language-option__check';check.setAttribute('aria-hidden','true');check.textContent='✓';
+      button.append(code,name,check);
+      button.addEventListener('click',function(){
+        if(!languageSelect||languageSelect.value===entry[0]){closeNavLayers();return;}
+        languageSelect.value=entry[0];
+        languageSelect.dispatchEvent(new Event('change',{bubbles:true}));
+        closeNavLayers();
+      });
+      languageOptionsHost.appendChild(button);
+    });
+  }
+  if(languageToggle) syncLanguagePanel();
+  window.addEventListener('ledexsoft:languagechange',function(){syncLanguagePanel();});
   if(navScrim) navScrim.addEventListener('click',closeNavLayers);
 
   var navSearchIndex=[

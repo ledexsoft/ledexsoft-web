@@ -3,6 +3,15 @@
 
   var translations = {
     en: {
+      'Herramientas para el día a día.': 'Tools for everyday life.',
+      'Luma. Menos «¿qué habíamos acordado?».': 'Luma. Less “what did we agree on?”.',
+      'Lo que pidió un cliente. La tarea que salió de una reunión. La idea que apareció caminando. Descubre cómo nuestro asistente de memoria en desarrollo busca convertir conversaciones en respuestas y próximos pasos.': 'What a client ordered. The task from a meeting. The idea that showed up on a walk. Discover how our in-development memory assistant aims to turn conversations into answers and next steps.',
+      'Ver Luma en el día a día ↗': 'See Luma in everyday life ↗',
+      'Idioma del sitio': 'Site language',
+      'Elige tu idioma': 'Choose your language',
+      'Mostrar el sitio en ': 'Show the site in ',
+      'La traducción se aplica al contenido de esta página.': 'Translation applies to this page content.',
+      'Cerrar selector de idioma': 'Close language selector',
       'Startup cubana · fundada en 2024': 'Cuban software studio · founded in 2024',
       'Manifiesto': 'Manifesto', 'Productos': 'Products', 'Fundador': 'Founder', 'Contacto': 'Contact',
       'Abrir menú': 'Open menu', 'Cerrar menú': 'Close menu',
@@ -36,6 +45,15 @@
       'Contacto': 'Contact', 'Hecho en Cuba.': 'Made in Cuba.', 'Sitio de LedexSoft': 'LedexSoft website'
     },
     pt: {
+      'Herramientas para el día a día.': 'Ferramentas para o dia a dia.',
+      'Luma. Menos «¿qué habíamos acordado?».': 'Luma. Menos «no que tínhamos combinado?».',
+      'Lo que pidió un cliente. La tarea que salió de una reunión. La idea que apareció caminando. Descubre cómo nuestro asistente de memoria en desarrollo busca convertir conversaciones en respuestas y próximos pasos.': 'O que um cliente pediu. A tarefa que saiu de uma reunião. A ideia que apareceu caminhando. Descubra como o nosso assistente de memória em desenvolvimento busca transformar conversas em respostas e próximos passos.',
+      'Ver Luma en el día a día ↗': 'Ver a Luma no dia a dia ↗',
+      'Idioma del sitio': 'Idioma do site',
+      'Elige tu idioma': 'Escolha o seu idioma',
+      'Mostrar el sitio en ': 'Mostrar o site em ',
+      'La traducción se aplica al contenido de esta página.': 'A tradução é aplicada ao conteúdo desta página.',
+      'Cerrar selector de idioma': 'Fechar seletor de idioma',
       'Startup cubana · fundada en 2024': 'Estúdio cubano de software · fundado em 2024',
       'Manifiesto': 'Manifesto', 'Productos': 'Produtos', 'Fundador': 'Fundador', 'Contacto': 'Contato',
       'Abrir menú': 'Abrir menu', 'Cerrar menú': 'Fechar menu',
@@ -67,6 +85,15 @@
       'Hecho en Cuba.': 'Feito em Cuba.', 'Sitio de LedexSoft': 'Site da LedexSoft'
     },
     zh: {
+      'Herramientas para el día a día.': '日常实用工具。',
+      'Luma. Menos «¿qué habíamos acordado?».': 'Luma。少一点“我们当时说好了什么？”。',
+      'Lo que pidió un cliente. La tarea que salió de una reunión. La idea que apareció caminando. Descubre cómo nuestro asistente de memoria en desarrollo busca convertir conversaciones en respuestas y próximos pasos.': '客户点了什么。会议中定下的任务。散步时冒出的想法。了解我们开发中的记忆助手如何把对话变成答案和下一步。',
+      'Ver Luma en el día a día ↗': '在日常中了解 Luma ↗',
+      'Idioma del sitio': '网站语言',
+      'Elige tu idioma': '选择你的语言',
+      'Mostrar el sitio en ': '以以下语言显示网站：',
+      'La traducción se aplica al contenido de esta página.': '翻译会应用于本页内容。',
+      'Cerrar selector de idioma': '关闭语言选择器',
       'Startup cubana · fundada en 2024': '古巴软件工作室 · 成立于 2024 年',
       'Manifiesto': '理念', 'Productos': '产品', 'Fundador': '创始人', 'Contacto': '联系',
       'Abrir menú': '打开菜单', 'Cerrar menú': '关闭菜单',
@@ -585,7 +612,7 @@
       var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
         acceptNode: function (node) {
         if (!node.nodeValue || !node.nodeValue.trim() || !node.parentElement) return NodeFilter.FILTER_REJECT;
-        if (node.parentElement.closest('script,style,noscript,select,option,svg,.cursor,.preloader,.wipe-clock,.cumashop-iframe')) return NodeFilter.FILTER_REJECT;
+        if (node.parentElement.closest('script,style,noscript,select,option,svg,.cursor,.preloader,.cumashop-iframe,.language-toggle__code,.nav-language-panel__options')) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
         }
       });
