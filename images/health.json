@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "service": "ledexsoft-public-images",
+  "status": "ready",
+  "storage": "github-pages-static",
+  "uploadApi": false
+}
