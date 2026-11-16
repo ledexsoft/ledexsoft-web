@@ -87,6 +87,57 @@
       "generated": true,
       "officialBrandAsset": false,
       "productIdentityChanged": false
+    },
+    {
+      "id": "tmp-cocacola-zero-350ml-lata-001",
+      "temporaryId": true,
+      "title": "Coca-Cola Zero Açúcar Lata 350 ml",
+      "section": "bebidas",
+      "category": "refrigerantes",
+      "path": "products/bebidas/refrigerantes/tmp-cocacola-zero-350ml-lata-001/396603b63a8ac0bf/tmp-cocacola-zero-350ml-lata-001.png",
+      "mimeType": "image/png",
+      "sizeBytes": 1588204,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "396603b63a8ac0bf23c0802da9e47abba594c9058dc546ea7ccfe0114dbd9697",
+      "revision": "396603b63a8ac0bf",
+      "generated": true,
+      "officialBrandAsset": false,
+      "productIdentityChanged": false
+    },
+    {
+      "id": "tmp-cocacola-zero-cafeina-350ml-lata-001",
+      "temporaryId": true,
+      "title": "Coca-Cola Zero Cafeína, Açúcar e Calorias Lata 350 ml",
+      "section": "bebidas",
+      "category": "refrigerantes",
+      "path": "products/bebidas/refrigerantes/tmp-cocacola-zero-cafeina-350ml-lata-001/202354dd9ea01f09/tmp-cocacola-zero-cafeina-350ml-lata-001.png",
+      "mimeType": "image/png",
+      "sizeBytes": 2097087,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "202354dd9ea01f095971ee2549e371adeb908ac8d530ca1e5356d7867de723b0",
+      "revision": "202354dd9ea01f09",
+      "generated": true,
+      "officialBrandAsset": false,
+      "productIdentityChanged": false
+    },
+    {
+      "id": "tmp-cini-framboesa-2l-001",
+      "temporaryId": true,
+      "title": "Cini Framboesa 2 L",
+      "section": "bebidas",
+      "category": "refrigerantes",
+      "path": "products/bebidas/refrigerantes/tmp-cini-framboesa-2l-001/200e604e3357d2cd/tmp-cini-framboesa-2l-001.png",
+      "mimeType": "image/png",
+      "sizeBytes": 1584989,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "200e604e3357d2cd3eefb0c49728d2156fc79cc4e19e1356142502bc05264a91",
+      "revision": "200e604e3357d2cd",
+      "generated": true,
+      "officialBrandAsset": false,
+      "productIdentityChanged": false
     }
   ]
 }
