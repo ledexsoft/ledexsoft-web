@@ -19,6 +19,23 @@
       "generated": true,
       "officialBrandAsset": false,
       "productIdentityChanged": false
+    },
+    {
+      "id": "tmp-cocacola-zero-2l-001",
+      "temporaryId": true,
+      "title": "Coca-Cola Sem Açúcar 2 L",
+      "section": "bebidas",
+      "category": "refrigerantes",
+      "path": "products/bebidas/refrigerantes/tmp-cocacola-zero-2l-001/5350bc7d7cdf918c/tmp-cocacola-zero-2l-001.png",
+      "mimeType": "image/png",
+      "sizeBytes": 1165724,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "5350bc7d7cdf918ce6a19767d98ee61ec6bcbec047a489ba2213d0db915a9fb3",
+      "revision": "5350bc7d7cdf918c",
+      "generated": true,
+      "officialBrandAsset": false,
+      "productIdentityChanged": false
     }
   ]
 }
