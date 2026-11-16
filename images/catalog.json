@@ -2,5 +2,23 @@
   "schemaVersion": 1,
   "catalogId": "ledexsoft-product-images",
   "baseUrl": "https://ledexsoft.com/images/",
-  "items": []
+  "items": [
+    {
+      "id": "tmp-cocacola-original-2l-001",
+      "temporaryId": true,
+      "title": "Coca-Cola Sabor Original 2 L",
+      "section": "bebidas",
+      "category": "refrigerantes",
+      "path": "products/bebidas/refrigerantes/tmp-cocacola-original-2l-001/a3cbf9f8ca41d7aa/tmp-cocacola-original-2l-001.png",
+      "mimeType": "image/png",
+      "sizeBytes": 1245417,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "a3cbf9f8ca41d7aa5206eca768e064977398138a6c88f0e839069716f80ac21a",
+      "revision": "a3cbf9f8ca41d7aa",
+      "generated": true,
+      "officialBrandAsset": false,
+      "productIdentityChanged": false
+    }
+  ]
 }
