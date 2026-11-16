@@ -36,6 +36,57 @@
       "generated": true,
       "officialBrandAsset": false,
       "productIdentityChanged": false
+    },
+    {
+      "id": "tmp-cocacola-menos-acucar-2-5l-001",
+      "temporaryId": true,
+      "title": "Coca-Cola Menos Açúcar 2,5 L",
+      "section": "bebidas",
+      "category": "refrigerantes",
+      "path": "products/bebidas/refrigerantes/tmp-cocacola-menos-acucar-2-5l-001/6db05f3ac9b7feb8/tmp-cocacola-menos-acucar-2-5l-001.png",
+      "mimeType": "image/png",
+      "sizeBytes": 1219128,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "6db05f3ac9b7feb892695c77c1ae7e0c0a9d7e35f3116717d05e35401e1716b0",
+      "revision": "6db05f3ac9b7feb8",
+      "generated": true,
+      "officialBrandAsset": false,
+      "productIdentityChanged": false
+    },
+    {
+      "id": "tmp-cocacola-menos-acucar-3l-001",
+      "temporaryId": true,
+      "title": "Coca-Cola Menos Açúcar 3 L",
+      "section": "bebidas",
+      "category": "refrigerantes",
+      "path": "products/bebidas/refrigerantes/tmp-cocacola-menos-acucar-3l-001/93797a519e9de193/tmp-cocacola-menos-acucar-3l-001.png",
+      "mimeType": "image/png",
+      "sizeBytes": 1319222,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "93797a519e9de19353aa6f0f305953f2c46c60c1d9bc57f31917ec633bf89aae",
+      "revision": "93797a519e9de193",
+      "generated": true,
+      "officialBrandAsset": false,
+      "productIdentityChanged": false
+    },
+    {
+      "id": "tmp-cocacola-original-350ml-lata-001",
+      "temporaryId": true,
+      "title": "Coca-Cola Sabor Original Lata 350 ml",
+      "section": "bebidas",
+      "category": "refrigerantes",
+      "path": "products/bebidas/refrigerantes/tmp-cocacola-original-350ml-lata-001/d44d386441517ab0/tmp-cocacola-original-350ml-lata-001.png",
+      "mimeType": "image/png",
+      "sizeBytes": 1620092,
+      "width": 1254,
+      "height": 1254,
+      "sha256": "d44d386441517ab0dbd3fbe9386eacc3ce156b6b31983fa518c31c9dc18753e5",
+      "revision": "d44d386441517ab0",
+      "generated": true,
+      "officialBrandAsset": false,
+      "productIdentityChanged": false
     }
   ]
 }
